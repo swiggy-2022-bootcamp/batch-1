@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script src="script.js"></script>
+        <script>
+            function internalScriptFunction()
+            {
+                document.getElementById("div2").innerHTML="Used file defined javascript function";
+            }
+        </script>
+    </head>
+    <body>
+        <div id="div1">
+            
+        </div>
+        <div>
+            <input type="text" onblur="document.getElementById('div1').innerHTML='updated'"/>
+            <br>
+            <button onclick="printOnConsole();">Use external script</button>    
+            <button onclick="internalScriptFunction()">Internal Script</button>
+        </div>
+        <div id="div2">
+
+        </div>
+    </body>
+</html>
