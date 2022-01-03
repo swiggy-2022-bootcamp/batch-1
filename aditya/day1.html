@@ -1,0 +1,91 @@
+<!--DAY 1-->
+<html>
+
+<head>
+    <script>
+        function clicked() {
+            alert("Issue")
+        }
+
+        function addValueToDiv(data) {
+            document.getElementById("d2").innerHTML = data;
+            console.log("mouse hover -- " + data)
+        }
+
+        function modifyDivs(data, divId) {
+            var array = ["d1", "d2", "d3", "d4", "d5", "d6", "d7"];
+
+            if (data == "" || divId == "") {
+                alert("Not allowed -- empty values")
+                return;
+
+            }
+
+            if (!array.includes(divId)) {
+                alert("Not allowed -- value exeeeded")
+                return;
+            }
+            document.getElementById(divId).innerHTML = "<h2>" + data + "</h2>";
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <div id="d1" , onclick="clicked()">
+        <h3>Hello</h3>
+    </div>
+
+    <div id="d2" , onmouseover="addValueToDiv('<h3>Modified value</h3>');" ,
+        onmouseleave="addValueToDiv('<h3> Original Value</h3>');">
+        <h3> Original Value (Hover Over Here)</h3>
+    </div>
+
+
+    <div id="d3">
+        d3 - Temp Value (can be changed using feature below)
+    </div>
+
+    <div id="d4">
+        d4 - Temp Value (can be changed using feature below)
+    </div>
+
+
+    <div id="d5">
+        d5 - Temp Value (can be changed using feature below)
+    </div>
+
+    <div id="d">
+        d6 - Temp Value (can be changed using feature below)
+    </div>
+
+    <div id="d5">
+        d7 - Temp Value (can be changed using feature below)
+    </div>
+
+    <hr>
+    <hr>
+    <div>
+        <h2>Here is an input box to modify the value of any div: </h2>
+        <h3> Range from d1 to d7</h3>
+        <input id="in1" , type="text"> </input>
+
+        <h4> The New Value:</h4>
+        <input id="in2" , type="text"></input>
+
+        <button onclick="modifyDivs(in2.value, in1.value)">Change Value</button>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+    <hr>
+
+    <button onclick="print()">Print Everything</button>
+</body>
+
+</html>
