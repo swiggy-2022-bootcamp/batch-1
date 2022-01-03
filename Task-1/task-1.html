@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>    
+    <script>
+        let a=0;
+        function showContent()
+        {
+            console.log('shown')
+            document.getElementById("test").innerHTML += "Hello World! "+a+" times<br>";
+            a++;
+        }
+    </script> 
+    <script type="text/javascript" src="./js/alert.js"></script>
+    </head>
+<body>
+
+<h1>Trying Features</h1>
+
+
+<p id="test"></p>
+
+<!-- internal script  -->
+<button onclick="showContent()">Show Text</button><br>
+
+<!-- external script  -->
+<button onclick="altertPage()">Alert!</button><br>
+
+<!-- inline script  -->
+<button onclick="print();">Print Content</button><br>
+
+<script>
+    document.write('Hello from script');</script>
+</body>
+</html>
