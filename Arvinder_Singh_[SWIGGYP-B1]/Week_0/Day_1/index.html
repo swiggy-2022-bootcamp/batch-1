@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        function  triggerAlert(){
+            window.alert("Trigged Alert, function using internal script")
+        }
+    </script>
+    <title>Week 0: Practive</title>
+</head>
+<body>
+
+    <div id="box1">
+        <div id="content1">This is for inline Javascript</div>
+        <button onclick="document.getElementById('content1').innerHTML = 'Changes text, function using inline js';"> Chanhe using innerHTML attribute </button>
+    </div>
+
+    <br><br>
+
+    <div id="box2">
+        <button onclick=" triggerAlert()"> Trigger alert </button>
+    </div>
+    <br><br>
+
+    <div id="box3">
+        <button id="content3" onclick="pagePrint()"> Trigger print </button>
+    </div>
+    <br><br>
+
+    <div id="box4">
+        <button id="content4" onclick="logTheConsole()"> Trigger console log </button>
+    </div>
+    <br><br>
+
+    <div id="box5">
+        <button id="content4" onclick="write('Written by write method')"> Trigger write </button>
+    </div>
+    <br><br>
+
+
+    <script src="./script.js"></script>
+    
+</body>
+</html>
+
+<!-- 
+create a basic html page, write an inline script, internal script, import 1 external javascript file,
+use javascript display methods (innerHTML, document.write, alert(),print(),console.log() -->
