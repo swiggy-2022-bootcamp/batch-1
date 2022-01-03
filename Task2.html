@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <script>
+            function overrideScreen()
+            {
+                document.write("Complete Screen overridden");
+            }
+            function updateDiv()
+            {
+            document.getElementById("div2").innerHTML="updated the div2";
+            }
+            function alertUser()
+            {
+                alert("Alert function called by user");
+            }
+            function printDataConsole()
+            {
+                console.log("Data printed to console");
+            }
+
+        </script>
+    </head>
+    <body>
+        <div>
+        <button onclick="overrideScreen();">Update the complete page</button>
+        <button onclick="updateDiv();">Update div</button>
+        <button onclick="alertUser();">Alert the user</button>
+        <button onclick="printDataConsole();">Print Data to console.</button>
+        </div>
+        <div id="div2"></div>
+    </body>
+</html>
