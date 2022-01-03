@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function change(){
+        document.getElementById("para").innerHTML="Hello world";
+    }
+</script>
+<script src="Day1.js"></script>
+<body>
+    <div id="para" onmouseover="change();">Hover to see effect</div>
+    <button id="alertUser" onclick="alert('Hello world')">Click me</button>
+    <button id="writeUser" onclick="write()">Click to write</button>
+    <button id="printStatement" onclick="printMssg()">Click to console log</button>
+    <button id="printBtn" onclick="window.print()">Click to print the page</button>
+</body>
+</html>
