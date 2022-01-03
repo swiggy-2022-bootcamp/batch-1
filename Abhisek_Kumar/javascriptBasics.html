@@ -1,0 +1,40 @@
+<!-- By - Abhisek Kumar -->
+<!-- swiggyb1002 -->
+<html>
+
+<head>
+    <title>
+        JavaScript Basics
+    </title>
+</head>
+<script src="./externalJSFile.js">
+</script>
+<script>
+    function printSomething() {
+        alert("Hello World!!")
+    }
+
+    function consoleSomething() {
+        console.log("Hello");
+    }
+
+    function printInput(event) {
+        var x = document.getElementById("input1").value;
+        document.getElementById("output").innerHTML = x;
+    }
+</script>
+
+<body>
+    <button id="button1" onclick="printSomething();">Alert a message</button>
+    <div id="div1">This is div 1</div>
+    <div id="div2" onmouseover="consoleSomething();">Hover to Print on Console</div>
+    <button id="button2" onclick="document.getElementById('div1').innerHTML = 'This value was changed by button 2';">This is button 2</button>
+    <button onclick="print();">Print</button></br>
+    <button onclick="document.write('document write was moverovered');">Document write</button></br>
+    <button onclick="externalCall();">External Js file</button></br>
+    <input type="text" id="input1" onchange="printInput(event);"></br>
+    <div id="output"></div>
+
+</body>
+
+</html>
