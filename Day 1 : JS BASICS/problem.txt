@@ -1,0 +1,10 @@
+1. 
+create a basic html page, 
+write an inline script, internal script, 
+import 1 external javascript file,
+
+2.	
+use javascript display methods 
+(
+    innerHTML, document.write, alert(),print(),console.log()
+)
