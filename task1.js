@@ -21,6 +21,3 @@ function usePrint() {
 function useConsoleLog() {
     console.log("Use of console.log");  
 }
-// create a basic html page, write an inline script, internal script, import 1 external javascript file,
-	
-//use javascript display methods (innerHTML, document.write, alert(),print(),console.log()
