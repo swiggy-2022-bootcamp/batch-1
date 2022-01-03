@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1 - D1 - Swiggy i++</title>
+</head>
+<body>
+    <!--Internal Js -->
+    <script>
+        function myFunction1() {
+            document.getElementById("demo1").innerHTML="Hey, there ! I have changed. :D";
+        }
+    </script>
+    <!--HTML Code-->
+    <div id="demo1">Hello World!</div><br>
+    <button onclick="myFunction1()">Click here to change the above line</button>
+    <!--External Js-->
+    <br><br>
+    Insert input to check the external js function in action : 
+    <script src="externalJsFile.js"></script>
+    <input id="name" type="text" onchange="myFunction2();"/>
+</body>
+</html>
