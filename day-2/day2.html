@@ -1,0 +1,47 @@
+<html>
+
+<body>
+    <script src="day2.js"></script>
+    <div>
+        Welcome to Day 2 Tasks for Swiggy IPP
+    </div>
+    <br>
+    <div>
+        <form onsubmit="return processInput(document.getElementById('ip1').value)">
+            Enter some text here:
+            <input id='ip1' type="text">
+            <input id='btn1' type="submit">
+        </form>
+    </div>
+    <br><br>
+    <div id='displayDiv'>The text you entered is: <span id='displaySpan'></span></div>
+    <br><br>
+    <div>
+        Change Font Size :
+        <button onclick="changeFontSize()">Enter Font Size</button>
+        <br>
+        Change Display :
+        <select id="displayDropdown" onchange="changeDisplay(this)">
+            <option>inline</option>
+            <option>block</option>
+            <option>none</option>
+        </select>
+        <br>
+        Change Visibility :
+        <select id="visibilityDropdown" onchange="changeVisibility(this)">
+            <option>visible</option>
+            <option>hidden </option>
+            <option>collapse</option>
+            <option>initial</option>
+            <option>inherit</option>
+        </select>
+        <br>
+        <br>
+        Execute practice methods :
+        <button onclick="practiceMethods()">Execute</button>
+
+    </div>
+
+</body>
+
+</html>
