@@ -2,11 +2,9 @@
 
 <body>
 
-<div id="test">initial paragraph</div>
+<div id="test" onmouseover="document.getElementById('test').innerHTML = 'paragraph changed';">initial paragraph</div>
 
 <script>
-
-document.getElementById('test').innerHTML = 'paragraph changed';
 
 document.write("testing write method");
 
@@ -16,7 +14,7 @@ console.log(data);
 
 </script>
 
-<input type="text" id="name" onhover="function1(this.value);">
+<input type="text" id="name" onblur="function1(this.value);">
 
 </body>
 
