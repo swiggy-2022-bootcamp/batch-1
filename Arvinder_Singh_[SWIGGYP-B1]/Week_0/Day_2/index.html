@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+
+        var alterContent1 = ()=>{
+            const inputField = document.getElementById("inputField");
+            const newValue = inputField.value;
+            inputField.value = "";
+            const content1 = document.getElementById("content1");
+            content1.innerHTML = newValue;
+        }
+
+        function changeFontSize(size){
+            const content1 = document.getElementById("content1");
+            content1.style.fontSize = size;
+
+            content1.style.display
+        }
+
+        function toggleDispaly(){
+            const content1 = document.getElementById("content1");
+            const btn = document.getElementById("show");
+
+            if(btn.value == "Hide"){
+                btn.value = "Show";
+                btn.innerText = "Show"
+                content1.style.display = "none";
+            }else{
+                btn.value = "Hide";
+                btn.innerText = "Hide"
+                content1.style.display = "block";
+            }            
+        }
+
+        function toggleVisibility(){
+            const content1 = document.getElementById("content1");
+            const btn = document.getElementById("show2");
+
+            if(content1.style.visibility == "hidden"){
+                btn.innerText = "Hide"
+                content1.style.visibility = "visible";
+            }else{
+                btn.innerText = "Show"
+                content1.style.visibility = "hidden";
+            }  
+        }
+        
+    </script>
+    <title>Week 0: Day 2</title>
+</head>
+<body onload="arrayMethods()">
+
+    <div id="container1">
+        <div id="content1">
+            Hello World
+        </div>   
+        <br><br>   
+
+        <input type="text" id="inputField">
+        <button onclick="alterContent1()">Change Text</button>
+    </div>
+    <br><br>
+
+    <div id="container2">
+        <div id="controls">
+            <p>Chnaing font size</p>
+            <button onclick="changeFontSize('small')">Small Font Size</button> <br>
+            <button onclick="changeFontSize('large')">Large Font Size</button> <br>
+            <button onclick="changeFontSize('Medium')">Medium Font Size</button> <br>
+        </div>
+    </div>
+    <br><br>
+
+    <div id="container3">
+        <div id="display">
+            <p>Hiding and unhinding text using dislpaly</p>
+            <button id="show" onclick="toggleDispaly()" value="Hide">Hide<br>
+        </div>
+    </div>
+    <br><br>
+
+    <div id="container4">
+        <div id="visibility">
+            <p>Hiding and unhinding text using visibility</p>
+            <button id="show2" onclick="toggleVisibility()">Hide<br>
+        </div>
+    </div>
+
+
+
+    
+    <script src="./script.js"></script>
+    
+</body>
+</html>
+
+<!-- 
+create a basic html page, write an inline script, internal script, import 1 external javascript file,
+use javascript display methods (innerHTML, document.write, alert(),print(),console.log() -->
