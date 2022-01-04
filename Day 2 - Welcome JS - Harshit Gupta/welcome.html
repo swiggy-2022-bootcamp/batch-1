@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Welcome to Day 2 - Swiggy IPP Program (Round 2)</title>
+    </head>
+    <body>
+
+        <div style="margin: auto; text-align: center;">
+
+            <div id="head1"> <u>Welcome</u> </div> <br/>
+            <p id="data1"></p>
+    
+            <input type="text" id="test" placeholder="Enter something" style="padding: .5em; margin-bottom: .5em; box-shadow: 0 1px 4px; border: none;" />
+
+        </section>
+
+        <!-- Internal Script -->
+        <script>
+
+            'use strict';   // Using strict mode to ensure more reportings, including some of those which might have got ignored
+
+            let testData, dataPoint = document.getElementById('data1');
+            dataPoint.innerHTML = testData = "Something good is cooking!";
+            dataPoint.style.fontSize = "2.5em";
+            dataPoint.style.display = "block";
+            dataPoint.style.visibility = "visible";
+            dataPoint.style.margin = ".5em auto";
+
+            document.getElementById('test').value = "Default Entry";
+            // delete testData;         // Can't delete in strict mode
+            
+            var object1 = { id:1, firstName:"Harshit", lastName:"Gupta", fullName: function(){ return this.firstName + ' ' + this.lastName } }
+            const currentDate = new Date(), date1 = new Date(2022, 0, 4, currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds());
+            console.log("Date of coding:", date1);
+
+            let array1 = [1,2,4,3,6,5,7];
+            array1.sort( (a, b) => { return b-a } );  // Array gets sorted in descending order, with the given compare function
+            document.write("<br/> Your Array: ", array1.toString());
+            document.write("<br/> Sum of your array =  ", array1.reduce( (previousValue, currentValue ) =>  previousValue+currentValue  ), "<br/>");
+            console.log([1,2,3].concat(...[4,5,6,7]), 'is same as', [1,2,3].concat(4,5,6,7), ', right?');
+
+            let tripleArrayTest = "";
+            for (let index=0; index<array1.length; index++) {
+                tripleArrayTest += array1[index];
+            }
+            for (let number of array1) {        // not to be confused with for-in
+                tripleArrayTest += number;
+            }
+            array1.forEach( number => { tripleArrayTest+=number; } );
+
+            let uniqueSet = new Set([1, '1', 2, '2', 5, '5']);
+            console.log(uniqueSet, 'is a unique set (' + (uniqueSet instanceof Set) + ')');
+            console.log('Sets are (by type):', typeof uniqueSet);
+
+            let uniqueMap = new Map(uniqueSet.entries());
+            for (let value in new Array(6).fill(1)) { uniqueMap.delete(value);}
+            console.log('Equivalent Reduced Map:', uniqueMap);
+
+        </script>
+        
+    </body>
+
+</html>
