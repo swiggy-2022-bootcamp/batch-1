@@ -3,6 +3,10 @@
 
 <head>
     <script>
+
+        var obj = {id : 1, firstName: "Aditya", lastName : "Verma", fullname = function () { return (firstName + lastName)}};
+        var extract = obj.id;
+
         function clicked() {
             alert("Issue")
         }
@@ -26,6 +30,10 @@
                 return;
             }
             document.getElementById(divId).innerHTML = "<h2>" + data + "</h2>";
+        }
+
+        function modifyProperties() {
+
         }
 
     </script>
@@ -77,6 +85,8 @@
         <button onclick="modifyDivs(in2.value, in1.value)">Change Value</button>
     </div>
 
+
+
     <br>
     <br>
     <br>
@@ -86,6 +96,19 @@
     <hr>
 
     <button onclick="print()">Print Everything</button>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+    <hr>
+
+    <button onclick="modifyProperties()">Modify d7 Properties</button>
+    <br>
+    <br>
+
 </body>
 
 </html>
