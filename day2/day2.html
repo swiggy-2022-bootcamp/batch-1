@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./day2.js"></script>
+    <title>Day 2</title>
+</head>
+<body>
+    <!-- DAY 2: modify innerHTML, style.fontSize, 
+    style.display, style.visibility,
+    document.getElementById(“test”).value; -->
+    <div id="container">
+        <div id="text" onclick="modifyInnerHTML(id, 'Swiggy')">Write something here!</div>
+        <div id="fname" ondblclick="modifyFontSize(id)">Ashish</div>
+        <div id="mname" onclick="toggleVis(id)">Kumar</div>
+        <div id="lname" onclick="modifyDisplay(id)">Panigrahy</div>
+        <br>
+        <input id="test" onclick="changeValue(id, 'clicked')" value="Something!" type="button">
+        <button onclick="toggleColor('container')">Toggle Colour!</button>
+    </div>
+
+</body>
+</html>
