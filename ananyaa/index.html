@@ -7,7 +7,7 @@
     <head>
     </head>
         <body>
-            <h1 color="black">Swiggy i++</h1>
+            <h1 id="headin" color="black">Swiggy i++</h1>
             <div>
                 <form> 
                     <div class="form-group"> 
@@ -29,6 +29,10 @@
         </body>
         
         <script>
+            document.getElementById("headin").style.color="blue";
+            document.getElementById("headin").style.fontSize="36";
+            document.getElementById("headin").style.display="block";
+            document.getElementById("headin").style.visibility="visible";
             var user_name = document.getElementById("name");
             document.getElementById("btn-alert").addEventListener("click", function(){
                 var name=user_name.value.trim();
