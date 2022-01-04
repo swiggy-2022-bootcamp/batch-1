@@ -7,58 +7,12 @@
     <meta charset="utf-8" />
     <title>Swiggy i++ Day 2</title>
     <script>
-        function doLog(msg) {
+        const doLog = (msg) => {
             console.log(msg);
             alert(msg);
         }
-
-        function getRadioValue(theRadioGroup) {
-            let elements = document.getElementsByName(theRadioGroup);
-            for (let element of elements) {
-                if (element.checked) {
-                    return element.value;
-                }
-            }
-        }
-
-        function generateDisplayRadioButtons() {
-            let display_option = [
-                "block",
-                "inline",
-                "inline-block",
-                "none",
-                "table",
-                "table-cell",
-                "table-row",
-                "table-row-group",
-                "table-column",
-                "table-column-group",
-                "table-caption",
-                "table-footer-group",
-                "table-header-group",
-                "table-row-group",
-                "table-cell",
-                "table-column-group",
-                "table-column",
-                "table-footer-group",
-                "table-header-group",
-                "table-row",
-                "table-row-group",
-            ];
-            for (let option of display_option) {
-                let radio = document.createElement("input");
-                radio.type = "radio";
-                radio.name = "dis_radio";
-                radio.value = option;
-                radio.id = option + "_radio";
-                document.getElementById("display_radios").appendChild(radio);
-                let label = document.createElement("label");
-                label.htmlFor = option;
-                label.innerHTML = option + '&nbsp;';
-                document.getElementById("display_radios").appendChild(label);
-            }
-        }
     </script>
+    <script src="./external.js"></script>
 </head>
 
 <body>
