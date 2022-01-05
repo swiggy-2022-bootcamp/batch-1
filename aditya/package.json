@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "check-dependencies": "^1.1.0"
+  },
+  "dependencies": {
+    "formidable": "^2.0.1",
+    "nodemailer": "^6.7.2"
+  }
+}
