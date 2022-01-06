@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript">
+      const onClick1 = () => {
+        const div = document.getElementById('click-div');
+        div.style.border = '10px solid black';
+      };
+    </script>
+    <script src="index.js" type="text/javascript"></script>
+    <title>Task 1</title>
+  </head>
+  <body>
+    <h1>Task 1</h1>
+    <div
+      id="hover-div"
+      style="min-height: 100px; width: 100%"
+      onmouseover="document.getElementById('hover-div').style.backgroundColor='tomato';"
+    >
+      Hover over me!!!
+    </div>
+    <div id="click-div" style="min-height: 100px; width: 100%">
+      <button onclick="onClick1()">Click Me</button>
+    </div>
+    <div style="min-height: 100px; width: 100%">
+      <p id="count-div">0</p>
+      <button onclick="onCountClick()">Click Me</button>
+    </div>
+  </body>
+</html>
