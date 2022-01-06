@@ -1,0 +1,16 @@
+{
+  "name": "ipp",
+  "version": "1.0.0",
+  "description": "food-app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "server": "nodemon index"
+  },
+  "author": "Ashish Kumar Panigrahy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "uuid-int": "^3.1.0"
+  }
+}
