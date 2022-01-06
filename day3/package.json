@@ -1,0 +1,16 @@
+{
+  "name": "day3",
+  "version": "1.0.0",
+  "description": "day 3 assignments will go here for ipp bootcamp",
+  "main": "day3.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ashish Kumar Panigrahy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "formidable": "^2.0.1",
+    "nodemailer": "^6.7.2"
+  }
+}
