@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Input</title>
+<script type="text/javascript" src="method.js"></script>
+<script type="text/javascript">
+    function internal_content() {
+        var val = document.getElementById("myText").value;
+        document.write(val);
+    }
+</script>
+</head>
+<body>
+    <input type="text" id="myText" />
+
+    <!-- internal script -->
+    <input type="button" value="internal" onclick="internal_content()"/>
+
+    <!-- extenal script -->
+    <input type="button" value="external" onclick="external_content()"/>  
+
+    <!-- inline script -->
+    <input type="button" value="inline" onclick="inline_content()"/>  
+
+    <script>
+        function inline_content() {
+            var val = document.getElementById("myText").value;
+            console.log("Hi", val);
+        }
+        
+    </script>
+</body>
