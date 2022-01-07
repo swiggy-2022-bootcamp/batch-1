@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>Task 1</title>
+</head>
+<body>
+    <div id="content">
+        <div id = "text" onclick="this.style.color='black';">
+            Hey guest, welcome!
+        </div>
+
+        <input onchange="changeOutput(this);">
+        <div id="output"></div>
+        <br>
+        <button onclick="printHandler(this);">Print Doc</button>
+        <br/>
+        <button onclick="createDoc()">Create a new Document!</button>
+    </div>
+
+    <script>
+        function createDoc() {
+            document.write("Wohoo! You are on a new document. Though temporary :(")
+        }
+
+        function changeOutput(target) {
+            document.getElementById('output').innerHTML = target.value
+        }
+
+        function changeColor() {
+            this.style.color="red";
+            console.log('This is from internal js');
+        }
+
+        function printHandler(target) {
+            window.print();
+        }
+
+        document.getElementById('text')
+                .addEventListener('mouseover', changeColor);
+    </script>
+    <script src="externalscript.js" type="text/javascript"></script>
+</body>
+</html>
+
