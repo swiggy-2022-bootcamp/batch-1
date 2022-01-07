@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <!-- External Script -->
+  <script src="./ExternalScript.js"></script>
+  </head>
+  <!-- Internal Script -->
+  <script type="text/javascript">
+    function displayAlert() {
+      alert("Internal Script Alert")
+    }
+  </script>
+
+  <body>
+    <div>    
+      <p id="externalScript">Click change text button to change content using external script</p>
+      <button onclick="changeText();" id="externalScript">Change Text</button>
+    </div>
+    <div>    
+      <button onclick="document.write('Hello World')">Change using document write</button>
+    </div>
+    <button onclick="displayAlert()" id="internalScript">Display Alert</button>
+    <button onclick="console.log('Console Log Clicked')" id="consoleLog">Click to Console Log</button>
+    <button onclick="window.print()" id="print">Click to Print</button>
+
+  </body>
+</html>
