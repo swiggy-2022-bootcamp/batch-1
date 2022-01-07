@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="pgm2.js"></script>
+    <title>Document</title>
+    <script type="text/javascript">
+      const onInner = () => {
+        document.getElementById('para').innerHTML = 'Hello, Swiggy i++';
+      };
+      const on = () => {
+        alert('This is an Alert');
+      };
+      const on = () => {
+        window.print();
+      };
+      const on = () => {
+        console.log('Hi There!');
+      };
+    </script>
+  </head>
+  <body>
+    <div id="inner">
+      <p id="para"></p>
+      <button onclick="callInner()">Click Me</button>
+    </div>
+    <div id="writer"><button onclick="callWriter()">Click Me</button></div>
+    <div id="alerter"><button onclick="callAlert()">Click Me</button></div>
+    <div id="printer"><button onclick="callPrinter()">Click Me</button></div>
+  </body>
+</html>
