@@ -1,0 +1,9 @@
+{
+
+    "foodId": 12,
+    "foodName": "Chilli Kilil",
+    "foodCost": 122,
+    "foodType":{
+        "enum":"Mexican"
+    }
+}
