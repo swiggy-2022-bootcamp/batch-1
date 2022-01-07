@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DAY2 In Class Assignment</title>
+</head>
+<body>
+    <p>Select a Value:</p>
+    <Select id="select" onchange="update(event.target.value)">
+        <option value="Bus">Bus</option>
+        <option value="Car">Car</option>
+        <option value="Auto">Auto</option>
+        <option value="Train">Train</option>
+        <option value="Ship">Ship</option>
+    </Select>
+    <p>The selected value is: <span id="selValue">Bus</span></p>
+    <button onclick="incFont()">Font Size +</button> <button onclick="decFont()">Font Size -</button><br><br>
+    <img src="https://images.unsplash.com/photo-1641283356224-79a4c4a7e768?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="sdf" width="300"><br><br>
+    <button onclick="toggleDisplay()">Toggle Display</button> <button onclick="toggleVisibility()">Toggle visibility</button>
+    <script src="main.js"></script>
+</body>
+</html>
