@@ -1,0 +1,13 @@
+{
+    "id":1,
+    "username":"John",
+    "email":"john@example.com",
+    "password":"password",
+    "address":{
+        "house":1,
+        "street":"demo",
+        "city":"Demo",
+        "state":"NY",
+        "zip":"123"
+    }
+}
