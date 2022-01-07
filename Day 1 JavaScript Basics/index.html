@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Day 1 JavaScript</title>
+    <script>
+        function trigger(){
+            alert("Calling Alert Fun using Internal Script")
+        }
+    </script>
+</head>
+<body>
+
+    <div id="div1">Text</div>
+    <br>
+    <button onclick="document.getElementById('div1').innerHTML = 'Calling inline js';">Click</button>
+    <br>
+    <p></p>
+    <div>
+    <button onclick="trigger()">Alert Window</button>
+    </div>
+    <br>
+
+    <div>
+        <button id="content3" onclick="LogConsole()">Console Log</button>
+    </div>
+    <br>
+
+    <div>
+        <button id="content3" onclick="DoPrint()">Print Page</button>
+    </div>
+    <br>
+
+    <div>
+        <button id="content3" onclick="DocumentWrite()">Document Write</button>
+    </div>
+    <br>
+
+    <script src="./script.js"></script>
+    
+</body>
+</html>
+
+ 
