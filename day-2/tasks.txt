@@ -1,0 +1,6 @@
+Day 2 Tasks
+
+
+1. Modify innerHTML, style.fontSize, style.display, style.visibility, document.getElementById(“test”).value
+
+2. Practice methods from W3Schools.
