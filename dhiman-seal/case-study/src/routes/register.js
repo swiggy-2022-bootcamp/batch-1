@@ -1,26 +1,29 @@
 import {Router} from 'express';
 
-import registerController from '../controllers/register';
+import registerPostController from '../controllers/register_post';
 
-// Define express router.
+const route = '/register';
+/**
+ * @type {Router} Express router object.
+ */
 const registerRouter = new Router();
 
-// POST /login
-registerRouter.post('/register', registerController);
+// POST.
+registerRouter.post(route, registerPostController);
 
-const unsupportedMessage = '/register only supports POST with user data.';
-// DELETE /login. Unsupported
-registerRouter.delete('/register', (_, res) =>
+const unsupportedMessage = `${route} only supports POST with user data.`;
+// DELETE. Unsupported.
+registerRouter.delete(route, (_, res) =>
   res.status(405).json({message: unsupportedMessage}),
 );
 
-// GET /login. Unsupported
-registerRouter.get('/register', (_, res) =>
+// GET. Unsupported.
+registerRouter.get(route, (_, res) =>
   res.status(405).json({message: unsupportedMessage}),
 );
 
-// PUT /login. Unsupported
-registerRouter.put('/register', (_, res) =>
+// PUT. Unsupported.
+registerRouter.put(route, (_, res) =>
   res.status(405).json({message: unsupportedMessage}),
 );
 
