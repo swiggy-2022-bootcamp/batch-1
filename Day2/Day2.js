@@ -153,5 +153,5 @@ for(var item of set) {
 //200 is not added since the set already contains 200 
 set.add(200);
 console.log("After adding ");
-for(var key of set) {console.log(key)}
+for(var key of set) {console.log(keyFoo)}
 
