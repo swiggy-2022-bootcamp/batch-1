@@ -18,7 +18,7 @@ const { User } = require('../models');
 async function getUserById(id) {
   try {
     const user = await User.findById(id).exec();
-    if (user !== null) {
+    if (user) {
       // const userData = extractUserInfo(user);
       return user;
     }
@@ -30,7 +30,7 @@ async function getUserById(id) {
 async function getAllUsers() {
   try {
     const users = await User.find().exec();
-    if (users !== null) {
+    if (users) {
       // const userData = users.map((user) => extractUserInfo(user));
       return users;
     }
@@ -42,9 +42,9 @@ async function getAllUsers() {
 async function getUserByEmail(email) {
   try {
     const user = await User.findOne({ email }).exec();
-    if (user !== null) {
-      const userData = extractUserInfo(user);
-      return userData;
+    if (user) {
+      // const userData = extractUserInfo(user);
+      return user;
     }
   } catch (error) {
     console.log(error.message);
@@ -68,7 +68,7 @@ async function createUser(userBody) {
 async function updateUserInfo(id, userBody) {
   try {
     const user = await User.findOneAndUpdate({ _id: id }, userBody).exec();
-    if (user !== null) {
+    if (user) {
       // const userData = extractUserInfo(user);
       return user;
     }
@@ -80,7 +80,7 @@ async function updateUserInfo(id, userBody) {
 async function deleteUser(id) {
   try {
     const user = await User.findOneAndDelete({ _id: id }).exec();
-    if (user !== null) {
+    if (user) {
       // const userData = extractUserInfo(user);
       return user;
     }

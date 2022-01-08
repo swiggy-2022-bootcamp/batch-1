@@ -58,7 +58,7 @@ const login = async (req, res, next) => {
     await res.send(data);
   } else {
     await res
-      .status(httpStatus.httpStatus.UNAUTHORIZED)
+      .status(httpStatus.UNAUTHORIZED)
       .send('Incorrect email or password');
   }
 };

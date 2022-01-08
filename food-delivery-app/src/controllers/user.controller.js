@@ -51,16 +51,10 @@ const deleteUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const id = req.params.userId;
-  const user = await userService.updateUserInfo(id);
+  const user = await userService.updateUserInfo(id, req.body);
 
   if (user) {
-    if (req.user.email !== user.email) {
-      // throw new ApiError(httpStatus.FORBIDDEN);
-      res.status(httpStatus.FORBIDDEN);
-      res.send('User not found');
-    } else {
-      res.status(httpStatus.OK).send(user);
-    }
+    res.status(httpStatus.OK).send(user);
   } else {
     // throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
     res.status(httpStatus.NOT_FOUND);
