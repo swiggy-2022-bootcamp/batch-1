@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 require("dotenv").config();
 
 const User = require('./schemas/user.js');
+const Restaurant = require('./schemas/restaurant.js');
+const Food = require("./schemas/food.js")
+
 const connectDB = require('./db.js');
 
 
@@ -70,7 +73,7 @@ app.post('/api/register', async (req, res) => {
     return res.send(userSaved);   
     }
 
-    res.status(400).send("Registration not successful");
+    res.status(400).send("User registration not successful");
 });
 
 app.post('/api/authenticate', async (req, res) => {
@@ -162,6 +165,53 @@ app.delete('/api/users/:userID', async (req, res) => {
     }    
 
 });
+
+async function saveRestaurantDetails(req) {
+
+    try {
+        console.log(req.body);
+        const restaurant = await Restaurant.create({
+            restaurantName : req.body.restaurantName,
+            restaurantAddress : req.body.restaurantAddress
+        });
+
+        await restaurant.save();
+        return restaurant;
+    
+    } catch(e) {
+        console.log(e.message);
+        return false;
+    }
+}
+
+
+app.post('/api/restaurants', async (req, res) => {
+    try {
+    
+        const oldRestaurant = await Restaurant.findOne({ restaurantAddress : req.body.restaurantAddress });
+        if (oldRestaurant) {
+            return res.status(409).send("Restaurant already registered");
+        }   
+    } catch(e) {
+        console.log(e.message);
+        return;
+    }
+
+    const restaurantSaved = await saveRestaurantDetails(req);
+
+    if(restaurantSaved) {
+    return res.status(200).send(restaurantSaved);   
+    }
+
+    res.status(400).send("Restaurant registration not successful");
+})
+
+app.get('/api/restaurants', async (req, res) => {
+    const restaurants = await Restaurant.find();
+    return res.status(200).json(restaurants);
+})
+
+
 
 app.post('/api/food', (req, res) => {
 
