@@ -5,6 +5,7 @@ const foodSchema = mongoose.Schema(
     foodId: {
       type: Number,
       required: true,
+      unique: true,
     },
     foodName: {
       type: String,

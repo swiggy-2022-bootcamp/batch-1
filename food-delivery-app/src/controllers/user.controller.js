@@ -6,7 +6,7 @@ const { userService } = require('../services');
 const getAllUsers = async (req, res, next) => {
   const users = await userService.getAllUsers();
   if (users) {
-    res.status(httpStatus.OK).send(user);
+    res.status(httpStatus.OK).send(users);
   } else {
     res.status(httpStatus.FORBIDDEN);
     res.send('User(s) not found');

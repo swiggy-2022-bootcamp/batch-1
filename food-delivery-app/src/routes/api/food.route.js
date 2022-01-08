@@ -8,7 +8,8 @@ const router = express.Router();
 router
   .route('/:foodId')
   .get(foodController.getFood)
-  .post(foodController.createFood)
   .put(foodController.updateFood);
+
+router.route('/').post(foodController.createFood);
 
 module.exports = router;

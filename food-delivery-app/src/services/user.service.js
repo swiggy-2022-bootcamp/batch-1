@@ -67,7 +67,9 @@ async function createUser(userBody) {
 
 async function updateUserInfo(id, userBody) {
   try {
-    const user = await User.findOneAndUpdate({ _id: id }, userBody).exec();
+    const user = await User.findOneAndUpdate({ _id: id }, userBody, {
+      new: true,
+    }).exec();
     if (user) {
       // const userData = extractUserInfo(user);
       return user;
