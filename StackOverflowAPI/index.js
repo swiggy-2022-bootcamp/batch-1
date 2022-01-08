@@ -1,18 +1,29 @@
 //for accessing environment variables from .env file
 require('dotenv').config();
 
+
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 2022;
+const logger = require('morgan');
+const accessLogStream = require('./config/accessLogStream');
+const port = process.env.PORT || 2022;
 
-app.get('/', (_, res) => {
-    res.status(200).send("Working");
-})
+// for recognizing and parsing json objects
+app.use(express.json());
 
-app.listen(PORT, (err) => {
+// setting up logger
+app.use(logger('combined', {
+    stream: accessLogStream
+}));
+
+// handling routes in 'routes' folder
+app.use('/', require('./routes'));
+
+app.listen(port, (err) => {
     if(err) {
         console.log("Error starting the application!");
+        return;
     }
 
-    console.log("Server is up and running at port: ", PORT);
+    console.log(`Server is up and running at localhost:${port}`);
 });
