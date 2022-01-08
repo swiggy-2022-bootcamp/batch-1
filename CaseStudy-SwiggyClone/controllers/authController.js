@@ -89,3 +89,49 @@ module.exports.login = async function login(req,res)
     }   
 }
 
+module.exports.protectRoute = async function protectRoute(req,res,next)
+{
+    try
+    {
+        let token = req.cookies.login;
+        if(token)
+        {
+            let payload = jwt.verify(token,JWT_KEY);
+            // console.log(payload,' is payload');
+            if(payload)
+            {
+                let user = await userModel.findById(payload.payload);
+                req.id = user._id;
+                req.role = user.role;
+                next();
+            }
+            else
+            {
+                return res.json({
+                    message:'Please Login again'
+                });
+            }
+        }
+        else{
+            // browser
+            // const client = req.get('User-Agent');
+
+            // if(client.includes('Mozilla') || client.includes('Chrome') || client.includes('AppleWebKit') || client.includes('Safari'))
+            // {
+            //     return res.redirect('/login');
+            // }
+
+            // postman
+            return res.json({
+                message:'Login required!'
+            });
+        }
+    }
+    catch(err)
+    {
+        res.json({
+            message:err.message
+        });
+    }
+}
+

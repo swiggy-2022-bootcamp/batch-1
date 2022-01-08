@@ -1,13 +1,18 @@
 const express = require('express');
 const app = express();
 
+const cookieParser = require('cookie-parser');
+const userModel = require('./models/userModel');
+const restaurantModel = require('./models/restaurauntModel');
+const userRouter = require('./routers/userRouter');
+
+
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-const userModel = require('./models/userModel');
-const restaurantModel = require('./models/restaurauntModel');
+app.use(cookieParser());
 
-const userRouter = require('./routers/userRouter');
+
 app.use('/user',userRouter)
 
 
