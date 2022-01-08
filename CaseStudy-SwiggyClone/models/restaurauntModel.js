@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const db_link = 'mongodb+srv://abhibenne:abhibenne@cluster0.1txb7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 mongoose.connect(db_link)
@@ -14,7 +13,7 @@ mongoose.connect(db_link)
 
 const restaurantSchema = new mongoose.Schema({
     restaurantId:{
-        type: Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'userModel',
         required:true
     },
@@ -65,10 +64,13 @@ const restaurantSchema = new mongoose.Schema({
         foodDescription:{
             type:String,
             default:'Food description goes here'
+        },
+        isVegetarian:{
+            type:Boolean,
+            default:false
         }
     }]
 });
-
 
 const restaurantModel = mongoose.model('restaurantModel',restaurantSchema);
 
