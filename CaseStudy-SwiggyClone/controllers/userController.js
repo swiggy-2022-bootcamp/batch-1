@@ -28,6 +28,46 @@ module.exports.getUser = async function getUser(req,res)
     
 }
 
+module.exports.updateUser = async function updateUser(req,res)
+{
+    try
+    {
+        let uid = req.id;
+        let dataToUpdate = req.body;
+
+        if(dataToUpdate.email || dataToUpdate.password)
+        {
+            return res.json({
+                message:'Cannot change these things here'
+            });
+        }
+
+        // console.log(uid);
+        let user = await userModel.findById(uid);
+        if(user)
+        {
+            let oldData = await userModel.findByIdAndUpdate(uid,dataToUpdate);
+            res.json({
+                message:'Data updated successfully',
+                oldData: oldData,
+                updatedFields: dataToUpdate
+            });
+        }
+        else
+        {
+            res.json({
+                message:'User not Found'
+            });
+        }
+    }catch(err)
+    {
+        res.status(500).json({
+            message:err.message
+        });
+    }
+    
+}
+
 // inserted user for testing purpose
 // module.exports.getSample = async function getSample(req,res)
 // {
