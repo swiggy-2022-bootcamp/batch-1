@@ -1,12 +1,23 @@
 const mongoose = require('mongoose');
 
-const foodSchema = new mongoose.Schema({
+const cartSchema = new mongoose.Schema({
+
+    userName : {
+        type : String,
+        required : true
+    },
+
+    userID : {
+        type : String,
+        required : true
+    },
+
     restaurantName : {
         type : String,
         required : true
     },
 
-    restaurantId : {
+    restaurantID : {
         type : String,
         required : true
     },
@@ -15,14 +26,9 @@ const foodSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-
-    foodCost : {
+    
+    foodQuantity : {
         type : Number,
-        required : true
-    },
-
-    foodType : {
-        type : String,
         required : true
     },
 
@@ -33,4 +39,4 @@ const foodSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model("Food", foodSchema);
+module.exports = mongoose.model("Cart", cartSchema);
