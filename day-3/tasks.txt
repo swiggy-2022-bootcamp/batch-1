@@ -1,0 +1,12 @@
+Day 3 Tasks
+
+Practice Node JS (create simple server, file operations, file import, send emails)
+
+
+Please use the following commands to install the packages, as the node_modules folder has not been committed:
+
+npm i http
+npm i url
+npm i fs
+npm i formidable
+npm i nodemailer

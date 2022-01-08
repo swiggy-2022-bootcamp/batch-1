@@ -1,0 +1,32 @@
+<html>
+
+<body>
+    <script src="welcome.js"></script>
+    <script>
+        function printPage() {
+            print();
+        }
+    </script>
+    <div>
+        Welcome to Day 1 Tasks for Swiggy IPP
+    </div>
+    <br />
+    <div>
+
+        <form
+            onsubmit="return processInput(document.getElementById('ip1').value, document.getElementById('ip2').value)">
+            Please enter your name
+            <input id='ip1' type="text">
+            <br />
+            Please enter your mobile number
+            <input id='ip2' type="text">
+            <br />
+            <input id='ip3' type="submit">
+        </form>
+    </div>
+    <button onclick="printPage()">Print Page</button>
+    <br />
+    <div id='dispDiv' onmouseover="alert(this.innerHTML)"></div>
+</body>
+
+</html>

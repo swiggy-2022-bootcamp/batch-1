@@ -1,0 +1,5 @@
+Day 1 Tasks
+
+1. Create a basic html page, write an inline script, internal script, import 1 external javascript file
+
+2. Use javascript display methods (innerHTML, document.write, alert(), print(), console.log()
