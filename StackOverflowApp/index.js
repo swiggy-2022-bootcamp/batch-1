@@ -2,9 +2,11 @@
 import express from "express"
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import routes from "./src/routes/routes.js"
+import userRoutes from "./src/routes/userRoutes.js"
 
 dotenv.config();
-
+console.log("Server starting ...")
 const app = express();
 app.use(express.json());
 
@@ -29,11 +31,8 @@ connection.on("disconnected", () => {
     console.log("❌ Mongdb disconnected");
 })
 
-app.get("/", (req, res)=>{
-    res.status(200).send({
-        "status": "Connected successfully",
-    })
-})
+app.use(routes)
+app.use(userRoutes)
 
 app.listen(PORT, ()=>{
     console.log(`✅ Server listening on PORT ${PORT}`)
