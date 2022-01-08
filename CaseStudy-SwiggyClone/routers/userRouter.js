@@ -1,9 +1,9 @@
 const express = require('express');
 const userRouter = express.Router();
 
-const {signup,getSample} = require('../controllers/authController');
+const {signup,getSample,login} = require('../controllers/authController');
 
-
+// for testing schema properly
 // userRouter.route('')
 // .get(getSample)
 
