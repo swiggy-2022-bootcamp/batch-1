@@ -1,16 +1,4 @@
-var mysql = require('mysql');
-require('dotenv').config();
-
-var con = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS
-});
-  
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
+var con = require('./dbconnection');
 
 con.query("CREATE DATABASE IF NOT EXISTS food_ordering_db", function (err, result) {
     if (err) throw err;

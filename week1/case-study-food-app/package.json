@@ -7,5 +7,12 @@
     "nodemon": "^2.0.15",
     "shortid": "^2.2.16",
     "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7",
+    "supertest": "^6.1.6"
   }
 }

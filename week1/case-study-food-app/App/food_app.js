@@ -2,20 +2,9 @@ const express = require('express');
 const Joi = require('joi'); //used for validation
 const app = express();
 app.use(express.json());
-var mysql = require('mysql');
 var shortid = require('shortid');
+var con = require('./dbconnection');
 require('dotenv').config();
-
-var con = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS
-});
-  
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
 
 con.query("use food_ordering_db", function (err, result) {
     if (err) throw err;
@@ -308,6 +297,4 @@ function validateUser(request){
     return schema.validate(request);
 }
 
-//PORT ENVIRONMENT VARIABLE
-const port = process.env.PORT || 8080;
-app.listen(port, () => console.log(`Listening on port ${port}..`));
+module.exports = app;
