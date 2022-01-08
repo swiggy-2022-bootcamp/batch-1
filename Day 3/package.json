@@ -1,0 +1,17 @@
+{
+  "name": "day-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "formidable": "^2.0.1",
+    "fs": "^0.0.1-security",
+    "node-mailer": "^0.1.1"
+  }
+}
