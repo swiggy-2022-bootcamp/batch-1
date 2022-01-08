@@ -12,10 +12,10 @@ const addQuestion = async (req,res)=>{
         return res.status(status).send({message})
     }
 
-    const userId = await userModel.findOne({email: userDetails.email})
-    console.log(userId);
-    question.user = userId._id
+    const currUser = await userModel.findOne({email: userDetails.email})
+    question.user = currUser._id
 
+    
     questionModel.create(question)
         .then((questionDocument)=>{
             return res.status(201).send({
@@ -33,7 +33,6 @@ const addQuestion = async (req,res)=>{
 
 const addAnswer = async (req,res)=>{
     const userDetails = req.body["user-details"];
-    // console.log(req.params);
     const questionId = req.params.questionId
     const { status, message } = await validateUser(userDetails)
     if(status != 200){
@@ -41,14 +40,26 @@ const addAnswer = async (req,res)=>{
     }
 
     const { answer } = req.body.question
-    console.log(answer, questionId);
-    questionModel.findOneAndUpdate({_id: new ObjectId(questionId)}, {
+    const currUser = await userModel.findOne({email: userDetails.email})
+    const userId = currUser._id
+
+    const question_id = new ObjectId(questionId)
+    const doesQuestionExists = await questionModel.findOne({"_id" : question_id})
+    
+    if(!doesQuestionExists){
+        return res.status(400).send({"message" : "Question doesn't exists"})
+    }
+
+    questionModel.updateOne({_id: question_id}, {
         $push: {
-            answer
+            answers : {
+                user : userId,
+                answer : answer
+            }
         }
     }).then(()=>{
-        res.status(200).send({
-            "message": "answer posted successfully",
+        res.status(201).send({
+            "message": "Answer posted successfully",
             "quesiton-id" : questionId
         })
     }).catch((err)=>{

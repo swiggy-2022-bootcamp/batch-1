@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose
+const {Schema} = mongoose
 
 const QuestionSchema = new mongoose.Schema({
     user:{
@@ -14,8 +14,14 @@ const QuestionSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    answer : [{
-        type : String
+    answers : [{
+        user :{
+            type : Schema.Types.ObjectId,
+            ref : "USER"
+        },
+        answer : {
+            type : String
+        }
     }]
 })
 
