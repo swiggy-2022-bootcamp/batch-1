@@ -1,9 +1,11 @@
+require("dotenv").config();
+
 const { PORT, NODE_ENV } = process.env;
 
 const app = require("./app");
 
 // CREATING HTTP SERVER
-
+const port = PORT || 4041;
 const server = app.listen(port);
 
 server.on("error", onError);
