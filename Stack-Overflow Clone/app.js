@@ -2,8 +2,10 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const User = require('./model/user')
+const { JWT_SECRET } = require('./secrets.json')
 
 mongoose.connect('mongodb://localhost:27017/stack_overflow_clone');
 
@@ -11,16 +13,37 @@ const app = express();
 app.use('/', express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json());
 
-PORT = process.env.port || 4000;
+const PORT = process.env.port || 4000;
 
 app.get('/', (req, res) => {
     res.send('Hello');
 })
 
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({email}).lean();
+
+    if(!user){
+        return res.json({ status: 'error', message: 'Sorry, invalid credentials'});
+    }
+
+    if(await bcrypt.compare(password, user.password)){
+        const token = jwt.sign({
+                id: user._id,
+                name: user.name,
+                email: user.email
+            },
+            JWT_SECRET
+        )
+        return res.json({ status: 'ok', message: 'User logged in succesfully', data: token})
+    }
+
+    return res.json({ status: 'error', error: 'Sorry, invalid credentials'});
+})
+
 app.post('/register', async (req, res) => {
     const { name, email, password: plainTextPassword } = req.body;
     const password = await bcrypt.hash(plainTextPassword, 10);
-
     try {
         const response = await User.create({
             name,
