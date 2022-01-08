@@ -37,4 +37,12 @@ if (err) throw err;
 console.log("Table created");
 });
 
+var food_sql_query = "CREATE TABLE IF NOT EXISTS food \
+(foodid INT AUTO_INCREMENT PRIMARY KEY, id VARCHAR(255) NOT NULL, foodname VARCHAR(255) NOT NULL, \
+foodcost INT NOT NULL, foodtype enum('Indian','Chinese','Mexican','Italian','Thai'))";
+con.query(food_sql_query, function (err, result) {
+    if (err) throw err;
+    console.log("Table created");
+});
+    
    

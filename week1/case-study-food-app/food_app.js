@@ -3,6 +3,7 @@ const Joi = require('joi'); //used for validation
 const app = express();
 app.use(express.json());
 var mysql = require('mysql');
+var shortid = require('shortid');
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -42,14 +43,14 @@ app.post('/api/register', (req, res)=> {
     // console.log(req.body);
     con.query("INSERT INTO user(username,email,password) values(?,?,?)",[username,email,password],function(err, result){
         if (err) {
-            res.status(400).send(err.details[0].message);
+            res.status(400).send(err.message);
             return;
         }
         var userid = result.insertId;
         console.log(result);
         con.query("INSERT INTO address(userid,houseno,street,city,state,zip) values(?,?,?,?,?,?)",[userid,houseno,street,city,state,zip],function(err, result){
             if (err) {
-                res.status(400).send(err.details[0].message);
+                res.status(400).send(err.message);
                 return;
             }
         });
@@ -86,7 +87,7 @@ app.post('/api/authenticate',(req,res)=>{
 
     con.query("SELECT * FROM user where username=? and password=?",[username,password],function(err,result,fields){
         if (err) {
-            res.status(400).send(err.details[0].message);
+            res.status(400).send(err.message);
             return;
         }
         if (result.length!=1){
@@ -102,7 +103,7 @@ app.post('/api/authenticate',(req,res)=>{
 app.get('/api/users',(req,res)=>{
     con.query('SELECT * FROM user,address where user.userid=address.userid',function(err,result,fields){
         if (err) {
-            res.status(400).send(err.details[0].message);
+            res.status(400).send(err.message);
             return;
         }
 
@@ -120,11 +121,12 @@ app.get('/api/users',(req,res)=>{
 app.get('/api/users/:userID', (req, res) => {
     con.query('SELECT * FROM user,address where user.userid = ? and address.userid = ?',[req.params.userID,req.params.userID],function(err,result,fields){
         if (err) {
-            res.status(400).send(err.details[0].message);
+            res.status(400).send(err.message);
             return;
         }
         if (result.length==0){
             res.status(404).send("Sorry user With "+req.params.userID+" not found");
+            return;
         }
 
         var user_details = format_response(result[0]);
@@ -136,11 +138,12 @@ app.get('/api/users/:userID', (req, res) => {
 app.put('/api/users',(req,res) => {
     con.query('SELECT * FROM user where userid=?',[req.body.id],function(err,result,fields){
         if (err) {
-            res.status(400).send(err.details[0].message);
+            res.status(400).send(err.message);
             return;
         }
         if (result.length==0){
             res.status(404).send("Sorry user With "+req.body.id+" not found");
+            return;
         }
 
         var username = req.body.username;
@@ -154,19 +157,92 @@ app.put('/api/users',(req,res) => {
 
         con.query('UPDATE user set username = ?,email = ?,password = ? where userid = ?',[username,email,password,req.body.id],function (err, result){
             if (err) {
-                res.status(400).send(err.details[0].message);
+                res.status(400).send(err.message);
                 return;
             }
         });
 
         con.query('UPDATE address set houseno = ?,street = ?,city = ?,zip = ?,state = ? where userid = ?',[houseno,street,city,zip,state,req.body.id],function (err, result){
             if (err) {
-                res.status(400).send(err.details[0].message);
+                res.status(400).send(err.message);
                 return;
             }
         });
 
         res.status(200).send("details updated successfully for user: "+req.body.id);
+    });
+});
+
+app.delete('/api/users/:userID',(req,res) => {
+    
+    con.query('SELECT * FROM user where userid = ?',[req.params.userID],function(err,result,fields){
+        if (err){
+            res.status(400).send(err.message);
+            return;
+        }
+        if (result.length==0){
+            res.status(404).send("Sorry user With "+req.params.userID+" not found");
+            return;
+        }
+        
+        con.query('DELETE from address where userid = ?',[req.params.userID],function(err,result){
+            if (err){
+                res.status(400).send(err.message);
+                return;
+            }
+            con.query('DELETE from user where userid = ?',[req.params.userID],function(err,result){
+                if (err){
+                    res.status(400).send(err.message);
+                    return;
+                }
+                res.status(200).send("User Deleted Successfully");
+                return;
+            });
+        });
+    });
+});
+
+app.post('/api/food',(req,res)=>{
+    const { error } = validateFood(req.body);
+    if (error){
+    res.status(400).send(error.details[0].message)
+    return;
+    }
+
+    var systemid = shortid.generate();
+    var foodname = req.body.foodname;
+    var foodcost = req.body.foodcost;
+    var foodtype = req.body.foodtype;
+
+    con.query('INSERT into food(id,foodname,foodcost,foodtype) VALUES(?,?,?,?)',[systemid,foodname,foodcost,foodtype],function(err,result){
+        if (err){
+            res.status(400).send(err.message);
+            return;
+        }
+        const response = {
+            "Id":systemid,
+            "foodId":result.insertId, 
+            "foodName":foodname, 
+            "foodCost":foodcost, 
+            "foodType": foodtype
+        };
+        res.status(201).send(response);
+    });
+
+});
+
+app.get('/api/food/:foodID', (req, res) => {
+    con.query('SELECT * FROM food where foodid = ?',[req.params.foodID],function(err,result,fields){
+        if (err) {
+            res.status(400).send(err.message);
+            return;
+        }
+        if (result.length==0){
+            res.status(404).send("Sorry food not found");
+            return;
+        }
+
+        res.status(200).send(result[0]);
     });
 });
 
@@ -195,6 +271,16 @@ function validateLogin(request){
     const schema = Joi.object({
         username: Joi.string().required(),
         password: Joi.string().required()
+    });
+
+    return schema.validate(request);
+}
+
+function validateFood(request){
+    const schema = Joi.object({
+        foodname: Joi.string().required(),
+        foodcost: Joi.number().required(),
+        foodtype: Joi.string().valid('Indian','Chinese','Mexican','Italian','Thai')
     });
 
     return schema.validate(request);

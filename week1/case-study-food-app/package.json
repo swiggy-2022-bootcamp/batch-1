@@ -2,6 +2,9 @@
   "dependencies": {
     "express": "^4.17.2",
     "joi": "^17.5.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.15",
+    "shortid": "^2.2.16",
+    "uuid": "^8.3.2"
   }
 }
