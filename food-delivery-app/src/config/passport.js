@@ -20,7 +20,7 @@ const jwtVerify = async (payload, done) => {
       // return done(new Error('Invalid token type'), false);
       throw new Error('Invalid token type');
     }
-    const user = await User.findOne({ _id: payload.sub }).exec(); // here _id
+    const user = await User.findOne({ _id: payload.sub }).exec();
     if (user) {
       return done(null, user);
     } else {

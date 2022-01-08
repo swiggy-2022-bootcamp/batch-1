@@ -24,7 +24,7 @@ const generateAuthTokens = async (user) => {
   const secs = Math.floor(time / 1000) + exp;
   time.setSeconds(time.getSeconds() + exp);
   const token = generateToken(
-    user._id, //_id
+    user._id,
     secs,
     tokenTypes.ACCESS,
     config.jwt.secret

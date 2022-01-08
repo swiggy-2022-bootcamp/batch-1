@@ -17,7 +17,7 @@ const { User } = require('../models');
 
 async function getUserById(id) {
   try {
-    const user = await User.findOne({ _id: id }).exec();
+    const user = await User.findById(id).exec();
     if (user !== null) {
       // const userData = extractUserInfo(user);
       return user;
