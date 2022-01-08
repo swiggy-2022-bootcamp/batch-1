@@ -32,7 +32,7 @@ const registerController = async (req, res) => {
     })
     .catch(err =>{
         console.log("registration failed.")
-        return res.status(400).send(err)
+        return res.status(500).send({message: err.message})
     })
 }
 
@@ -42,27 +42,34 @@ const registerController = async (req, res) => {
  * @params res 
  */
 const loginController = async (req,res)=>{
-    let { email, password } = req.body;
+    const {status, message } = await validateUser(req.body);
+    return res.status(status).send({message})
 
+}
+
+async function validateUser(userBody){
+    const { email, password } = userBody
+    const response = {
+        status: null,
+        message: "",
+    }
     const userExists = await userModel.findOne({ email })
     if(userExists){
         const passwordMatched = await bcrypt.compare(password, userExists.password)
-        if(passwordMatched){
-            res.status(200).send({
-                "message" : "user logged in successfully"
-            })
-        }else {
-            res.status(401).send({
-                "message" : "Sorry invalid credentials !!!"
-            })
+        if(passwordMatched) {
+            response.status = 200
+            response.message = "User logged in successfully"
         }
+        else {
+            response.status = 401
+            response.message = "Sorry invalid credentials"
+        };
+    }else {
+        response.status = 404
+        response.message = "User doesn't exist"
     }
-    else{
-        return res.status(404).send({
-            "message" : "User doesn't exist"
-        })
-    }
+    return response;
 }
    
 
-export { registerController, loginController }
+export { registerController, loginController, validateUser }

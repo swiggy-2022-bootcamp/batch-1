@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import routes from "./src/routes/routes.js"
 import userRoutes from "./src/routes/userRoutes.js"
+import questionRoutes from "./src/routes/questionRoutes.js"
 
 dotenv.config();
 console.log("Server starting ...")
@@ -33,6 +34,7 @@ connection.on("disconnected", () => {
 
 app.use(routes)
 app.use(userRoutes)
+app.use(questionRoutes)
 
 app.listen(PORT, ()=>{
     console.log(`✅ Server listening on PORT ${PORT}`)
