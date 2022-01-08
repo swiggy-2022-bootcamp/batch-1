@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const config = require('../config/config');
 
 const addressSchema = mongoose.Schema({
-  houseNumber: {
-    type: String,
+  houseno: {
+    type: Number,
     required: true,
   },
   street: {
@@ -22,16 +23,18 @@ const addressSchema = mongoose.Schema({
   zip: {
     type: Number,
     minLength: 6,
+    maxLength: 6,
     required: true,
   },
 });
 
 const userSchema = mongoose.Schema(
   {
-    id: {
-      type: Number,
-      required: true,
-    },
+    // id: {
+    //   type: Number,
+    //   required: true,
+    //   unique: true,
+    // },
     username: {
       type: String,
       required: true,
@@ -83,6 +86,15 @@ userSchema.statics.isEmailTaken = async function (email) {
     console.log(error.message);
   }
 };
+// userSchema.statics.isIdTaken = async function (id) {
+//   try {
+//     const doesExist = await this.exists({ id });
+//     if (doesExist) return true;
+//     return false;
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 userSchema.pre('save', function (next) {
   const user = this;
