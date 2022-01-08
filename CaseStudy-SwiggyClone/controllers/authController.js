@@ -135,3 +135,10 @@ module.exports.protectRoute = async function protectRoute(req,res,next)
     }
 }
 
+module.exports.logout = function logout(req,res)
+{
+    res.cookie('login',' ',{maxAge:1});
+    res.json({
+        message:'User logged off successfully'
+    })
+}

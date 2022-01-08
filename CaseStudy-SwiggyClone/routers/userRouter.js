@@ -1,7 +1,7 @@
 const express = require('express');
 const userRouter = express.Router();
 
-const {signup,login, protectRoute} = require('../controllers/authController');
+const {signup,login, protectRoute, logout} = require('../controllers/authController');
 const { getUser, updateUser, deleteUser } = require('../controllers/userController');
 
 
@@ -24,13 +24,14 @@ userRouter.route('/update')
 userRouter.route('/delete')
 .get(protectRoute,deleteUser);
 
+userRouter.route('/logout')
+.get(logout);
 
 // userRouter.route('/:id')
 // .patch(updateUser)
 // .delete(deleteUser)
 
-// userRouter.route('/logout')
-// .get(logout);
+
 
 // userRouter.route('')
 // .get(protectRoute,isAuthorised(['admin']),getAllUsers)
