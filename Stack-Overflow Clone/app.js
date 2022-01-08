@@ -19,6 +19,26 @@ app.get('/', (req, res) => {
     res.send('Hello');
 })
 
+app.post('/change-password', async (req, res) => {
+    const {token, new_password} = req.body;
+
+    try{
+        const user = jwt.verify(token, JWT_SECRET);
+        const _id = user.id
+        const hashedPassword = await bcrypt.hash(new_password, 10);
+        await User.updateOne(
+            {_id},
+            {
+                $set: {password:  hashedPassword}
+            }
+        )
+        res.json({status: 'ok', message: 'Password succesfully changed'});
+    } catch(error) {
+        res.json({status: 'error', error: error.message});
+    }
+
+})
+
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({email}).lean();
