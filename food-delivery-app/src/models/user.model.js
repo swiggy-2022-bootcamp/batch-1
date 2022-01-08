@@ -3,9 +3,27 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const addressSchema = mongoose.Schema({
-  city: String,
-  street: String,
-  houseNumber: String,
+  houseNumber: {
+    type: String,
+    required: true,
+  },
+  street: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  zip: {
+    type: Number,
+    minLength: 6,
+    required: true,
+  },
 });
 
 const userSchema = mongoose.Schema(
@@ -44,7 +62,6 @@ const userSchema = mongoose.Schema(
     },
     walletMoney: {
       type: Number,
-      required: true,
       default: config.default_wallet_money,
     },
     address: {
