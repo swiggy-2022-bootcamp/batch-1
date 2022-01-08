@@ -68,6 +68,35 @@ module.exports.updateUser = async function updateUser(req,res)
     
 }
 
+module.exports.deleteUser = async function deleteUser(req,res)
+{
+    try
+    {
+        let uid = req.id;
+        let deletedUser = await userModel.findByIdAndDelete(uid);
+        if(!deletedUser)
+        {
+            res.json({
+                message:'User not found'
+            });
+        }
+        else
+        {
+            // redirect to home page in browser
+            res.json({
+                message:'User deleted',
+                data:deletedUser
+            });
+
+        }
+    }
+    catch(err)
+    {
+        res.json({
+            message:err.message
+        });
+    }
+}
 // inserted user for testing purpose
 // module.exports.getSample = async function getSample(req,res)
 // {

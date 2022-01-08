@@ -2,7 +2,7 @@ const express = require('express');
 const userRouter = express.Router();
 
 const {signup,login, protectRoute} = require('../controllers/authController');
-const { getUser, updateUser } = require('../controllers/userController');
+const { getUser, updateUser, deleteUser } = require('../controllers/userController');
 
 
 // for testing schema properly
@@ -20,6 +20,9 @@ userRouter.route('/userProfile')
 
 userRouter.route('/update')
 .patch(protectRoute,updateUser);
+
+userRouter.route('/delete')
+.get(protectRoute,deleteUser);
 
 
 // userRouter.route('/:id')
