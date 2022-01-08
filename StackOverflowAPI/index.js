@@ -1,9 +1,12 @@
+//for accessing environment variables from .env file
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 2022;
 
 app.get('/', (_, res) => {
-    res.status(200).send("Working!");
+    res.status(200).send("Working");
 })
 
 app.listen(PORT, (err) => {

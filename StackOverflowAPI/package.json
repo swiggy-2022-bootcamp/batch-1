@@ -9,14 +9,20 @@
   },
   "keywords": [
     "Stackoverflow",
-    "RestAPI"
+    "RestAPI",
+    "api"
   ],
   "author": "Divyalok Jaiswal",
   "license": "ISC",
   "dependencies": {
+    "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.15"
   }
 }
