@@ -17,7 +17,7 @@ const foodSchema = new mongoose.Schema({
     },
 
     foodCost : {
-        type : String,
+        type : Number,
         required : true
     },
 

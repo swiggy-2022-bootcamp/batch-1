@@ -11,6 +11,7 @@ const Restaurant = require('./schemas/restaurant.js');
 const Food = require("./schemas/food.js")
 
 const connectDB = require('./db.js');
+const res = require('express/lib/response');
 
 
 connectDB()
@@ -169,7 +170,6 @@ app.delete('/api/users/:userID', async (req, res) => {
 async function saveRestaurantDetails(req) {
 
     try {
-        console.log(req.body);
         const restaurant = await Restaurant.create({
             restaurantName : req.body.restaurantName,
             restaurantAddress : req.body.restaurantAddress
@@ -211,14 +211,63 @@ app.get('/api/restaurants', async (req, res) => {
     return res.status(200).json(restaurants);
 })
 
+async function saveFoodDetails(req) {
 
+    try {
+        const food = await Food.create({
+            restaurantName : req.body.restaurantName,
+            restaurantId : req.body.restaurantId,
+            foodName : req.body.foodName,
+            foodCost : parseInt(req.body.foodCost),
+            foodType : req.body.foodType
+        });
 
-app.post('/api/food', (req, res) => {
+        await food.save();
+        return food;
+    
+    } catch(e) {
+        console.log(e.message);
+        return false;
+    }
+}
 
+app.post('/api/food', async (req, res) => {
+    try {
+
+        const restaurant = await Restaurant.find({_id : req.body.restaurantId});
+        console.log(restaurant);
+     
+        const oldFood = await Food.findOne({restaurantId : req.body.restaurantId, foodName : req.body.foodName});
+        if (oldFood) {
+            return res.status(409).send({"message" : "Food Name already exists for this restaurant"});
+        }   
+    } catch(e) {
+        console.log(e.message);
+        return res.status(409).json({"message" : "Restaurant not found"});
+    }
+
+    const foodSaved = await saveFoodDetails(req);
+
+    if(foodSaved) {
+        return res.status(200).send(foodSaved);   
+    }
+
+    res.status(400).json({"message" : "Food item registration not successful"});
 });
 
-app.get('/api/food/:foodID', (req, res) => {
+app.get('/api/food', async (req, res) => {
+    const food = await Food.find();
+    return res.status(200).json(food);
+});
 
+
+app.get('/api/food/:foodID', async (req, res) => {
+    try {
+        const food = await Food.find({_id : req.params.foodID});
+        return res.status(200).json(food);
+    } catch(e) {
+        return res.status(404).json({"message" : `Food with id ${req.params.foodID} not found`});
+    }
 });
 
 
