@@ -1,0 +1,22 @@
+{
+  "name": "stackoverflowapi",
+  "version": "1.0.0",
+  "description": "StackOverflow APIs for Swiggy I++ Week0 ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [
+    "Stackoverflow",
+    "RestAPI"
+  ],
+  "author": "Divyalok Jaiswal",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.15"
+  }
+}
