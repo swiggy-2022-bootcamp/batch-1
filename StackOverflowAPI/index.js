@@ -1,12 +1,12 @@
 //for accessing environment variables from .env file
 require('dotenv').config();
 
-
 const express = require('express');
 const app = express();
 const logger = require('morgan');
 const accessLogStream = require('./config/accessLogStream');
 const port = process.env.PORT || 2022;
+const db = require('./config/mongoose');
 
 // for recognizing and parsing json objects
 app.use(express.json());
