@@ -1,0 +1,15 @@
+{
+  "name": "casestudy-swiggyclone",
+  "version": "1.0.0",
+  "description": "Backend for a generic Food delivery Application",
+  "main": "foodApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AbhishekShyam",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.2"
+  }
+}
