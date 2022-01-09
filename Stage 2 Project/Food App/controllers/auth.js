@@ -1,19 +1,17 @@
 const db = require("../models");
 const config = require("../config/auth");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const { constructAddress } = require("./User/utils");
+
 const User = db.user;
 const Role = db.role;
 const Address = db.address;
 
 const Op = db.Sequelize.Op;
 
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-const { get } = require("lodash");
-const { constructAddress } = require("./utils");
-
 exports.register = (req, res) => {
-  const { username, email, password, roles, address } = get(req, 'body', {});
-
+  const { username, email, password, roles, address } = req.body;
   if (!username || !email || !password || !address) {
     res.status(400).send({ message: "Invalid Input values" });
   }
@@ -53,7 +51,7 @@ exports.register = (req, res) => {
 
 exports.login = (req, res) => {
 
-  const { username, password } = get(req, 'body', {});
+  const { username, password } = req.body;
 
   if (!username || !password) {
     res.status(400).send({ message: "Login credentials not found" });

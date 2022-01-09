@@ -1,7 +1,6 @@
-const db = require("../models");
+const db = require("../../models");
 const Address = db.address;
 const User = db.user;
-
 
 exports.getAllUsers = (_req, res) => {
   User.findAll({
