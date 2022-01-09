@@ -1,8 +1,6 @@
-import { validateUser } from "./userController.js"
-import userModel from "../models/user.js"
-import questionModel from "../models/question.js"
-import {ObjectId} from "mongodb"
+import { validateUser } from "../services/userService.js"
 import { logger } from "../utils/logger.js"
+import { addQuestionToDb, checkIfQuestionExists, addAnswerToDb, updateAnswerToDb } from "../services/questionService.js"
 
 const addQuestion = async (req,res)=>{
     const userDetails = req.body["user-details"];
@@ -21,21 +19,8 @@ const addQuestion = async (req,res)=>{
     
     question.user = _id
 
+    addQuestionToDb(question, res)
     
-    questionModel.create(question)
-        .then((questionDocument)=>{
-            logger.info("POST question returned 201 CREATED. ")
-            return res.status(201).send({
-                "message" : "Question added successfully",
-                "question-id" : questionDocument._id
-            })
-        })
-        .catch(err =>{
-            logger.error(`Add question POST request failed with ${err.message}`)
-            return res.status(500).send({
-                message: err.message,
-            })
-        })
 
 }
 
@@ -55,50 +40,14 @@ const addAnswer = async (req,res)=>{
         return res.status(_status).send({ "message" : _message})
     }
 
-    const { answer } = req.body.question
-    const userId = _id
-
     //Validating if the question exists or not
-    const question_id = new ObjectId(questionId)
-    const doesQuestionExists = await questionModel.findOne({"_id" : question_id})
+    const doesQuestionExists = await checkIfQuestionExists(questionId) 
     if(!doesQuestionExists){
         return res.status(404).send({"message" : "Question doesn't exists"})
     }
 
-
-
-    // Checking if the current user has already answered the question
-    let userAlreadyAnswered = false
-    for(let i in doesQuestionExists.answers){
-        console.log(doesQuestionExists.answers[i].user + " " + _id)
-        if((doesQuestionExists.answers[i].user).equals(_id)) {
-            userAlreadyAnswered = true
-            break;
-        }    
-    }
-
-    if(userAlreadyAnswered){
-        return res.status(409).send("You have already answered the question")
-    }
-
-    //Adding the answer to the database.
-    questionModel.updateOne({_id: question_id}, {
-        $push: {
-            answers : {
-                user : userId,
-                answer : answer
-            }
-        }
-    }).then(()=>{
-        logger.info("POST request for add answers returned 201 CREATED.")
-        res.status(201).send({
-            "message": "Answer posted successfully",
-            "quesiton-id" : questionId
-        })
-    }).catch((err)=>{
-        logger.error(`Add answer POST request failed with  ${err.message}`)
-        res.status(500).send({message: err.message})
-    })
+    // Adding answer into the database.
+    addAnswerToDb(doesQuestionExists, req, res)
 
 }
 
@@ -118,52 +67,14 @@ const updateAnswer = async (req,res) => {
         return res.status(_status).send({ "message" : _message})
     }
 
-    const { answer } = req.body.question
-    const userId = _id
-
     //Validating if the question exists or not
-    const question_id = new ObjectId(questionId)
-    const doesQuestionExists = await questionModel.findOne({"_id" : question_id})
+    const doesQuestionExists = await checkIfQuestionExists(questionId) 
     if(!doesQuestionExists){
         return res.status(404).send({"message" : "Question doesn't exists"})
     }
 
-
-
-    // Checking if the current user has already answered the question
-    let userAlreadyAnswered = false
-    let existingResponse = ""
-    let updatedAnnswers = []
-    for(let i in doesQuestionExists.answers){
-        if((doesQuestionExists.answers[i].user).equals(_id)) {
-            userAlreadyAnswered = true
-            existingResponse = doesQuestionExists.answers[i]
-            existingResponse.answer = answer
-            updatedAnnswers.push(existingResponse)
-        }else{
-            updatedAnnswers.push(doesQuestionExists.answers[i])
-        }    
-    } 
-
-    if(!userAlreadyAnswered){
-        return res.status(404).send({"message " : "You have not answered the question"})
-    }
-
-    //Updating the answer present in the database.
-    questionModel.updateOne({_id : question_id }, {
-        $set : {
-            answers : updatedAnnswers
-        }
-    }).then(()=>{
-        logger.info("PUT request for update answers returned 201 OK.")
-        res.status(201).send({
-            "message": "Answer updated successfully",
-            "quesiton-id" : questionId
-        })
-    }).catch((err)=>{
-        logger.error(`Update answer POST request failed with  ${err.message}`)
-        res.status(500).send({message: err.message})
-    })
+    //Updating answer for a particular user
+    updateAnswerToDb(doesQuestionExists, req, res)
 
 }
 
@@ -185,8 +96,7 @@ const getAnswersByQuestionId = async (req,res)=>{
     
 
     //Validating if the question exists or not
-    const question_id = new ObjectId(questionId)
-    const doesQuestionExists = await questionModel.findOne({"_id" : question_id})
+    const doesQuestionExists = await checkIfQuestionExists(questionId) 
     if(!doesQuestionExists){
         return res.status(404).send({"message" : "Question doesn't exists"})
     }
