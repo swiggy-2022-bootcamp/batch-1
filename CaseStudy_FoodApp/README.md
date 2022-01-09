@@ -1,5 +1,5 @@
 # FoodApp API
-### For Swiggy IPP 
+### For Swiggy IPP by Aman Gupta 
 
 ## THIS PROJECT HAS BEEN DEPLOYED ONLINE WITH PERSISTENT STORAGE IN DATABASE
 
