@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const JWT_KEY = require('../secrets/secrets').JWT_KEY;
 
+// used to register a user -> be it a normal customer, restauraunt owner or delivery boy
 module.exports.signup = async function signup(req,res)
 {
     try{
@@ -33,6 +34,9 @@ module.exports.signup = async function signup(req,res)
     }
 }
 
+// used to login a user -> checks if required fields present, user exists in db, verifies hashed password
+// gets a unique token signed for each user with payload containing unique id of each user
+// registers a cookies named login where this token is passed to and fro until user logs out
 module.exports.login = async function login(req,res)
 {
     try
@@ -82,6 +86,18 @@ module.exports.login = async function login(req,res)
     }   
 }
 
+// logs out user, essentially removes the login cookie containing unique token
+module.exports.logout = function logout(req,res)
+{
+    // setting age as 1 ms so it expires immediately 
+    res.cookie('login',' ',{maxAge:1});
+    res.json({
+        message:'User logged off successfully'
+    })
+}
+
+// verifies token from login cookie using our secret JWT key
+// after verifying user is correct, sets id and role of user in request object for next functions use
 module.exports.protectRoute = async function protectRoute(req,res,next)
 {
     try
@@ -128,14 +144,8 @@ module.exports.protectRoute = async function protectRoute(req,res,next)
     }
 }
 
-module.exports.logout = function logout(req,res)
-{
-    res.cookie('login',' ',{maxAge:1});
-    res.json({
-        message:'User logged off successfully'
-    })
-}
-
+// checks if user is authorised for the operation that is going to be performed next
+// we can pass whatever roles are allowed using 'roles' array
 module.exports.isAuthorised = function isAuthorised(roles)
 {
     return function(req,res,next)

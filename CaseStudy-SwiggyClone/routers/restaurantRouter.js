@@ -1,10 +1,15 @@
 const express = require('express');
-const { isAuthorised, protectRoute } = require('../controllers/authController');
-const { registerRestaurant, getRestaurant, updateRestaurant, deleteRestaurant, addFoodItem, removeFoodItem, updateFoodItem } = require('../controllers/restaurantController');
 const restaurantRouter = express.Router();
 
+// importing functions from related controllers
+const { isAuthorised, protectRoute } = require('../controllers/authController');
+const { registerRestaurant, getRestaurant, updateRestaurant, deleteRestaurant, addFoodItem, removeFoodItem, updateFoodItem } = require('../controllers/restaurantController');
+
+// set role and id of user
 restaurantRouter.use(protectRoute);
-restaurantRouter.use(isAuthorised(['restaurantOwner','admin']));
+// check if user is actually one if these roles before any of below execute
+restaurantRouter.use(isAuthorised(['restaurantOwner']));
+
 restaurantRouter.route('/')
 .post(registerRestaurant)
 .patch(updateRestaurant)

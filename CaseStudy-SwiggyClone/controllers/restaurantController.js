@@ -1,12 +1,13 @@
 const restaurantModel = require('../models/restaurauntModel');
 
+// register a restaurant => only a restaurant owner can register and must follow restaurant model to register 
 module.exports.registerRestaurant = async function registerRestaurant(req,res)
 {
     try{
         let dataObj = req.body;
-        console.log(req.id);
+        // console.log(req.id);
         dataObj.restaurantId = req.id;
-        console.log(dataObj);
+        // console.log(dataObj);
         let restaurant = await restaurantModel.create(dataObj);
 
         if(restaurant)
@@ -31,6 +32,7 @@ module.exports.registerRestaurant = async function registerRestaurant(req,res)
     }
 };
 
+// gets all the restaurants under the owner and displays
 module.exports.getRestaurant = async function getRestaurant(req,res)
 {
     try
@@ -56,6 +58,7 @@ module.exports.getRestaurant = async function getRestaurant(req,res)
     }
 };
 
+// can update any restaurant under the owner
 module.exports.updateRestaurant = async function updateRestaurant(req,res)
 {
     try
@@ -102,6 +105,7 @@ module.exports.updateRestaurant = async function updateRestaurant(req,res)
     
 }
 
+// can delete any restaurant under the owner
 module.exports.deleteRestaurant = async function deleteRestaurant(req,res)
 {
     try
@@ -140,6 +144,7 @@ module.exports.deleteRestaurant = async function deleteRestaurant(req,res)
     }
 }
 
+// adds a food item to the restaurant menu 
 module.exports.addFoodItem = async function addFoodItem(req,res)
 {
     try {
@@ -207,6 +212,7 @@ module.exports.addFoodItem = async function addFoodItem(req,res)
     }
 }
 
+// remove a food item when it is no longer available in the restaurant menu 
 module.exports.removeFoodItem = async function removeFoodItem(req,res)
 {
     try {
@@ -280,6 +286,7 @@ module.exports.removeFoodItem = async function removeFoodItem(req,res)
     }
 }
 
+// updates a food item -> be it price, description and so on to the restaurant menu 
 module.exports.updateFoodItem = async function updateFoodItem(req,res)
 {
     try {

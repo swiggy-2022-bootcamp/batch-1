@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel');
 
+// get the particular user's details who is logged in 
 module.exports.getUser = async function getUser(req,res)
 {
     try
@@ -27,6 +28,7 @@ module.exports.getUser = async function getUser(req,res)
     
 }
 
+// update profile of particular user
 module.exports.updateUser = async function updateUser(req,res)
 {
     try
@@ -67,6 +69,7 @@ module.exports.updateUser = async function updateUser(req,res)
     
 }
 
+// deletes particular user that is logged in
 module.exports.deleteUser = async function deleteUser(req,res)
 {
     try
@@ -97,6 +100,9 @@ module.exports.deleteUser = async function deleteUser(req,res)
     }
 }
 
+// admin functions
+
+// get all users registered to service
 module.exports.getAllUsers = async function getAllUsers(req,res)
 {
     try
@@ -115,6 +121,7 @@ module.exports.getAllUsers = async function getAllUsers(req,res)
     }
 }
 
+// get any user and its details based on particular id
 module.exports.getUsers = async function getUsers(req,res)
 {
     try
@@ -142,6 +149,7 @@ module.exports.getUsers = async function getUsers(req,res)
     
 }
 
+// update any user and based on particular id
 module.exports.updateUsers = async function updateUsers(req,res)
 {
     try
@@ -176,6 +184,7 @@ module.exports.updateUsers = async function updateUsers(req,res)
     }    
 }
 
+// delete  any user and based on particular id
 module.exports.deleteUsers = async function deleteUsers(req,res)
 {
     try

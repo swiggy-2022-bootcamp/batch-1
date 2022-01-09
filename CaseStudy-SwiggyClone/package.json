@@ -1,7 +1,7 @@
 {
   "name": "casestudy-swiggyclone",
   "version": "1.0.0",
-  "description": "Backend for a generic Food delivery Application",
+  "description": "Backend for a generic food delivery Application",
   "main": "foodApp.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

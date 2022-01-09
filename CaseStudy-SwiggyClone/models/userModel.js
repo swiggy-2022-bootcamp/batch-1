@@ -4,6 +4,7 @@ const validator = require("email-validator");
 const bcrypt = require('bcrypt');
 const { db_link } = require('../secrets/secrets');
 
+//establish connection with mongodb
 mongoose.connect(db_link)
 .then(function(db)
 {
@@ -14,6 +15,7 @@ mongoose.connect(db_link)
     console.log(err);
 });
 
+// making a schema for user collection
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -77,11 +79,11 @@ const userSchema = new mongoose.Schema({
     resetToken:String
 });
 
-// pre post hooks
+// pre hooks before any document is saved
 userSchema.pre('save',function(){
-    // wont save in db if undefined
+    // wont save in db if a field is undefined
+    // we dont need redundant data
     this.confirmPassword = undefined;
-    // console.log('before saving to db',this);
 });
 
 userSchema.pre('save',async function(){
@@ -93,6 +95,7 @@ userSchema.pre('save',async function(){
     // console.log(hashString);
 });
 
+// associate a model with a schema
 const userModel = mongoose.model('userModel',userSchema);
 
 module.exports = userModel;

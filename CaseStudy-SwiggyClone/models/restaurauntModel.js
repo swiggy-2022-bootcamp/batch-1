@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { db_link } = require('../secrets/secrets');
 
-
+// establish connection with mongodb
 mongoose.connect(db_link)
 .then(function(db)
 {
@@ -12,6 +12,7 @@ mongoose.connect(db_link)
     console.log(err);
 });
 
+// making a schema for restaurant collection
 const restaurantSchema = new mongoose.Schema({
     restaurantId:{
         type: mongoose.Schema.Types.ObjectId, 
@@ -119,6 +120,7 @@ const restaurantSchema = new mongoose.Schema({
 
 const restaurantModel = mongoose.model('restaurantModel',restaurantSchema);
 
+// needed to drop this index as different restaurants can have the exact same food item
 // restaurantModel.collection.dropIndex('foodItems.name_1',function(err,result)
 // {
 //     if (err) {
