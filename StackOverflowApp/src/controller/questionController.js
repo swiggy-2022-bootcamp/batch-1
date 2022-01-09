@@ -7,13 +7,13 @@ const addQuestion = async (req,res)=>{
     const userDetails = req.body["user-details"];
     const { question } = req.body
     
-    const { status, message } = await validateUser(userDetails)
+    const { status, message, _id } = await validateUser(userDetails)
     if(status != 200){
         return res.status(status).send({message})
     }
 
-    const currUser = await userModel.findOne({email: userDetails.email})
-    question.user = currUser._id
+    
+    question.user = _id
 
     
     questionModel.create(question)
@@ -34,22 +34,40 @@ const addQuestion = async (req,res)=>{
 const addAnswer = async (req,res)=>{
     const userDetails = req.body["user-details"];
     const questionId = req.params.questionId
-    const { status, message } = await validateUser(userDetails)
+
+    //Validating if the user credentials are correct
+    const { status, message, _id } = await validateUser(userDetails)
     if(status != 200){
         return res.status(status).send({message})
     }
 
     const { answer } = req.body.question
-    const currUser = await userModel.findOne({email: userDetails.email})
-    const userId = currUser._id
+    const userId = _id
 
+    //Validating if the question exists or not
     const question_id = new ObjectId(questionId)
     const doesQuestionExists = await questionModel.findOne({"_id" : question_id})
-    
     if(!doesQuestionExists){
-        return res.status(400).send({"message" : "Question doesn't exists"})
+        return res.status(404).send({"message" : "Question doesn't exists"})
     }
 
+
+
+    // Checking if the current user has already answered the question
+    let userAlreadyAnswered = false
+    for(let i in doesQuestionExists.answers){
+        console.log(doesQuestionExists.answers[i].user + " " + _id)
+        if((doesQuestionExists.answers[i].user).equals(_id)) {
+            userAlreadyAnswered = true
+            break;
+        }    
+    }
+
+    if(userAlreadyAnswered){
+        return res.status(409).send("Yoiu have already answered the question")
+    }
+
+    //Adding the answer to the database.
     questionModel.updateOne({_id: question_id}, {
         $push: {
             answers : {
@@ -69,4 +87,33 @@ const addAnswer = async (req,res)=>{
 
 }
 
-export { addQuestion, addAnswer }
+
+const getAnswersByQuestionId = async (req,res)=>{
+    const userDetails = req.body["user-details"];
+    const questionId = req.params.questionId
+
+    //Validating if the user credentials are correct
+    const { status, message, _id } = await validateUser(userDetails)
+    if(status != 200){
+        return res.status(status).send({message})
+    }
+
+    //Validating if the question exists or not
+    const question_id = new ObjectId(questionId)
+    const doesQuestionExists = await questionModel.findOne({"_id" : question_id})
+    if(!doesQuestionExists){
+        return res.status(404).send({"message" : "Question doesn't exists"})
+    }
+
+    let response = {
+        question : doesQuestionExists.title,
+        answers : []
+    }
+
+    for(let i in doesQuestionExists.answers){
+       response.answers.push({"answer " : doesQuestionExists.answers[i].answer})
+    }
+
+    res.status(200).send(response)
+}
+export { addQuestion, addAnswer, getAnswersByQuestionId }

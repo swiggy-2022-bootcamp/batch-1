@@ -52,6 +52,7 @@ async function validateUser(userBody){
     const response = {
         status: null,
         message: "",
+        _id: ""
     }
     const userExists = await userModel.findOne({ email })
     if(userExists){
@@ -59,6 +60,7 @@ async function validateUser(userBody){
         if(passwordMatched) {
             response.status = 200
             response.message = "User logged in successfully"
+            response._id = userExists._id
         }
         else {
             response.status = 401
