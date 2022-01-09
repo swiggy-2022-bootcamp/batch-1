@@ -1,5 +1,7 @@
 const User = require('../schemas/user.js');
 
+const userModificationValidation = require('../apiSchemas/userModification.js');
+
 exports.usersList = async (req, res) => {
 
     const users = await User.find();
@@ -19,6 +21,12 @@ exports.userDetail = async (req, res) => {
 }
 
 exports.modifyUserDetails = async (req, res) => {
+
+    try {
+        await userModificationValidation.schema.validateAsync(req.body);
+    } catch(e) {
+        return res.status(422).json({"message" : e.details[0].message});
+    }
 
     try {
         const user = await User.findOne({_id : req.body._id});

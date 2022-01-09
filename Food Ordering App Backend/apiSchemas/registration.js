@@ -9,7 +9,7 @@ exports.schema = Joi.object({
         street : Joi.string().required(),
         city : Joi.string().required(),
         state : Joi.string().required(),
-        zip : Joi.string().length(6).regex(/^\d+$/)
+        zip : Joi.string().length(6).regex(/^\d+$/).required()
     })
 })
 
