@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Swiggy Day 1 | Task Demo</title>
+
+    <script>
+        function displayFunction1() {
+            document.getElementById('div4').innerHTML = 'Hey, Whats Up?';
+        }
+
+        function displayFunction3() {
+            var name = document.getElementById('in1').value;
+            document.write('Thanks ' + name);
+        }
+    </script>
+    <!-- Extenal Script -->
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <!-- Inline script-->
+    <h3>Inline Script</h3>
+    <br>
+    <div id="div1" onmouseover="document.getElementById('div2').innerHTML='Hey, Whats Up?'">
+        Please hover the mouse.! (Inline Script)
+        <div id="div2"></div>
+    </div>
+    <hr>
+
+    <!-- Internal script-->
+    <h3>Internal Script</h3>
+    <br>
+    <div id="div3" onmouseover="displayFunction1()">
+        Please hover the mouse.! (Internal Script)
+        <div id="div4"></div>
+    </div>
+    <hr>
+
+    <!-- External script-->
+    <h3>External Script</h3>
+    <br>
+    <div id="div3">
+        <label for="in1">Name Please</label> <br>
+        <input type="text" id="in1" placeholder="Harry Porter" onblur="helloFunction(this.value);">
+        <br><br>
+        <button onclick="displayFunction3(); displayFunction2();">Submit</button>
+        <button onclick="print()">Print</button>
+    </div>
+    <hr>
+</body>
+
+</html>

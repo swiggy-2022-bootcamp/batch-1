@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiggy Day 01</title>
+    <!-- Internal Script -->
+    <script>
+    function func(data){
+        console.log(data);
+        return;
+    }
+    </script>
+    <!-- Import External Script -->
+    <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+    <div>
+        <p id='p1'>Hello This is day 01.</p>
+        <p style="color: blue; cursor: pointer;" onclick ="func(document.getElementById('p1').innerText)">Click to see upper text content in console.</p>
+    </div>
+    <div>
+    <p id='p2'>Second para in first task.</p>
+    <p style="color: blue;  cursor: pointer;" onclick="func_two(document.getElementById('p2').innerText)">Click to see upper text content in browser alert.</p>
+    </div>
+
+    <span style="border: 1px solid black; padding:5px; cursor: pointer" onclick="print()">Print Page</span>
+</body>
+</html>
