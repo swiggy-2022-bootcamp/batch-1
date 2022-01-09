@@ -1,5 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Joi = require('joi');
+
+const registrationValidation = require('../apiSchemas/registration.js');
+const authenticationValidation = require('../apiSchemas/authentication.js');
 
 async function saveUserDetails(req) {
 
@@ -43,6 +47,12 @@ async function saveUserDetails(req) {
 exports.registerUser = async (req, res) => {
     
     try {
+        await registrationValidation.schema.validateAsync(req.body);
+    } catch(e) {
+        return res.status(422).json({"message" : e.details[0].message});
+    }
+
+    try {
     const oldUser = await User.findOne({ email : req.body.email });
     if (oldUser) {
         return res.status(409).send("User already registered. Please Login");
@@ -64,6 +74,12 @@ exports.registerUser = async (req, res) => {
 const User = require('../schemas/user.js');
 
 exports.authenticateUser = async (req, res) => {
+
+    try {
+        await authenticationValidation.schema.validateAsync(req.body);
+    } catch(e) {
+        return res.status(422).json({"message" : e.details[0].message});
+    }
 
     const {email , password} = req.body;
 
