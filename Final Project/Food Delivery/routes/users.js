@@ -27,35 +27,7 @@ router.get("/:id", getUser , (req, res) => {
         res.status(404).json({message: `Sorry user with ${req.params.id} not found`});
     }
 });
-
-
-
-//ADD USER
-//API POST /api/register
-router.post('/register', async (req, res) => {
-
-   const checkIfUserAlreadyRegistered = User.findOne({userName: req.params.userName});
-   if(checkIfUserAlreadyRegistered == null){
-
-        const user = new User({
-        userName: req.body.userName,
-        email: req.body.email,
-        password: req.body.password,
-        address: req.body.address
-        });
- 
-    try {
-        const newUser = await user.save();
-        res.status(200).json(newUser);
-    }
-    catch(error) {
-        res.status(400).json({message: error.message})
-    }
-   }
-   else{
-       res.status(409).json({message: `The userName ${req.body.userName} already exists. Please sign in`});
-   } 
-});
+  
 
 
 //UPDATE THE USER
@@ -117,21 +89,6 @@ router.delete('/:id',  getUser,  async (req, res) => {
 });
 
 
-
-//VALIDATE IF USER IS PRESENT 
-//API POST /api/users/authenticate
-router.post('/authenticate', async (req, res)=>{
-    const {userName, password} = req.body;
-    const user = await User.findOne({userName: userName, password: password});
-    if(user != null){
-        jwt.sign({user: user}, 'secretKey', (err, token) => {
-            res.status(200).json({message: "User has been signed successfully", token: token});
-        });
-    }
-    else{
-        res.status(403).json({message:"User not found. Please check the credentials"});
-    }
-});
 
 
 //Middle ware function to verify token
