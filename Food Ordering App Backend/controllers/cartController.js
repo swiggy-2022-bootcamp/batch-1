@@ -1,6 +1,8 @@
 const Food = require('../schemas/food.js');
 const Cart = require('../schemas/cart.js');
 
+const cartModificationValidation = require('../apiSchemas/cartModification.js');
+
 async function saveCartItemDetails(req) {
 
     try {
@@ -25,6 +27,13 @@ async function saveCartItemDetails(req) {
 
 exports.modifyCart = async(req, res) => {
 
+    try {
+        await cartModificationValidation.schema.validateAsync(req.body);
+    } catch(e) {
+        return res.status(422).json({"message" : e.details[0].message});
+    }
+
+
     try {     
         await Cart.deleteOne({userID : req.params.userID, foodName : req.body.foodName, restaurantID : req.body.restaurantID});
     } catch(e) {
@@ -33,8 +42,6 @@ exports.modifyCart = async(req, res) => {
     }
 
     const foodItem = await Food.findOne({restaurantId : req.body.restaurantID, foodName : req.body.foodName });
-
-    console.log(foodItem);
 
     if(!foodItem) {
         return res.status(409).json({"message" : "Invalid food item"});
