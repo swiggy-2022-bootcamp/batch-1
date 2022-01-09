@@ -139,3 +139,78 @@ module.exports.deleteRestaurant = async function deleteRestaurant(req,res)
         });
     }
 }
+
+module.exports.addFoodItem = async function addFoodItem(req,res)
+{
+    try {
+        let rid = req.id;
+        let rname = req.body.restaurantName;
+        let foodItem = req.body.foodItems;
+
+        if(!foodItem)
+        {
+            return res.json({
+                message:'Field food item is necessary to add food items'
+            }); 
+        }
+
+        if(!rname)
+        {
+            return res.json({
+                message:'Restaurant name is necessary to add food item'
+            });
+        }
+
+        let rest = await restaurantModel.findOne({restaurantId:rid,restaurantName:rname});
+
+        if(rest)
+        {
+            for(item in rest.foodItems)
+            {
+                if(rest.foodItems[item].name == foodItem.name)
+                {
+                    return res.json({
+                        message:'Food item already included'
+                    }); 
+                }
+            }
+
+            let respObj;
+            let up = await restaurantModel.findOneAndUpdate({restaurantId:rid,restaurantName:rname},
+                {$push:{foodItems:foodItem}},
+                function(err,succ)
+                {
+                    if(err)
+                    {
+                        console.log('went here');
+                        respObj = err.message;
+                        // res.status(500).json({
+                        //     message:err.message
+                        // });
+                    }
+                    else{
+                        respObj = succ;
+                        // res.json({
+                        //     message:'Successfully added',
+                        //     data:succ
+                        // });
+                    }
+                }
+            ).clone().catch(function(err){ console.log(err)});
+            res.json({
+                data:respObj
+            });
+        }
+        else
+        {
+            res.json({
+                message:'Restaurant not found'
+            })
+        }
+        
+    } catch (err) {
+        res.status(500).json({
+            message:err.message
+        });
+    }
+}

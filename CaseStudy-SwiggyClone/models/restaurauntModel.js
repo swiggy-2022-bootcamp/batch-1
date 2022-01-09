@@ -84,7 +84,6 @@ const restaurantSchema = new mongoose.Schema({
             default:false
         }
         },
-        unique:false,
         default : []
     }],
     profilePicture:{
