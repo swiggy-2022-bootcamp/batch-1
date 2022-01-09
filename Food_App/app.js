@@ -7,10 +7,12 @@ const app = express();
 
 // Import Routes
 const usersRoute = require('./routes/users');
+const foodRoute = require('./routes/foods');
 
 // Middlewares
 app.use(bodyParser.json());
-app.use('/api', usersRoute);
+app.use('/api/', usersRoute);
+app.use('/api/food/', foodRoute)
 
 // Routes
 app.get('/', (req, res) => {
