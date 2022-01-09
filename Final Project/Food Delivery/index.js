@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/users")
 const foodRoutes = require("./routes/foods");
+const authRoutes = require("./routes/auth")
  require("dotenv").config();
 
 
@@ -18,6 +19,7 @@ const foodRoutes = require("./routes/foods");
 
  app.use(bodyParser.json());
 
+ app.use('/api', authRoutes);
  app.use('/api/users', userRoutes);
  app.use('/api/food', foodRoutes);
 
