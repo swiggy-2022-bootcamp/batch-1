@@ -21,4 +21,14 @@ router.post('/register', async (req, res) => {
     }
 });
 
+// GETS ALL THE USERS
+router.get('/users', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (err) {
+        res.json({ message: err });
+    }
+});
+
 module.exports = router;
