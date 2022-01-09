@@ -48,27 +48,9 @@ _to navigate to the codebase of the project go to project/stackover_
 
 --
 
-## Public Endpoints
-1. POST http://localhost:8080/login
+# Public Endpoints 
 
-Header:
-
-```Content-Type: application/x-www-form-urlencoded```
-
-Body:
-
-username - <username>
-password - <password>
-
-2. GET http://localhost:8080/session
-
-to check who is logged in 
-
-3. GET http://localhost:8080/logout
-
-to log the user out.
-
-4. POST http://localhost:8080/register
+### 1. POST http://localhost:8080/register
 
 to register a new user
 
@@ -79,3 +61,45 @@ Body:
 
 username - <username>
 password - <password>
+
+
+### 2. POST http://localhost:8080/login
+
+Header:
+
+```Content-Type: application/x-www-form-urlencoded```
+
+Body:
+
+username - <username>
+password - <password>
+
+
+### 3. GET http://localhost:8080/logout
+
+to log the user out.
+
+
+
+### 4. GET http://localhost:8080/session
+
+to check who is logged in 
+
+
+
+## Q an A related endpoints
+
+### 1. POST http://localhost:8080/answer
+
+fields: 
+- questionId : <needed > example: b6a2b8566ea41e617f2ec541922b3f1d
+- answer : <answer to the question >
+
+
+### 2. POST http://localhost:8080/ask
+
+fields:
+- statement : < the question statment>
+
+(the user id is picked up from the session)
+
