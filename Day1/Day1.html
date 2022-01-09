@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1</title>
+</head>
+<!-- Internal  -->
+<script>
+    function change(){
+        document.getElementById("para").innerHTML="Hello world";
+    }
+
+    function reset(){
+        document.getElementById("para").innerHTML="Hover to see effect";
+    }
+</script>
+<!-- External -->
+<script src="Day1.js"></script>
+<body>
+    <div id="para" onmouseenter="change();" onmouseleave="reset();">Hover to see effect</div>
+    <button id="alertUser" onclick="alert('Hello world')">Click me to alert</button>  
+    <button id="writeUser" onclick="write()">Click to write</button>
+    <button id="printStatement" onclick="printMssg()">Click to console log</button>
+    <button id="printBtn" onclick="window.print()">Click to print the page</button>
+</body>
+</html>
