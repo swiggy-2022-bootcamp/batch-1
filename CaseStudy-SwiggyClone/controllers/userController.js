@@ -1,6 +1,5 @@
 const userModel = require('../models/userModel');
 
-
 module.exports.getUser = async function getUser(req,res)
 {
     try
@@ -35,7 +34,7 @@ module.exports.updateUser = async function updateUser(req,res)
         let uid = req.id;
         let dataToUpdate = req.body;
 
-        if(dataToUpdate.email || dataToUpdate.password)
+        if(dataToUpdate.email || dataToUpdate.password || dataToUpdate.role)
         {
             return res.json({
                 message:'Cannot change these things here'
@@ -97,6 +96,115 @@ module.exports.deleteUser = async function deleteUser(req,res)
         });
     }
 }
+
+module.exports.getAllUsers = async function getAllUsers(req,res)
+{
+    try
+    {
+        // get all
+        let allUsers = await userModel.find();
+        res.json({
+            message:'List of All users',
+            data:allUsers
+        });
+    }catch(err)
+    {
+        res.json({
+            message:err.message
+        })
+    }
+}
+
+module.exports.getUsers = async function getUsers(req,res)
+{
+    try
+    {
+        let uid = req.params.id;
+        // console.log(uid);
+        let user = await userModel.findById(uid);
+
+        if(user)
+        {
+            return res.json(user);
+        }
+        else
+        {
+            return res.json({
+                message:'User not Found'
+            });
+        }
+    }catch(err)
+    {
+        res.json({
+            message:err.message
+        });
+    }
+    
+}
+
+module.exports.updateUsers = async function updateUsers(req,res)
+{
+    try
+    {
+        let uid = req.params.id;
+        let dataToUpdate = req.body;
+        // console.log(uid);
+        let user = await userModel.findById(uid);
+    
+        if(user)
+        {
+            const oldData = await userModel.findByIdAndUpdate(uid,dataToUpdate);
+            res.json({
+                message:'Data updated successfully',
+                oldData: oldData,
+                updatedFields: dataToUpdate
+            });
+        }
+        else
+        {
+            res.json({
+                message:'user not found'
+            });
+        }
+    }
+    catch(err)
+    {
+        // console.log('errored  here!');
+        res.json({
+            message:err.message
+        });
+    }    
+}
+
+module.exports.deleteUsers = async function deleteUsers(req,res)
+{
+    try
+    {
+        let uid = req.params.id;
+        let deletedUser = await userModel.findByIdAndDelete(uid);
+        if(!deletedUser)
+        {
+            res.json({
+                message:'User not found'
+            });
+        }
+        else
+        {
+            res.json({
+                message:'User deleted',
+                data:deletedUser
+            });
+
+        }
+    }
+    catch(err)
+    {
+        res.json({
+            message:err.message
+        });
+    }
+}
+
 // inserted user for testing purpose
 // module.exports.getSample = async function getSample(req,res)
 // {

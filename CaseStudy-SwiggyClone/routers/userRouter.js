@@ -1,9 +1,8 @@
 const express = require('express');
 const userRouter = express.Router();
 
-const {signup,login, protectRoute, logout} = require('../controllers/authController');
-const { getUser, updateUser, deleteUser } = require('../controllers/userController');
-
+const {signup,login, protectRoute, logout, isAuthorised} = require('../controllers/authController');
+const { getUser, updateUser, deleteUser, getAllUsers, updateUsers, deleteUsers, getUsers } = require('../controllers/userController');
 
 // for testing schema properly
 // userRouter.route('')
@@ -27,14 +26,14 @@ userRouter.route('/delete')
 userRouter.route('/logout')
 .get(logout);
 
-// userRouter.route('/:id')
-// .patch(updateUser)
-// .delete(deleteUser)
+userRouter.route('/all')
+.get(protectRoute,isAuthorised(['admin']),getAllUsers);
 
+userRouter.route('/:id')
+.get(protectRoute,isAuthorised(['admin']),getUsers)
+.patch(protectRoute,isAuthorised(['admin']),updateUsers)
+.delete(protectRoute,isAuthorised(['admin']),deleteUsers);
 
-
-// userRouter.route('')
-// .get(protectRoute,isAuthorised(['admin']),getAllUsers)
 
 
 module.exports = userRouter;

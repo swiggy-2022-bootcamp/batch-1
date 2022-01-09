@@ -142,3 +142,20 @@ module.exports.logout = function logout(req,res)
         message:'User logged off successfully'
     })
 }
+
+module.exports.isAuthorised = function isAuthorised(roles)
+{
+    return function(req,res,next)
+    {
+        if(roles.includes(req.role))
+        {
+            next();
+        }
+        else
+        {
+            return res.status(401).json({
+                message:'User not Authorized'
+            });
+        }
+    }
+}

@@ -15,44 +15,6 @@ mongoose.connect(db_link)
     console.log(err);
 });
 
-// const userSchema = new mongoose.Schema({
-//     name:{
-//         type:String,
-//         required:true
-//     },
-//     email:{
-//         type:String,
-//         required:true,
-//         unique:true,
-//         validate:
-//         function(){
-//             return validator.validate(this.email);
-//         }
-//     },
-//     password:{
-//         type:String,
-//         required:true,
-//         minLength:8
-//     },
-//     confirmPassword:{
-//         type:String,
-//         minLength:8,
-//         validate: function()
-//         {
-//             return this.password == this.confirmPassword;
-//         }
-//     },
-//     role:{
-//         type:String,
-//         enum:['admin','user','restaurantOwner','deliveryBoy'],
-//         default:'user'
-//     },
-//     profilePicture:{
-//         type:String,
-//         default:'img/users/default.jpeg'
-//     },
-//     resetToken:String
-// });
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
