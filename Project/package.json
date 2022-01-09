@@ -1,0 +1,20 @@
+{
+  "name": "foodapp",
+  "version": "1.0.0",
+  "description": "A basic food listing backend API's for login , registration, foodlisting.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "email-validator": "^2.0.4",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.1.5"
+  }
+}
