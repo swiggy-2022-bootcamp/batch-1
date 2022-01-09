@@ -69,6 +69,13 @@ module.exports.updateRestaurant = async function updateRestaurant(req,res)
                 message:'Restaurant Name required to change details'
             });
         }
+
+        if(dataToUpdate.restaurantId)
+        {
+            return res.json({
+                message:'Not allowed to update this'
+            });
+        }
         
         let restaurant = await restaurantModel.findOne({restaurantId:rid,restaurantName:dataToUpdate.restaurantName});
         if(restaurant)
@@ -93,4 +100,42 @@ module.exports.updateRestaurant = async function updateRestaurant(req,res)
         });
     }
     
+}
+
+module.exports.deleteRestaurant = async function deleteRestaurant(req,res)
+{
+    try
+    {
+        let rid = req.id;
+        let rname = req.body.restaurantName;
+
+        if(!rname)
+        {
+            return res.json({
+                message:'Restaurant Name required to change details'
+            });
+        }
+
+        let deletedRestaurant = await restaurantModel.findOneAndDelete({restaurantId:rid,restaurantName:rname});
+        if(!deletedRestaurant)
+        {
+            res.json({
+                message:'Restaurant not found'
+            });
+        }
+        else
+        {
+            // redirect to home page in browser
+            res.json({
+                message:'Restaurant deleted',
+                data:deletedRestaurant
+            });
+        }
+    }
+    catch(err)
+    {
+        res.status(500).json({
+            message:err.message
+        });
+    }
 }
