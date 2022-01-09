@@ -4,26 +4,26 @@ const bcrypt=require('../../utils/bcrypt');
 const jwt = require('../../utils/token');
 const mailUser = require('../../utils/welcomeEmail/welcomeEmail');
 const customerOperations = {
+// Get user by userId : GET
       async findByUserId(userid,res){
            try{
             const user=await userSchema.findOne({id:userid});
            if(user){
-                        res.status(201).json({user});
+                        res.status(200).json({user});
                     }
                     else{
-                        res.status(500).json({status:config.ERROR,message:"Unable to find the username of the user "});
-        
-        
-                    }
+                        res.status(404).json({status:config.ERROR,message:"Unable to find the username of the user "})
+                     }
               
               
            }
            catch(err){
-            res.status(500).json({status:config.ERROR,message:"Failed to find and login the email ID"});
+            res.status(500).json({status:config.ERROR,message:"Internal Server Error"});
 
            }
        
     },
+// Update user : PUT
     async updateByUserId(userobj,res){
         try {
             const user = await userSchema.findOne({id:userobj.id});
@@ -42,9 +42,10 @@ const customerOperations = {
     
         } catch(err) {
             console.log(err.message);
-            return res.status(404).json({"message" : `User with id ${userobj.id} not found`});
+            return res.status(404).json({status:config.ERROR,"message" : `User with id ${userobj.id} not found`});
         }
     },
+// Delete user : DELETE
   async deleteByUserId(userid,res){
         try{
            const user=await userSchema.findOneAndDelete({id:userid});
@@ -52,7 +53,7 @@ const customerOperations = {
                         res.status(200).json({status:config.SUCCESS,message:"User Deleted Successfully.",user});
                     }
                     else{
-                        res.status(200).json({status:config.ERROR,message:`Sorry user with ${userid} not found.`});
+                        res.status(404).json({status:config.ERROR,message:`Sorry user with ${userid} not found.`});
         
         
                     }
@@ -65,6 +66,7 @@ const customerOperations = {
         }
         
     },
+// Get All Users : GET
     async getAllUsers(res){
         try{
             const users=await userSchema.find({});
@@ -76,12 +78,12 @@ const customerOperations = {
 
         }
         catch(err){
-            res.status(500).json({status:config.ERROR,message:"Failed to find and login the email ID"});
+            res.status(500).json({status:config.ERROR,message:"Internal Server Error"});
 
         }
         
     },
- 
+ // Login User : POST
     async loginUser(username,password,res) {
         try{
             const user=await userSchema.findOne({username});
@@ -108,11 +110,13 @@ const customerOperations = {
            
         }
         catch(err){
-            res.status(500).json({status:config.ERROR,message:"Failed to find and login the email ID"});
+            res.status(500).json({status:config.ERROR,message:"Internal Server Error"});
 
         }
      
     },
+
+// Register User : POST
     async registerUser(newUserObject,res) {
         try{
             const user=await userSchema.findOne({username:newUserObject.username});
@@ -135,7 +139,7 @@ const customerOperations = {
                 
            
         }catch(err){
-            res.status(500).json({status:config.ERROR,message:"Unable to find the username of the user "});
+            res.status(500).json({status:config.ERROR,message:"Internal Server Error"});
 
            
         }

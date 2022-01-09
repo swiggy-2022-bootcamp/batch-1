@@ -3,6 +3,8 @@ const config=require("../../utils/config");
 
 
 const foodItemOperations = {
+
+//Get Food Items : GET
    
    async getFoodItems(queryobj,res){
        try{
@@ -13,7 +15,7 @@ const foodItemOperations = {
 
       const foodItems=await FoodItemSchema.find({ foodCost: { $gte: parseInt(min),$lte:parseInt(max)},foodType:{$in:type}  });
         if(foodItems)res.status(200).json({status:config.SUCCESS,foodItems});
-        else res.status(200).json({status:config.NOT_FOUND,message:"No Items found matching your filters."});
+        else res.status(404).json({status:config.NOT_FOUND,message:"No Items found matching your filters."});
        }
        catch(err){
         res.status(500).json({status:config.ERROR,message:"Internal Server Error,Please try again later!"});
@@ -23,6 +25,8 @@ const foodItemOperations = {
             
       
     },
+
+// Find Food Items By Food Item id : GET
     async findByFoodItemId(fooditemid,res){
         try{
             const foodItem=await FoodItemSchema.findOne({foodId:fooditemid});
@@ -30,7 +34,7 @@ const foodItemOperations = {
                 res.status(200).json({status:config.SUCCESS,foodItem});
             }
             else{
-                res.status(500).json({status:config.ERROR,message:"Unable to find your food item."});
+                res.status(404).json({status:config.ERROR,message:"Unable to find your food item."});
 
 
             }
@@ -39,6 +43,9 @@ const foodItemOperations = {
             res.status(500).json({status:config.ERROR,message:"Failed to find your food item."});
         }
      },
+
+ // Find Food Items By restaurant id : GET
+
      async findByRestaurantId(restaurantid,res){
         try{
          
@@ -47,7 +54,7 @@ const foodItemOperations = {
                 res.status(200).json({status:config.SUCCESS,foodItems});
             }
             else{
-                res.status(500).json({status:config.ERROR,message:"Unable to find your food item."});
+                res.status(404).json({status:config.ERROR,message:"Unable to find your food item."});
 
 
             }
@@ -56,6 +63,8 @@ const foodItemOperations = {
             res.status(500).json({status:config.ERROR,message:"Failed to find your food item."});
         }
      },
+
+// Update Food Items : PUT
     async updateByFoodItemId(foodItemObject,res){
         try {
             const foodItem = await FoodItemSchema.findOne({foodId:foodItemObject.foodId});
@@ -76,6 +85,8 @@ const foodItemOperations = {
             return res.status(404).json({"message" : `Food Item with id ${foodItemObject.foodId} not found`});
         }
     },
+
+// Delete Food Items : DELETE
     async deleteByFoodItemId(foodItemId,res){
         try{
            const foodItem=await FoodItemSchema.findOneAndDelete({foodId:foodItemId});
@@ -83,7 +94,7 @@ const foodItemOperations = {
                         res.status(200).json({status:config.SUCCESS,message:"Food Item Deleted Successfully.",foodItem});
                     }
                     else{
-                        res.status(200).json({status:config.ERROR,message:`Sorry food item with ${foodItemId} not found.`});
+                        res.status(404).json({status:config.ERROR,message:`Sorry food item with ${foodItemId} not found.`});
         
         
                     }
@@ -96,6 +107,8 @@ const foodItemOperations = {
         }
         
     },
+
+// Find food Items By Name: GET
     async findByFoodName(foodItemName){
         try{
             const foodItem=await FoodItemSchema.findOne({foodName:foodItemName});
@@ -109,7 +122,7 @@ const foodItemOperations = {
 
         }
     },
-   
+// Add Food Items : POST
     async addFoodItem(foodItemObject,res){
         try{
            const foodItem=await this.findByFoodName(foodItemObject.foodName);

@@ -3,15 +3,14 @@ const Restaurant=require('../../models/restaurants/restaurantModel');
 const restaurantOperations=require('../../controllers/restaurants/restaurantOperations');
 const tokenMiddleware=require("../../utils/tokenmiddleware");
 
-
-
+// GET
 restaurantRoutes.get("/restaurant/all",(req,res)=>{
 
    restaurantOperations.getAllRestaurants(res);
 
     });
 
-
+// POST
 restaurantRoutes.post("/restaurant",(req,res)=>{
    
     let restaurant=req.body;
@@ -20,24 +19,12 @@ restaurantRoutes.post("/restaurant",(req,res)=>{
     restaurantOperations.addRestaurant(newRestaurant,res);
 
 })
-// foodItemRoutes.put("/food",(req,res)=>{
-  
-//     let foodItem=req.body;
-//     foodItemOperations.updateByFoodItemId(foodItem,res);
-
-// })
+// DELETE
 restaurantRoutes.delete("/restaurant/:restaurantId",(req,res)=>{
   
     let restaurantId=req.params.restaurantId;
    restaurantOperations.deleteByRestaurantId(restaurantId,res);
 
 })
-// foodItemRoutes.get("/food/:foodId",(req,res)=>{
-   
-//     let foodid=req.params.foodId;
-//     foodItemOperations.findByFoodItemId(foodid,res);
-// })
-
-
 
 module.exports=restaurantRoutes;
