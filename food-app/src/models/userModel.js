@@ -11,7 +11,7 @@ const addressSchema = {
 
 const UserSchema = new Schema({
   username: { type: String, lowercase: true, unique: true },
-  email: { type: String, unique: true },
+  email: { type: String, unique: true ,required:true},
   password: { type: String, required: true },
   address: addressSchema,
 });
