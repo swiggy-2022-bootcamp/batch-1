@@ -1,7 +1,9 @@
-[mirror of README.ms in project/stackover]
 
-_to navigate to the codebase of the project go to project/stackover_
 # Building a Q&A website such as StackOverflow or Reddit
+
+[this doc is a mirror of README.ms in project/README.md]
+
+_to navigate to the codebase of the project go to project directory_
 
 ## to do / plan
 
