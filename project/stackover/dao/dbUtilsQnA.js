@@ -14,7 +14,7 @@ module.exports.askQuestion = function (questionObj, callback) {
 
         question.insertOne(questionObj)
             .then(result => {
-                console.log(result)
+                console.log("result" + result)
                 callback(result, null);
             })
             .catch(error => callback(null, error))

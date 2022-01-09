@@ -1,7 +1,9 @@
 const express = require('express');
-const dbUtils = require('./dbUtils')
-const session = require('express-session')
-const bodyParser = require('body-parser')
+const dbUtils = require('./dbUtils');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const validations = require('./utils/validations');
+
 const app = express();
 
 
@@ -26,25 +28,55 @@ app.listen(8080, function (req, res) {
 
 
 app.post('/register', (req, res) => {
+
+    var responseObj = { "status" : false , "message" : "" };
+
+    //validations
+    if ( validations.restBodyValidationsFailed(req.body, ["username","password"])) {
+        responseObj = { "status" : false , "message" : "Invalid or missing credentials" }
+        res.status(400).send(responseObj);
+        return;
+    }
+
     dbUtils.registerUser(req.body);
-    res.send("Succesfully registered the user.")
+    responseObj["status"] = true;
+    responseObj["message"] = "Succesfully registered the user.";
+    res.status(202).send(responseObj);
 });
 
+
+
 app.post('/login', (req, res) => {
+
+    var responseObj = { "status" : false , "message" : "" };
+
+    //validations
+    if ( validations.restBodyValidationsFailed(req.body, ["username","password"])) {
+        responseObj = { "status" : false , "message" : "Invalid or missing credentials" }
+        res.status(400).send(responseObj);
+        return;
+    }
+
+
     dbUtils.login(req.body,
         function (searchResponse, status ) {
 
             if ( status == "OK") {
-                req.session.loggedInUser = req.body["username"]
-                res.send(searchResponse)
                 //setting logged in user in session
-                
+                req.session.loggedInUser = req.body["username"];
+                // set response obj
+                responseObj["status"] = true;
+                responseObj["message"] = searchResponse
+                return res.send(responseObj)
+    
             } else if ( status == "NON") {
-                // user is logged in
-                res.send(searchResponse);
-                
+                // user is already logged in
+                responseObj["message"] = searchResponse;
+                return res.status(400).send(responseObj);
+
             } else {
-                res.send("Error in logging in. Please contact team")
+                responseObj["message"] = "Error in logging in. Please contact team";
+                res.status(500).send(responseObj);
             }
             
         });
