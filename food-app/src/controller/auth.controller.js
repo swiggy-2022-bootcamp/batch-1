@@ -6,11 +6,12 @@ const jwt = require("jsonwebtoken");
 const { checkEmail } = require("../utils/emailValidator");
 exports.createUser = async (req, res) => {
   try {
-    const { username, email, password, address } = req.body;
+    const { id, username, email, password, address } = req.body;
     if (!checkEmail(email)) {
       return sendBadRequest(res, 400, "Invalid email");
     }
     const user = await new User({
+      id: id,
       username: username,
       email: email,
       password: bcrypt.hashSync(password, 8),
