@@ -33,7 +33,7 @@ module.exports.login = function (userObj, printResponse) {
         users.findOne(userObj, function (error, result) {
             if (!error) {
                 if (result) {
-                    printResponse("User exists -- you are logged in ", "OK");
+                    printResponse("User exists -- you are  now logged in ", "OK");
                     //set cookie or status that the user has logged in 
                 } else {
                     printResponse("user does not exists -- or incorrect username/password","NON");
