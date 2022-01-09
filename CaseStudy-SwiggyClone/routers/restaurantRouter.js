@@ -1,6 +1,6 @@
 const express = require('express');
 const { isAuthorised, protectRoute } = require('../controllers/authController');
-const { registerRestaurant, getRestaurant, updateRestaurant, deleteRestaurant, addFoodItem } = require('../controllers/restaurantController');
+const { registerRestaurant, getRestaurant, updateRestaurant, deleteRestaurant, addFoodItem, removeFoodItem, updateFoodItem } = require('../controllers/restaurantController');
 const restaurantRouter = express.Router();
 
 restaurantRouter.use(protectRoute);
@@ -15,7 +15,7 @@ restaurantRouter.route('/restaurantProfile')
 
 restaurantRouter.route('/food')
 .post(addFoodItem)
-// .patch(updateFoodItem)
-// .delete(deleteFoodItem);
+.delete(removeFoodItem)
+.patch(updateFoodItem);
 
 module.exports = restaurantRouter;

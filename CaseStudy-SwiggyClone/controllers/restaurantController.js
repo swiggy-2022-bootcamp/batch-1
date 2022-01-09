@@ -184,16 +184,157 @@ module.exports.addFoodItem = async function addFoodItem(req,res)
                     {
                         console.log('went here');
                         respObj = err.message;
-                        // res.status(500).json({
-                        //     message:err.message
-                        // });
                     }
                     else{
                         respObj = succ;
-                        // res.json({
-                        //     message:'Successfully added',
-                        //     data:succ
-                        // });
+                    }
+                }
+            ).clone().catch(function(err){ console.log(err)});
+            res.json({
+                data:respObj
+            });
+        }
+        else
+        {
+            res.json({
+                message:'Restaurant not found'
+            })
+        }
+        
+    } catch (err) {
+        res.status(500).json({
+            message:err.message
+        });
+    }
+}
+
+module.exports.removeFoodItem = async function removeFoodItem(req,res)
+{
+    try {
+        let rid = req.id;
+        let rname = req.body.restaurantName;
+        let foodItem = req.body.foodItems;
+
+        if(!foodItem)
+        {
+            return res.json({
+                message:'Field food item is necessary to add food items'
+            }); 
+        }
+
+        if(!rname)
+        {
+            return res.json({
+                message:'Restaurant name is necessary to add food item'
+            });
+        }
+
+        let rest = await restaurantModel.findOne({restaurantId:rid,restaurantName:rname});
+
+        if(rest)
+        {
+            let foodFound;
+            for(item in rest.foodItems)
+            {
+                if(rest.foodItems[item].name == foodItem.name)
+                {
+                    foodFound = rest.foodItems[item]; 
+                }
+            }
+
+            if(!foodFound)
+            {
+                return res.json({
+                    message:'Cannot remove food item as it doesnt exist'
+                });
+            }
+
+            let respObj;
+            let up = await restaurantModel.findOneAndUpdate({restaurantId:rid,restaurantName:rname},
+                {$pull:{foodItems:foodItem}},
+                function(err,succ)
+                {
+                    if(err)
+                    {
+                        respObj = err.message;
+                    }
+                    else{
+                        respObj = succ;
+                    }
+                }
+            ).clone().catch(function(err){ console.log(err)});
+            res.json({
+                data:respObj
+            });
+        }
+        else
+        {
+            res.json({
+                message:'Restaurant not found'
+            })
+        }
+        
+    } catch (err) {
+        res.status(500).json({
+            message:err.message
+        });
+    }
+}
+
+module.exports.updateFoodItem = async function updateFoodItem(req,res)
+{
+    try {
+        let rid = req.id;
+        let rname = req.body.restaurantName;
+        let foodItem = req.body.foodItems;
+
+        if(!foodItem)
+        {
+            return res.json({
+                message:'Field food item is necessary to add food items'
+            }); 
+        }
+
+        if(!rname)
+        {
+            return res.json({
+                message:'Restaurant name is necessary to add food item'
+            });
+        }
+
+        let rest = await restaurantModel.findOne({restaurantId:rid,restaurantName:rname});
+
+        if(rest)
+        {
+            let foodFound;
+            let newFoodItem = rest.foodItems;
+            for(item in rest.foodItems)
+            {
+                if(rest.foodItems[item].name == foodItem.name)
+                {
+                    foodFound = item; 
+                    newFoodItem[item] = foodItem;
+                }
+            }
+
+            if(!foodFound)
+            {
+                return res.json({
+                    message:'Cannot remove food item as it doesnt exist'
+                });
+            }
+
+            let respObj;
+            let up = await restaurantModel.findOneAndUpdate({restaurantId:rid,restaurantName:rname},
+                {$set:{foodItems:newFoodItem}},
+                function(err,succ)
+                {
+                    if(err)
+                    {
+                        respObj = err.message;
+                    }
+                    else{
+                        respObj = succ;
                     }
                 }
             ).clone().catch(function(err){ console.log(err)});
