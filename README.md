@@ -9,7 +9,7 @@ _to navigate to the codebase of the project go to project/stackover_
 * [X] mongodb connection
 * [X] adding HTTP error codes for faliure etc
 * [X] adding session for _logged in_ user
-* [X] creating endpoint for asking a question
+* [X] creating POST endpoint for asking a question
 * [X] POST endpoint for answering a question.
 * [ ] refactoring to make code base structure cleaner
 * [ ] refine login, registeration

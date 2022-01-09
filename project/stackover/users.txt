@@ -1,7 +1,0 @@
-aditya,pass
-aditya2,pass2
-aditya2,pass2
-aditya2,pass2
-aditya2,pass2
-aditya2,pass2
-aditya2,pass2
