@@ -6,10 +6,11 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
     "shortid": "^2.2.16",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "type": "module"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --recursive --exit"
   },
   "devDependencies": {
     "jest": "^27.4.7",
