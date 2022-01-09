@@ -1,5 +1,5 @@
 import express from "express"
-import { addQuestion, addAnswer, getAnswersByQuestionId } from "../controller/questionController.js"
+import { addQuestion, addAnswer, getAnswersByQuestionId, updateAnswer } from "../controller/questionController.js"
 
 const router = express.Router()
 
@@ -13,5 +13,7 @@ router.post("/question/:questionId/answer", addAnswer )
 
 //GET request to get all the answers of a question 
 router.get("/question/:questionId", getAnswersByQuestionId)
+
+router.put("/question/:questionId/answer", updateAnswer )
 
 export default router

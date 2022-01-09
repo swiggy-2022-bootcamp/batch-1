@@ -64,7 +64,7 @@ const addAnswer = async (req,res)=>{
     }
 
     if(userAlreadyAnswered){
-        return res.status(409).send("Yoiu have already answered the question")
+        return res.status(409).send("You have already answered the question")
     }
 
     //Adding the answer to the database.
@@ -87,6 +87,63 @@ const addAnswer = async (req,res)=>{
 
 }
 
+const updateAnswer = async (req,res) => {
+    const userDetails = req.body["user-details"];
+    const questionId = req.params.questionId
+
+    //Validating if the user credentials are correct
+    const { status, message, _id } = await validateUser(userDetails)
+    if(status != 200){
+        return res.status(status).send({message})
+    }
+
+    const { answer } = req.body.question
+    const userId = _id
+
+    //Validating if the question exists or not
+    const question_id = new ObjectId(questionId)
+    const doesQuestionExists = await questionModel.findOne({"_id" : question_id})
+    if(!doesQuestionExists){
+        return res.status(404).send({"message" : "Question doesn't exists"})
+    }
+
+
+
+    // Checking if the current user has already answered the question
+    let userAlreadyAnswered = false
+    let existingResponse = ""
+    let updatedAnnswers = []
+    for(let i in doesQuestionExists.answers){
+        if((doesQuestionExists.answers[i].user).equals(_id)) {
+            userAlreadyAnswered = true
+            existingResponse = doesQuestionExists.answers[i]
+            existingResponse.answer = answer
+            updatedAnnswers.push(existingResponse)
+        }else{
+            updatedAnnswers.push(doesQuestionExists.answers[i])
+        }    
+    }
+
+    if(!userAlreadyAnswered){
+        return res.status(404).send("You have not answered the question")
+    }
+
+    //Updating the answer present in the database.
+    questionModel.updateOne({_id : question_id }, {
+        $set : {
+            answers : updatedAnnswers
+        }
+    }).then(()=>{
+        res.status(201).send({
+            "message": "Answer updated successfully",
+            "quesiton-id" : questionId
+        })
+    }).catch((err)=>{
+        console.log()
+        res.status(500).send({message: err.message})
+    })
+
+}
 
 const getAnswersByQuestionId = async (req,res)=>{
     const userDetails = req.body["user-details"];
@@ -116,4 +173,4 @@ const getAnswersByQuestionId = async (req,res)=>{
 
     res.status(200).send(response)
 }
-export { addQuestion, addAnswer, getAnswersByQuestionId }
+export { addQuestion, addAnswer, getAnswersByQuestionId, updateAnswer }
