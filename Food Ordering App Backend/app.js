@@ -8,12 +8,15 @@ require("dotenv").config();
 
 const User = require('./schemas/user.js');
 const Restaurant = require('./schemas/restaurant.js');
-const Food = require("./schemas/food.js")
-const Cart = require("./schemas/cart.js")
+const Food = require('./schemas/food.js');
+const Cart = require('./schemas/cart.js');
+const Order = require('./schemas/order.js');
+
 const auth = require("./auth.js");
 
 const connectDB = require('./db.js');
 const res = require('express/lib/response');
+const { send } = require('express/lib/response');
 
 
 app.use(express.json());
@@ -103,7 +106,7 @@ app.post('/api/authenticate', async (req, res) => {
         );
         
         user.token = token;
-
+        await user.save();
         return res.status(200).json({"message" : "Login Successful"});
     }
     else {
@@ -115,7 +118,6 @@ app.post('/api/authenticate', async (req, res) => {
 app.get('/api/users', async (req, res) => {
 
     const users = await User.find();
-    console.log(users);
     return res.status(200).json(users);
 
 });
@@ -329,6 +331,11 @@ app.get('/api/carts/:userID', auth, async(req, res) => {
     try {
     
         const cartItems = await Cart.find({userID : req.params.userID});
+        
+        if(cartItems.length === 0) {
+            return res.status(200).json({"message" : "Cart is empty"});
+        }
+
         return res.status(200).json(cartItems);
 
     } catch(e) {
@@ -338,6 +345,54 @@ app.get('/api/carts/:userID', auth, async(req, res) => {
 
 })
 
+async function saveOrderDetails(req) {
+
+    try {
+
+        console.log("USERID: ", req.params.userID);
+
+        const cartItems = await Cart.find({userID : req.params.userID});
+
+        if(!cartItems)
+        return res.send(409).json({"message" : "Cart is empty"});
+
+        await Cart.deleteMany({userID : req.params.userID});
+
+        const order = await Order.create({
+            userName : req.body.username,
+            userID : req.params.userID,
+            items : cartItems
+        });
+
+        await order.save();
+        return order;
+    
+    } catch(e) {
+        console.log(e.message);
+        return false;
+    }
+}
+
+
+app.post('/api/orders/:userID', auth, async(req, res) => {
+
+    const order = await saveOrderDetails(req);
+
+    if(order)
+    return res.status(200).json(order);
+
+    res.status(500).json({"message" : "Transaction Failed"});
+});
+
+app.get('/api/orders/:userID', auth, async(req, res) => {
+
+    const orders = await Order.find({userID : req.params.userID});
+
+    if(orders.length !== 0)
+    return res.status(200).json(orders);
+
+    res.status(200).json({"message" : "No orders for given user"});
+});
 
 const port = process.env.port || 3000;
 
