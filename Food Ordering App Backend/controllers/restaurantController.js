@@ -1,4 +1,6 @@
 const Restaurant = require('../schemas/restaurant.js')
+const restaurantAdditionValidation = require('../apiSchemas/restaurantAddition.js');
+
 
 async function saveRestaurantDetails(req) {
 
@@ -18,6 +20,15 @@ async function saveRestaurantDetails(req) {
 }
 
 exports.addRestaurantDetails = async (req, res) => {
+
+    try {
+        await restaurantAdditionValidation.schema.validateAsync(req.body);
+    } catch(e) {
+        return res.status(422).json({"message" : e.details[0].message});
+    }
+
+
+
     try {
     
         const oldRestaurant = await Restaurant.findOne({ restaurantAddress : req.body.restaurantAddress });
