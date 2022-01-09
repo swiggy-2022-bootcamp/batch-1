@@ -3,7 +3,7 @@ const Joi = require('joi'); //used for validation
 const app = express();
 app.use(express.json());
 var shortid = require('shortid');
-var con = require('./dbconnection');
+var con = require('../connection/dbconnection');
 require('dotenv').config();
 
 con.query("use food_ordering_db", function (err, result) {

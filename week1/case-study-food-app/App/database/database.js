@@ -1,4 +1,4 @@
-var con = require('./dbconnection');
+var con = require('../connection/dbconnection');
 
 con.query("CREATE DATABASE IF NOT EXISTS food_ordering_db", function (err, result) {
     if (err) throw err;

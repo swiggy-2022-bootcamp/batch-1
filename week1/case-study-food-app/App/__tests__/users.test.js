@@ -1,8 +1,8 @@
 const request = require("supertest");
 
-const db = require("../dbconnection");
+const db = require("../connection/dbconnection");
 
-const app = require("../food_app");
+const app = require("../service/food_app");
 
 describe("GET / Users", () => {
     test("It should respond with an array of users", async () => {
