@@ -1,82 +1,85 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    about: String,
-    questions: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Question'
-        }
-    ],
-    answers: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Answer'
-        }
-    ],
-    comments: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Comment'
-        }
-    ],
-    likedQuestions: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Question'
-        }
-    ],
-    likedAnswers: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Answer'
-        }
-    ],
-    likedComments: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Comment'
-        }
-    ],
-    reputation: {
-        type: Number,
-        default: 0
-    },
-    avatar: {
-        type: String,
-        default: null
-    },
-    badges: {
-        gold: {
-            type: Number,
-            default: 0
+const userSchema = new Schema(
+    {
+        name: {
+            type: String,
+            required: true,
         },
-        silver: {
-            type: Number,
-            default: 0
+        email: {
+            type: String,
+            required: true,
+            unique: true,
         },
-        bronze: {
+        password: {
+            type: String,
+            required: true,
+        },
+        about: String,
+        questions: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Question",
+            },
+        ],
+        answers: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Answer",
+            },
+        ],
+        comments: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Comment",
+            },
+        ],
+        likedQuestions: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Question",
+            },
+        ],
+        likedAnswers: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Answer",
+            },
+        ],
+        likedComments: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Comment",
+            },
+        ],
+        reputation: {
             type: Number,
-            default: 0
-        }
+            default: 0,
+        },
+        avatar: {
+            type: String,
+            default: null,
+        },
+        badges: {
+            gold: {
+                type: Number,
+                default: 0,
+            },
+            silver: {
+                type: Number,
+                default: 0,
+            },
+            bronze: {
+                type: Number,
+                default: 0,
+            },
+        },
+    },
+    {
+        timestamps: true,
     }
-}, {
-    timestamps: true
-})
+);
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 module.exports = User;

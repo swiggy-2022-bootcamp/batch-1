@@ -1,15 +1,15 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-router.get('/', (_, res) => {
-    res.status(200).json({
-        status: "(question.js) Working!"
-    })
+router.post("/", (_, res) => {
+    res.status(201).json({
+        message: "post question",
+    });
 });
 
-router.get('/:id/')
+router.get("/:id/");
 
-router.post('/:id/answer')
+router.post("/:id/answer");
 
-router.put('/:id/answer')
+router.put("/:id/answer");
 
 module.exports = router;
