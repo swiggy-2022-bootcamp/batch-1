@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Converge</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3824/3824371.png">
+    <link href="/public/assets/css/index.css" rel="stylesheet" type="text/css" />
+    <link href="/public/assets/css/login.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="background">
+        <div class="shapey"></div>
+        <div class="shapey"></div>
+    </div>
+    <form action="/login" method="POST">
+        <h3 id=h3-login>Welcome back, Login</h3>
+        <div>
+            <label>Email</label>
+            <input type="email" id="email" name="email" placeholder="example@domain.com" />
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" id="password" name="password" placeholder="Ahh! Our eyes are closed" />
+        </div>
+        <button type="submit" id=submitButton class="btn btn-primary btn-block">Login</button>
+        <button><a href="./registration.html" id="registerButton" style="color: white; text-decoration: none;">Got no account? Let's
+                Register</a></button>
+        <button><a href="./index.html" id="goToHomepage" class="btn btn-danger" style="color: white; text-decoration: none;">Skip and start instant meeting</a></button>
+    </form>
+</body>
+</html>
