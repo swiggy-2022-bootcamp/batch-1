@@ -3,18 +3,20 @@
 ## to do
 
 * [X] login, registeration 
-* [ ] adding HTTP error codes for faliure etc
 * [X] mongodb connection
 * [ ] refine login, registeration
 * [ ] adding JWT tokens for login
 * [X] adding session for _logged in_ user
 * [X] creating endpoint for asking a question
 * [ ] GET endpoint for enumerating all questions
-* [ ] POST endpoint for answering a question
-* [ ] GET endpoint for enumerating answers to a question 
+* [X] POST endpoint for answering a question.
 * [ ] Endpoint to upvote a question or an answer
 * [ ] Endpoint to get stats of a user
 * [ ] Deploying this to cloud
+
+* [ ] GET endpoint for enumerating answers to a question 
+* [ ] adding HTTP error codes for faliure etc
+* [ ] refactoring to make code base structure cleaner
 
 
 
@@ -30,6 +32,7 @@
 - ```User```
 
 ### 3. Question
+- ```QuestionId``` 
 - ```Statement```
 - List of ```Answer``` strings 
 - ```Upvotes```
@@ -46,9 +49,11 @@
 1. POST http://localhost:8080/login
 
 Header:
-Content-Type: application/x-www-form-urlencoded
+
+```Content-Type: application/x-www-form-urlencoded```
 
 Body:
+
 username - <username>
 password - <password>
 
@@ -68,5 +73,6 @@ Header:
 Content-Type: application/x-www-form-urlencoded
 
 Body:
+
 username - <username>
 password - <password>
