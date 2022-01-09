@@ -41,4 +41,21 @@ router.get('/:userId', async (req, res) => {
     }
 });
 
+// UPDATES USER USING PUT
+router.put('/:userId', async (req, res) => {
+    try {
+        const updatedUser = await User.updateOne(
+            { _id: req.params.userId }, 
+            { $set: {
+                    username: req.body.username,
+                    password: req.body.password,
+                    email: req.body.email
+                } 
+            });
+        res.json(updatedUser);
+    } catch (err) {
+        res.json({ message: err });
+    }
+});
+
 module.exports = router;
