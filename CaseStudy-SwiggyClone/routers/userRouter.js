@@ -35,5 +35,4 @@ userRouter.route('/:id')
 .delete(protectRoute,isAuthorised(['admin']),deleteUsers);
 
 
-
 module.exports = userRouter;

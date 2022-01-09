@@ -12,10 +12,16 @@ mongoose.connect(db_link)
 });
 
 const restaurantSchema = new mongoose.Schema({
-    restaurantId:{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'userModel',
-        required:true
+    // restaurantId:{
+    //     type: mongoose.Schema.Types.ObjectId, 
+    //     ref: 'userModel',
+    //     required:true
+    // },
+    restaurantName:{
+        type:String,
+        required:true,
+        unique:true,
+        maxlength:[100,'Restaurant name cannot have more than 500 chars']
     },
     restaurantDescription:{
         type:String,
@@ -33,17 +39,24 @@ const restaurantSchema = new mongoose.Schema({
         default:0
     },
     availableHours:{
-        fromHour:
+        type:
         {
-            type:Number,
-            min:0,
-            max:23
+            fromHour:
+            {
+                type:Number,
+                min:0,
+                max:23
+            },
+            toHour:
+            {
+                type:Number,
+                min:0,
+                max:23
+            }
         },
-        toHour:
-        {
-            type:Number,
-            min:0,
-            max:23
+        default:{
+            fromHour:0,
+            toHour:23
         }
     },
     foodItems:[{
@@ -68,6 +81,34 @@ const restaurantSchema = new mongoose.Schema({
         isVegetarian:{
             type:Boolean,
             default:false
+        }
+    }],
+    profilePicture:{
+        type:String,
+        default:'img/users/default.jpeg'
+    },
+    locations:
+    [{
+        addressLabel:{
+            type:String,
+            default:'Main Branch'
+        },
+        address:{
+            houseNo:{
+                type:Number
+            },
+            street:{
+                type:String
+            },
+            city:{
+                type:String
+            },
+            state:{
+                type:String
+            },
+            zip:{
+                type:Number
+            }
         }
     }]
 });
