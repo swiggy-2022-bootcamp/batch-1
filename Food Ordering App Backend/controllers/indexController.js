@@ -1,4 +1,7 @@
-exports.saveUserDetails = async function saveUserDetails(req) {
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+async function saveUserDetails(req) {
 
     try {
 
@@ -58,6 +61,7 @@ exports.registerUser = async (req, res) => {
     res.status(400).send("User registration not successful");
 }
 
+const User = require('../schemas/user.js');
 
 exports.authenticateUser = async (req, res) => {
 
