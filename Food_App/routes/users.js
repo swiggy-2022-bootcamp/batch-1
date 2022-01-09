@@ -68,4 +68,19 @@ router.delete('/users/:userId', async (req, res) => {
     }
 });
 
+// UPDATES USER USING PATCH
+router.patch('/:userId', async (req, res) => {
+    try {
+        const updatedUser = await User.updateOne(
+            { _id: req.params.userId }, 
+            { $set: 
+                { email: req.body.email } 
+            }
+        );
+        res.json(updatedUser);
+    } catch (err) {
+        res.json({ message: err });
+    }
+});
+
 module.exports = router;
