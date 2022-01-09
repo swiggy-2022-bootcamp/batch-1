@@ -93,29 +93,6 @@ userSchema.pre('save',async function(){
     // console.log(hashString);
 });
 
-
-// userSchema.post('save',function(doc){
-//     console.log('after saving to db: ',doc);
-// });
-
-
-// userSchema.methods.createResetToken = function()
-// {
-//     // crypto
-//     const resetToken = crypto.randomBytes(32).toString("hex");
-//     this.resetToken = resetToken;
-//     return resetToken;
-// }
-
-// userSchema.methods.resetPasswordHandler = function(password,confirmPassword)
-// {
-//     if(password == confirmPassword)
-//     {
-//         this.password = password;
-//         this.resetToken = undefined;
-//     }
-// }
-
 const userModel = mongoose.model('userModel',userSchema);
 
 module.exports = userModel;

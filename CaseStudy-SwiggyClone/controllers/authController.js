@@ -20,7 +20,7 @@ module.exports.signup = async function signup(req,res)
         }
         else
         {
-            res.json({
+            res.status(400).json({
                 message:'error while signing up'
             });
         }
@@ -39,17 +39,10 @@ module.exports.login = async function login(req,res)
     {
         let loginData = req.body;
         // console.log(loginData);
-        if(!loginData) 
+        if(!loginData || !loginData.email || !loginData.password) 
         {
-            return res.json({
-                'message':'Nothing recieved'
-            });
-        }
-
-        if(!loginData.email || !loginData.password)
-        {
-            return res.json({
-                'message':'Email or Password not found'
+            return res.status(400).json({
+                'message':'Required login data not found'
             });
         }
 
@@ -57,14 +50,14 @@ module.exports.login = async function login(req,res)
 
         if(!user)
         {
-            return res.json({
+            return res.status(404).json({
                 'message':'User not registered!'
             });
         }
         
         if(!bcrypt.compareSync(loginData.password, user.password))
         {
-            return res.json({
+            return res.status(403).json({
                 message:'Invalid Credentials'
             });
         }
@@ -83,7 +76,7 @@ module.exports.login = async function login(req,res)
     }
     catch(err)
     {
-        res.json({
+        res.status(500).json({
             message:err.message
         });
     }   
@@ -107,7 +100,7 @@ module.exports.protectRoute = async function protectRoute(req,res,next)
             }
             else
             {
-                return res.json({
+                return res.status(401).json({
                     message:'Please Login again'
                 });
             }
@@ -122,14 +115,14 @@ module.exports.protectRoute = async function protectRoute(req,res,next)
             // }
 
             // postman
-            return res.json({
+            return res.status(401).json({
                 message:'Login required!'
             });
         }
     }
     catch(err)
     {
-        res.json({
+        res.status(500).json({
             message:err.message
         });
     }
