@@ -36,4 +36,4 @@ Email ID: swiggyb1016@datascience.manipal.edu
 
 ### Day 6 and 7 [Mini Project]
 
-- Click Here
+![Click Here]("https://github.com/swiggy-2022-bootcamp/batch-1/tree/main/Arya%20Shah%20%5BSWIGGYP-B1%5D/Mini%20Project")
