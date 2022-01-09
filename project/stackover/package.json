@@ -1,0 +1,25 @@
+{
+  "name": "stackover",
+  "version": "1.0.0",
+  "description": "A q&a website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Verma314/stackover.git"
+  },
+  "author": "aditya verma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Verma314/stackover/issues"
+  },
+  "homepage": "https://github.com/Verma314/stackover#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "mongodb": "^4.3.0"
+  }
+}
