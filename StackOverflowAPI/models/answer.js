@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Comment = require('./comment');
 
 const answerSchema = new Schema(
     {
@@ -10,6 +11,10 @@ const answerSchema = new Schema(
         likeCount: {
             type: Number,
             default: 0,
+        },
+        questionId: {
+            type: Schema.Types.ObjectId,
+            required: true
         },
         comments: [
             {
