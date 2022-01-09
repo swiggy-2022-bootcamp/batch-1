@@ -32,7 +32,7 @@ router.get('/users', async (req, res) => {
 });
 
 // GETS SPECIFIC USER
-router.get('/:userId', async (req, res) => {
+router.get('/users/:userId', async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
         res.json(user);
@@ -42,7 +42,7 @@ router.get('/:userId', async (req, res) => {
 });
 
 // UPDATES USER USING PUT
-router.put('/:userId', async (req, res) => {
+router.put('/users/:userId', async (req, res) => {
     try {
         const updatedUser = await User.updateOne(
             { _id: req.params.userId }, 
@@ -53,6 +53,16 @@ router.put('/:userId', async (req, res) => {
                 } 
             });
         res.json(updatedUser);
+    } catch (err) {
+        res.json({ message: err });
+    }
+});
+
+// DELETES SPECIFIC USER
+router.delete('/users/:userId', async (req, res) => {
+    try {
+        const removedUser = await User.deleteOne({ _id: req.params.userId });
+        res.json(removedUser);
     } catch (err) {
         res.json({ message: err });
     }
