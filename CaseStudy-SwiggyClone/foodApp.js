@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const PORT = 3000
 
 const cookieParser = require('cookie-parser');
 // models
@@ -20,5 +21,5 @@ app.use(cookieParser());
 app.use('/user',userRouter);
 app.use('/restaurant',restaurantRouter);
 
-// listening to port number 3000 for communication
-app.listen(3000);
+// listening to port number PORT for communication
+app.listen(PORT);
