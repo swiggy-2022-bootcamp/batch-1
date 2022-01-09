@@ -1,0 +1,107 @@
+<app-header></app-header>
+<div class="container" style="margin-bottom: 40px;">
+	<div style="margin-top: 50px; margin-bottom: 50px;" class="input-group">
+		<div style="margin-left: 300px; width: 450px;" class="form-outline">
+			<input
+				[(ngModel)]="searchText"
+				type="search"
+				placeholder="Search By Name"
+				id="form1"
+				class="form-control"
+			/>
+		</div>
+		<div style="margin-left: 100px;">
+			<button type="button" class="btn btn-primary" (click)="onAdd(addModal)">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+				<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
+				</svg>
+				Add Food
+			</button>
+		</div>
+	</div>
+	<div class="card" id="scroll">
+		<table class="table">
+			<thead class="thead bg-success">
+				<tr>
+          <th scope="col">Id</th>
+					<th scope="col">Food Id</th>
+					<th scope="col">Food Name</th>
+					<th scope="col">Food Cost</th>
+					<th scope="col">Food Type</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let food of Foods  | searchFood:searchText">
+					<td>{{food.id}}</td>
+					<td>{{food.foodId}}</td>
+					<td>{{food.foodName}}</td>
+					<td>{{food.foodCost}} Rs.</td>
+					<td>{{food.foodType}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+  <ng-template #addModal let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Adding Food</h4>
+			<button type="button" class="close btn btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+				<span aria-hidden="true">X</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<form [formGroup]="foodAddForm" (ngSubmit)="onCreate()">
+				<div formGroupName="foodaddData">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Food Id</label>
+								<input
+                  type="number"
+                  min = 11
+                  formControlName="foodId"
+                  class="form-control"
+                />
+							</div>
+						</div>
+            <div class="col-sm-6">
+							<div class="form-group">
+								<label>Food Name</label>
+								<input
+                  type="text"
+                  formControlName="foodName"
+                  class="form-control"
+								/>
+							</div>
+						</div>
+            <div class="col-sm-6">
+							<div class="form-group">
+								<label>Food Cost</label>
+								<input
+                  type="number"
+                  min = 1
+                  formControlName="foodCost"
+                  [(ngModel)]="defaultFoodCost"
+                  class="form-control"
+                />
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label>Food Type</label>
+								<select formControlName="foodType" class="form-select" [(ngModel)]="defaultFoodType">
+									<option value="Chinese">Chinese</option>
+									<option value="Indian">Indian</option>
+									<option value="Mexican">Mexican</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<button type="submit" style="margin-top: 20px; margin-left: 200px" class="btn btn-success" [disabled]="!foodAddForm.get('foodaddData').valid">Add</button>
+				</div>
+			</form>
+		</div>
+	</ng-template>
+</div>
+<app-footer></app-footer>
