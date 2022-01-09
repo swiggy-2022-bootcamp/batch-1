@@ -59,6 +59,20 @@ const userSchema = new Schema({
     avatar: {
         type: String,
         default: null
+    },
+    badges: {
+        gold: {
+            type: Number,
+            default: 0
+        },
+        silver: {
+            type: Number,
+            default: 0
+        },
+        bronze: {
+            type: Number,
+            default: 0
+        }
     }
 }, {
     timestamps: true

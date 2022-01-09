@@ -6,6 +6,7 @@ const url = `mongodb+srv://${process.env.MONGO_ATLAS_USERNAME}:${process.env.MON
 // setting up a connection
 mongoose.connect(url);
 
+// starting a connection
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, "Error connecting to database!"));
 db.once('open', () => {

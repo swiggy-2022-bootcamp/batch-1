@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-router.get('/', (_, res) => {
-    res.send("working api!");
-});
+router.post('/login');
+
+router.post('/register');
 
 module.exports = router;
