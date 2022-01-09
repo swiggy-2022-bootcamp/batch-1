@@ -2,6 +2,7 @@ import { validateUser } from "./userController.js"
 import userModel from "../models/user.js"
 import questionModel from "../models/question.js"
 import {ObjectId} from "mongodb"
+import { logger } from "../utils/logger.js"
 
 const addQuestion = async (req,res)=>{
     const userDetails = req.body["user-details"];
@@ -23,12 +24,14 @@ const addQuestion = async (req,res)=>{
     
     questionModel.create(question)
         .then((questionDocument)=>{
+            logger.info("POST question returned 201 CREATED. ")
             return res.status(201).send({
                 "message" : "Question added successfully",
                 "question-id" : questionDocument._id
             })
         })
         .catch(err =>{
+            logger.error(`Add question POST request failed with ${err.message}`)
             return res.status(500).send({
                 message: err.message,
             })
@@ -87,12 +90,13 @@ const addAnswer = async (req,res)=>{
             }
         }
     }).then(()=>{
+        logger.info("POST request for add answers returned 201 CREATED.")
         res.status(201).send({
             "message": "Answer posted successfully",
             "quesiton-id" : questionId
         })
     }).catch((err)=>{
-        console.log()
+        logger.error(`Add answer POST request failed with  ${err.message}`)
         res.status(500).send({message: err.message})
     })
 
@@ -139,7 +143,7 @@ const updateAnswer = async (req,res) => {
         }else{
             updatedAnnswers.push(doesQuestionExists.answers[i])
         }    
-    }
+    } 
 
     if(!userAlreadyAnswered){
         return res.status(404).send({"message " : "You have not answered the question"})
@@ -151,12 +155,13 @@ const updateAnswer = async (req,res) => {
             answers : updatedAnnswers
         }
     }).then(()=>{
+        logger.info("PUT request for update answers returned 201 OK.")
         res.status(201).send({
             "message": "Answer updated successfully",
             "quesiton-id" : questionId
         })
     }).catch((err)=>{
-        console.log()
+        logger.error(`Update answer POST request failed with  ${err.message}`)
         res.status(500).send({message: err.message})
     })
 
@@ -195,6 +200,7 @@ const getAnswersByQuestionId = async (req,res)=>{
        response.answers.push({"answer " : doesQuestionExists.answers[i].answer})
     }
 
+    logger.info("GET request for view answers returned 200 OK.")
     res.status(200).send(response)
 }
 
@@ -208,6 +214,7 @@ async function checkIfUserIsAuthorized(authUserId, _id){
     if(!userAuthorized){
         response._status = 403;
         response._message = "You must be logged in to continue."
+        logger.error("User is not authorized. ERROR_CODE 403 returned.")
     }else{
         response._status = 200;
     }

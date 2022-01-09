@@ -6,6 +6,8 @@ import routes from "./src/routes/routes.js"
 import userRoutes from "./src/routes/userRoutes.js"
 import questionRoutes from "./src/routes/questionRoutes.js"
 
+import {logger} from "./src/utils/logger.js"
+
 dotenv.config();
 console.log("Server starting ...")
 const app = express();
@@ -21,15 +23,15 @@ mongoose.connect(process.env.MONGO_URL, {
 const connection = mongoose.connection
 
 connection.on("open", ()=>{
-    console.log("✅ Mongodb connected successfully");
+    logger.info("✅ Mongodb connected successfully");
 })
 
 connection.on("error", ()=> {
-    console.log("❌ Error while connecting mongodb")
+    logger.error("❌ Error while connecting mongodb")
 })
 
 connection.on("disconnected", () => {
-    console.log("❌ Mongdb disconnected");
+    logger.error("❌ Mongdb disconnected");
 })
 
 app.use(routes)
@@ -37,5 +39,5 @@ app.use(userRoutes)
 app.use(questionRoutes)
 
 app.listen(PORT, ()=>{
-    console.log(`✅ Server listening on PORT ${PORT}`)
+    logger.info(`✅ Server listening on PORT ${PORT}`)
 })

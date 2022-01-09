@@ -22,18 +22,20 @@ const registerController = async (req, res) => {
         email
     })
     if(userExists){
+        logger.error("User is already registered. " + response.message)
         return res.status(409).send({
             message: "User already exists!"
         })
     }
     userModel.create(userRequest).then(()=>{
+        logger.info("User registered successfully " + response.message)
         return res.status(201).send({
             "message" : "User registered successfully",
             "registration-name" : name
         })
     })
     .catch(err =>{
-        console.log("registration failed.")
+        logger.error(`User registration failed with ${err.message}`)
         return res.status(500).send({message: err.message})
     })
 }
@@ -64,14 +66,17 @@ async function validateUser(userBody){
             response.status = 200
             response.message = "User logged in successfully"
             response._id = userExists._id
+            
         }
         else {
             response.status = 401
             response.message = "Sorry invalid credentials"
+            logger.error("Validate user failed " + response.message)
         };
     }else {
         response.status = 404
         response.message = "User doesn't exist"
+        logger.error("Validate user failed " + response.message)
     }
     return response;
 }
