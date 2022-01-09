@@ -1,0 +1,23 @@
+footer {
+  clear: both;
+  position: relative;
+  bottom: 0;
+}
+
+.first{
+  color: white;
+  margin-left: 35px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: smaller;
+}
+
+.second{
+  margin-left: auto;
+  order: 2;
+  color: white;
+  margin-right: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: smaller;
+}
