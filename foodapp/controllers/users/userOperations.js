@@ -1,8 +1,8 @@
 const userSchema=require('../../db/models/users/userSchema');
 const config=require("../../utils/config");
-const bcrypt=require('../../../utils/bcrypt');
-const jwt = require('../../../utils/token');
-const mailUser = require('../../../utils/welcomeEmail/welcomeEmail');
+const bcrypt=require('../../utils/bcrypt');
+const jwt = require('../../utils/token');
+const mailUser = require('../../utils/welcomeEmail/welcomeEmail');
 const customerOperations = {
       async findByUserId(userid,res){
            try{
@@ -92,6 +92,7 @@ const customerOperations = {
                         let comparePassword=bcrypt.comparePassword(password,hashPassword);
                         if(comparePassword) {
                           const token=jwt.generateToken(username);
+                          
                             res.status(200).json({status:config.SUCCESS,token:token,message:"User logged in successful"});
     
                           
@@ -123,7 +124,7 @@ const customerOperations = {
                         newUserObject.password=bcrypt.convertPassword(newUserObject.password);
                         userSchema.create(newUserObject,(err,doc)=> {
                             if(err) {
-                                res.status(500).json({status:config.ERROR,message:"Unable to add the user "});
+                                res.status(500).json({status:config.ERROR,message:"Unable to add the user.Check all fields and try again later!"});
                             }
                             else{
                                 mailUser(newUserObject.email,newUserObject.username);

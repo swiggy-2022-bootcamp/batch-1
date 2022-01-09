@@ -1,7 +1,8 @@
 # Case Study : Food App - Backend
 
-A Node.js Express backend for a food ordering forum.
-
+A Node.js Express backend application built for Swiggy i++ 2022 Stage 2\
+Author : https://github.com/bhatiachahat [Chahat Bhatia (Batch 1)]\
+Presentation : https://bit.ly/3GdyWGi
 ## Requirements for project: <br /> 
 1. Node js - Technology to run the server.  [ Install [NodeJS](https://nodejs.org/en/)]<br /> 
 2. MongoDB - The NoSQL db used in the case study. [ Use [MongoDB](https://www.mongodb.com/)]<br /> 

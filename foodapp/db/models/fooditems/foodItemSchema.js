@@ -5,6 +5,7 @@ const foodItem = new foodItemSchema({
     foodName:{type:String,required : true},
     foodCost:{type:Number,required : true},
     foodType:{type:String,enum:['Indian','Chinese','Mexican'],required : true},
+    restaurantId:{type:Number,required:true}
     
 });
 const FoodItem = mongoose.model('foodItems',foodItem);

@@ -4,6 +4,7 @@ function checkToken (request, response,next){
     var token = request.headers['auth-token'];
    
     if(token){
+
        
             let decoded = tokenOpr.verifyToken(token);
            
