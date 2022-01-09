@@ -1,25 +1,9 @@
-const { func } = require('joi');
 const { User } = require('../models');
-// const httpStatus = require('http-status');
-// const ApiError = require('../utils/ApiError');
-
-// const extractUserInfo = (user) => {
-//   const { id, username, email, password, address, walletMoney } = user;
-//   return {
-//     id,
-//     username,
-//     email,
-//     password,
-//     address,
-//     walletMoney,
-//   };
-// };
 
 async function getUserById(id) {
   try {
     const user = await User.findById(id).exec();
     if (user) {
-      // const userData = extractUserInfo(user);
       return user;
     }
   } catch (error) {
@@ -31,7 +15,6 @@ async function getAllUsers() {
   try {
     const users = await User.find().exec();
     if (users) {
-      // const userData = users.map((user) => extractUserInfo(user));
       return users;
     }
   } catch (error) {
@@ -43,7 +26,6 @@ async function getUserByEmail(email) {
   try {
     const user = await User.findOne({ email }).exec();
     if (user) {
-      // const userData = extractUserInfo(user);
       return user;
     }
   } catch (error) {
@@ -55,12 +37,8 @@ async function createUser(userBody) {
   if (await User.isEmailTaken(userBody.email)) {
     return { isEmailTaken: true };
   }
-  // else if (await User.isIdTaken(userBody.id)) {
-  //   return { isIdTaken: true };
-  // }
   else {
     const newUser = await User.create(userBody);
-    // const userData = extractUserInfo(newUser);
     return newUser;
   }
 }
@@ -71,7 +49,6 @@ async function updateUserInfo(id, userBody) {
       new: true,
     }).exec();
     if (user) {
-      // const userData = extractUserInfo(user);
       return user;
     }
   } catch (error) {
@@ -83,7 +60,6 @@ async function deleteUser(id) {
   try {
     const user = await User.findOneAndDelete({ _id: id }).exec();
     if (user) {
-      // const userData = extractUserInfo(user);
       return user;
     }
   } catch (error) {

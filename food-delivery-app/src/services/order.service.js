@@ -1,34 +1,47 @@
 const { Order } = require('../models');
-// const httpStatus = require('http-status');
-// const ApiError = require('../utils/ApiError');
 
 async function getOrderById(id) {
   try {
-    const Order = await Order.findById(id).exec();
-    if (Order) {
-      // const OrderData = extractOrderInfo(Order);
-      return Order;
+    const order = await Order.findById(id).exec();
+    if (order) {
+      return order;
     }
   } catch (error) {
     console.log(error.message);
   }
 }
 
-async function createOrder(OrderBody) {
-  const newOrder = await Order.create(OrderBody);
-  // const OrderData = extractOrderInfo(newOrder);
-  if (newOrder) return newOrder;
-  else {
+async function getOrdersByUserId(userId) {
+  try {
+    const orders = await Order.find({ userId });
+    if (orders) {
+      return orders;
+    }
+  } catch (error) {
+    console.log(error);
     return null;
   }
 }
 
-async function updateOrderInfo(id, OrderBody) {
+async function createOrder(orderBody) {
   try {
-    const Order = await Order.findOneAndUpdate({ _id: id }, OrderBody).exec();
-    if (Order) {
-      // const OrderData = extractOrderInfo(Order);
-      return Order;
+    const newOrder = await Order.create(orderBody);
+    if (newOrder) {
+      return newOrder;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+async function updateOrderInfo(id, orderBody) {
+  try {
+    const order = await Order.findOneAndUpdate({ _id: id }, orderBody, {
+      new: true,
+    }).exec();
+    if (order) {
+      return order;
     }
   } catch (error) {
     console.log(error.message);
@@ -39,4 +52,5 @@ module.exports = {
   getOrderById,
   createOrder,
   updateOrderInfo,
+  getOrdersByUserId,
 };

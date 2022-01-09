@@ -3,7 +3,6 @@ const compression = require('compression');
 const cors = require('cors');
 const httpStatus = require('http-status');
 const routes = require('./routes/api');
-// const ApiError = require('./utils/ApiError');
 const { jwtStrategy } = require('./config/passport');
 const helmet = require('helmet');
 const passport = require('passport');
@@ -26,8 +25,15 @@ app.use(passport.initialize());
 
 app.use('/api', routes);
 
-app.use((req, res, next) => {
-  next(new Error(httpStatus.NOT_FOUND + ' Not found'));
+app.use((err, req, res, next) => {
+  if (err) {
+    res.status(httpStatus.NOT_FOUND);
+    res.send({ message: 'Not found' });
+  } else {
+    next(
+      new Error(httpStatus.INTERNAL_SERVER_ERROR + ' Something went wrong!')
+    );
+  }
 });
 
 module.exports = app;

@@ -30,11 +30,6 @@ const addressSchema = mongoose.Schema({
 
 const userSchema = mongoose.Schema(
   {
-    // id: {
-    //   type: Number,
-    //   required: true,
-    //   unique: true,
-    // },
     username: {
       type: String,
       required: true,
@@ -86,15 +81,6 @@ userSchema.statics.isEmailTaken = async function (email) {
     console.log(error.message);
   }
 };
-// userSchema.statics.isIdTaken = async function (id) {
-//   try {
-//     const doesExist = await this.exists({ id });
-//     if (doesExist) return true;
-//     return false;
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
 
 userSchema.pre('save', function (next) {
   const user = this;

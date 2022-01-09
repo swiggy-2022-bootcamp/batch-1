@@ -1,6 +1,5 @@
 const passport = require('passport');
 const httpStatus = require('http-status');
-// const ApiError = require('../utils/ApiError');
 
 class ApiError extends Error {
   constructor(statusCode, message, isOperational = true, stack = '') {

@@ -2,12 +2,8 @@ const mongoose = require('mongoose');
 
 const orderSchema = mongoose.Schema(
   {
-    orderId: {
-      type: Number,
-      required: true,
-    },
     userId: {
-      type: Number,
+      type: String,
       required: true,
     },
     foodList: {
@@ -18,6 +14,10 @@ const orderSchema = mongoose.Schema(
       type: Number,
       required: true,
       trim: true,
+    },
+    orderStatus: {
+      type: Boolean,
+      required: true,
     },
     deliveryStatus: {
       type: Boolean,
@@ -38,7 +38,7 @@ const orderSchema = mongoose.Schema(
   }
 );
 
-const Order = mongoose.model('Food', v);
+const Order = mongoose.model('Order', orderSchema);
 
 module.exports.Order = Order;
 module.exports.orderSchema = orderSchema;
