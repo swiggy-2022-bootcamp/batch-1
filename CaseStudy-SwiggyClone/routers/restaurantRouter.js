@@ -3,7 +3,10 @@ const restaurantRouter = express.Router();
 
 // importing functions from related controllers
 const { isAuthorised, protectRoute } = require('../controllers/authController');
-const { registerRestaurant, getRestaurant, updateRestaurant, deleteRestaurant, addFoodItem, removeFoodItem, updateFoodItem } = require('../controllers/restaurantController');
+const { registerRestaurant, getRestaurant, updateRestaurant, deleteRestaurant, addFoodItem, removeFoodItem, updateFoodItem, getRestaurantByName } = require('../controllers/restaurantController');
+
+restaurantRouter.route('/search')
+.get(getRestaurantByName);
 
 // set role and id of user
 restaurantRouter.use(protectRoute);

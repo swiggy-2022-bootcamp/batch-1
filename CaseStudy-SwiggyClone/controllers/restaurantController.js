@@ -58,6 +58,37 @@ module.exports.getRestaurant = async function getRestaurant(req,res)
     }
 };
 
+module.exports.getRestaurantByName = async function getRestaurantByName(req,res)
+{
+    try {
+        let restaurantName = req.body.restaurantName;         
+        if(!restaurantName)
+        {
+            return res.status(400).json({
+                message:'Restaurant name needed!'
+            })
+        }
+
+        let restaurant = await restaurantModel.findOne({restaurantName:restaurantName});
+        
+        if(restaurant)
+        {
+            res.json(restaurant);
+        }
+        else
+        {
+            res.status(404).json({
+                message:'Restaurant not Found'
+            });
+        }
+
+    } catch (err) {
+        res.status(500).json({
+            message:err.message
+        });       
+    }
+}
+
 // can update any restaurant under the owner
 module.exports.updateRestaurant = async function updateRestaurant(req,res)
 {
