@@ -4,10 +4,7 @@ const app = express();
 
 // middleware used to parse the body of the request
 app.use(express.json());
-
-
 app.get('/', (req, res) => {res.send('Hello World!')});
-
 
 
 const courses = [
@@ -85,8 +82,6 @@ function validateCourse(course) {
     });
     return schema.validate(course);
 }
-
-
 
 
 //delete request to delete a course
