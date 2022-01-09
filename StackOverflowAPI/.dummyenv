@@ -1,3 +1,6 @@
 PORT=Add a port number here
-JWT_SECURITY_KEY=Add a security key here for JWT 
-CRYPTO_SECURITY_KEY=Add a security key here for CryptoJS
+JWT_SECRET_KEY=Add a security key here for JWT 
+CRYPTOJS_KEY=Add a security key here for CryptoJS
+MONGO_ATLAS_USERNAME=Add mongo atlas cluster username
+MONGO_ATLAS_PASSWORD=Add mongo atlas cluster password
+DB_NAME=Add database name

@@ -95,8 +95,32 @@ const postAnswer = async (req, res) => {
 };
 
 const updateAnswer = async (req, res) => {
+    const quesId = req.params.id;
+    const newAnswerBody = req.body["question"]["answer"];
+    const userId = req.userId;
+
     try {
-    } catch (err) {}
+        // find users answer
+        const answer = await Answer.findOne({ownerId: userId, questionId: quesId});
+
+        if(!answer) 
+            return res.status(404).json({
+                message: "Answer not found to update!"
+            })
+        
+        answer.body = newAnswerBody;
+        await answer.save();
+
+        res.status(200).json({
+            message: "Answer updated successfully",
+            "question-id": quesId
+        })
+    } catch (err) {
+        console.log("In updateAnswer (questionController): ", err);
+        res.status(500).json({
+            message: "Error occured!",
+        });
+    }
 };
 
 module.exports = {
