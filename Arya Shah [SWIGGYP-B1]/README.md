@@ -16,23 +16,23 @@ Email ID: swiggyb1016@datascience.manipal.edu
 
 ### Day 1
 
-- Click here
+<a href="https://github.com/swiggy-2022-bootcamp/batch-1/tree/main/Arya%20Shah%20%5BSWIGGYP-B1%5D/Week%200/Day%201">Click Here</a>
 
 ### Day 2
 
-- Click here
+<a href="https://github.com/swiggy-2022-bootcamp/batch-1/tree/main/Arya%20Shah%20%5BSWIGGYP-B1%5D/Week%200/Day%202">Click Here</a>
 
 ### Day 3
 
-- Click here
+<a href="https://github.com/swiggy-2022-bootcamp/batch-1/tree/main/Arya%20Shah%20%5BSWIGGYP-B1%5D/Week%200/Day%203">Click Here</a>
 
 ### Day 4
 
-- Click here
+<a href="https://github.com/swiggy-2022-bootcamp/batch-1/tree/main/Arya%20Shah%20%5BSWIGGYP-B1%5D/Week%200/Day%204">Click Here</a>
 
 ### Day 5
 
-- Click here
+<a href="https://github.com/swiggy-2022-bootcamp/batch-1/tree/main/Arya%20Shah%20%5BSWIGGYP-B1%5D/Week%200/Day%205">Click Here</a>
 
 ### Day 6 and 7 [Mini Project]
 
