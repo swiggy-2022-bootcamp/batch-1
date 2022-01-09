@@ -1,6 +1,6 @@
 const foodItemRoutes=require('express').Router();
 const FoodItem=require('../../models/foodItems/foodItemModel');
-const foodItemOperations=require('../../db/helpers/foodItems/foodItemOperations');
+const foodItemOperations=require('../../controllers/foodItems');
 const tokenMiddleware=require("../../utils/tokenmiddleware");
 
 
@@ -13,11 +13,17 @@ foodItemRoutes.get("/food/all",(req,res)=>{
 
 
 foodItemRoutes.post("/food",(req,res)=>{
-    console.log("FoodItem is ",req.body);
+   
     let foodItem=req.body;
   
     let newFoodItem=new FoodItem(foodItem.foodName,foodItem.foodCost,foodItem.foodType);
     foodItemOperations.addFoodItem(newFoodItem,res);
+
+})
+foodItemRoutes.put("/food",(req,res)=>{
+  
+    let foodItem=req.body;
+    foodItemOperations.updateByFoodItemId(foodItem,res);
 
 })
 foodItemRoutes.get("/food/:foodId",(req,res)=>{

@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 
-app.use('/api',require('./api/user/userRoutes'));
-app.use('/api',require('./api/foodItem/foodItemRoutes'));
+app.use('/api',require('./routes/user/userRoutes'));
+app.use('/api',require('./routes/foodItem/foodItemRoutes'));
 const port=process.env.PORT || 1234;
 app.listen(port , (err)=> {
     if(err) {

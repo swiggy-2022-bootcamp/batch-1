@@ -1,7 +1,7 @@
 const userRoutes=require('express').Router();
 //const passport=require('passport');
 const User=require('../../models/users/userModel');
-const userOperations=require('../../db/helpers/users/userOperations');
+const userOperations=require('../../controllers/users/userOperations');
 const tokenMiddleware=require("../../utils/tokenmiddleware");
 
 

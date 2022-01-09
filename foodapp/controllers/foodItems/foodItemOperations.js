@@ -1,6 +1,6 @@
-const FoodItemSchema=require('../../models/fooditems/foodItemSchema');
-const config=require("../../../utils/config");
-const { query } = require('express');
+const FoodItemSchema=require('../../db/models/fooditems/foodItemSchema');
+const config=require("../../utils/config");
+
 
 const foodItemOperations = {
    
@@ -42,6 +42,31 @@ const foodItemOperations = {
        
             
         
+    },
+    async updateByFoodItemId(foodItemObject,res){
+        try {
+            const foodItem=await FoodItemSchema.findOne({foodId:foodItemObject.foodId});
+            console.log("Food Item",foodItem);
+           
+            for(let property of Object.keys(foodItem)) {
+                console.log("Property",property);
+                
+                if(property == 'foodId' || property=='_id')
+                continue;
+    
+                if(foodItem[property]){
+                    console.log(foodItem[property]);
+                    foodItem[property] = foodItemObject[property];
+                }
+            }
+    
+            await foodItem.save();
+            return res.status(200).json({"message":"Details updated successfully!",foodItem});
+    
+        } catch(err) {
+            console.log(err.message);
+            return res.status(404).json({"message" : `Food Item with id ${foodItemObject.foodId} not found`});
+        }
     },
     async findByFoodName(foodItemName){
         try{

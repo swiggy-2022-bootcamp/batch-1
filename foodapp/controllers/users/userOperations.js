@@ -1,5 +1,5 @@
-const userSchema=require('../../models/users/userSchema');
-const config=require("../../../utils/config");
+const userSchema=require('../../db/models/users/userSchema');
+const config=require("../../utils/config");
 const bcrypt=require('../../../utils/bcrypt');
 const jwt = require('../../../utils/token');
 const mailUser = require('../../../utils/welcomeEmail/welcomeEmail');
@@ -30,7 +30,7 @@ const customerOperations = {
     
             for(let property of Object.keys(userobj)) {
                 
-                if(property === 'id')
+                if(property === 'id' || property=='_id')
                 continue;
     
                 if(user[property])
