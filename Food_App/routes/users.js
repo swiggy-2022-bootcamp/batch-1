@@ -69,7 +69,7 @@ router.delete('/users/:userId', async (req, res) => {
 });
 
 // UPDATES USER USING PATCH
-router.patch('/:userId', async (req, res) => {
+router.patch('/users/:userId', async (req, res) => {
     try {
         const updatedUser = await User.updateOne(
             { _id: req.params.userId }, 
