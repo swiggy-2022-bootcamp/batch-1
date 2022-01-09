@@ -12,11 +12,11 @@ mongoose.connect(db_link)
 });
 
 const restaurantSchema = new mongoose.Schema({
-    // restaurantId:{
-    //     type: mongoose.Schema.Types.ObjectId, 
-    //     ref: 'userModel',
-    //     required:true
-    // },
+    restaurantId:{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'userModel',
+        required:true
+    },
     restaurantName:{
         type:String,
         required:true,
@@ -60,6 +60,7 @@ const restaurantSchema = new mongoose.Schema({
         }
     },
     foodItems:[{
+        type: {
         name:{
             type:String,
             required:true,
@@ -82,6 +83,9 @@ const restaurantSchema = new mongoose.Schema({
             type:Boolean,
             default:false
         }
+        },
+        unique:false,
+        default : []
     }],
     profilePicture:{
         type:String,
@@ -114,5 +118,12 @@ const restaurantSchema = new mongoose.Schema({
 });
 
 const restaurantModel = mongoose.model('restaurantModel',restaurantSchema);
+
+// restaurantModel.collection.dropIndex('foodItems.name_1',function(err,result)
+// {
+//     if (err) {
+//         console.log('Error in dropping index!', err);
+//     }
+// });
 
 module.exports = restaurantModel;
