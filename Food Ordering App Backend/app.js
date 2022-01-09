@@ -1,19 +1,8 @@
-const Joi = require('joi');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 require("dotenv").config();
 
-
-// Model Imports
-const User = require('./schemas/user.js');
-const Restaurant = require('./schemas/restaurant.js');
-const Food = require('./schemas/food.js');
-const Cart = require('./schemas/cart.js');
-const Order = require('./schemas/order.js');
 
 // Middleware Imports
 const auth = require("./middleware/auth.js");
