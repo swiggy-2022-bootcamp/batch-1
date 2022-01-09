@@ -11,7 +11,8 @@ exports.verifyToken = (req, res, next) => {
     if (err) {
       return sendBadRequest(res, 401, "Unauthorized!");
     }
-    req.userId = decoded.id;
+    req.userID = decoded.id;
     next();
   });
 };
+    

@@ -37,7 +37,7 @@ exports.authenticateUser = async (req, res) => {
       return sendBadRequest(res, 403, "Invalid Password");
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+    const token = jwt.sign({ id: user.id }, process.env.SECRET, {
       expiresIn: 86400,
     });
     return sendJSONResponse(res, 200, "User logged in successful", {
