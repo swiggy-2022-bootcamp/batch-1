@@ -1,0 +1,43 @@
+<app-header></app-header>
+<div class="container" style="margin-bottom: 40px;">
+	<div style="margin-top: 50px; margin-bottom: 50px;" class="input-group">
+		<div style="margin-left: 300px; width: 450px;" class="form-outline">
+			<input
+				[(ngModel)]="searchText"
+				type="search"
+				placeholder="Search By UserName"
+				id="form1"
+				class="form-control"
+			/>
+		</div>
+	</div>
+	<div class="card" id="scroll">
+		<table class="table">
+			<thead class="thead bg-success">
+				<tr>
+          <th scope="col">Id</th>
+					<th scope="col">Username</th>
+					<th scope="col">Email</th>
+					<th scope="col">House No</th>
+					<th scope="col">Street</th>
+          <th scope="col">City</th>
+					<th scope="col">State</th>
+					<th scope="col">Zip</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let user of Users  | searchUser: searchText">
+					<td>{{user.id}}</td>
+					<td>{{user.username}}</td>
+					<td>{{user.email}}</td>
+					<td>{{user.address[0]['houseno']}}</td>
+					<td>{{user.address[0]['street']}}</td>
+					<td>{{user.address[0]['city']}}</td>
+					<td>{{user.address[0]['state']}}</td>
+					<td>{{user.address[0]['zip']}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<app-footer></app-footer>
