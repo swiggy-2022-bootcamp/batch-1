@@ -10,30 +10,36 @@ MSTeams Credentials: Arya Shah[SWIGGYP-B1]
 
 Email ID: swiggyb1016@datascience.manipal.edu
 
-# Table Of Contents:
+# Continued from Day 4
 
-## Week 0 Training
+## [ 25:23 ](https://youtu.be/pKd0Rpw7O48?t=1523)  Handling GET Requests
 
-### Day 1
+GET Request || Method for getting data 
 
-- Click here
+      server.get('/api/class/:id', (req, res) => {})
 
-### Day 2
+- Get Id from request params obj by `req.params.id`
+- Find the matched class by *Array.find* `classes.find(c => c.id === id)`
+- Send the matched class to the res `res.send(matchedClass)`
+- Handle *404 Not found* Error  `res.status(404).send('Not found')`
 
-- Click here
+<br>
 
-### Day 3
+## [ 30:09 ](https://youtu.be/pKd0Rpw7O48?t=1809)  Handling POST Requests
 
-- Click here
+POST (Request || Method) for ( creating || adding) data 
 
-### Day 4
+      server.post('/api/classes', (req, res) => {})
+- We will send the **new data as JSON object** to (server || Database) in *the request body*  
+- We need to enable parsing of JSON object in *express* first by add this line after express object 
 
-- Click here
+      
+      server.use(express.json()) 
 
-### Day 5
+  - What we did here is we added a pice of **Middleware** (`express.json()`)
+  - **Middleware** is a type of computer software that provides services to software applications beyond those available from the operating system. It can be described as *"software glue"*
+  - `server.use()` => using Middleware in the request processing pipeline
 
-- Click here
-
-### Day 6 and 7 [Mini Project]
-
-- Click Here
+- We need to use [Postman](https://www.postman.com/) for testing  the post
+  requests by added data
+  into the request body 
