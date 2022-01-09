@@ -4,9 +4,10 @@ const session = require('express-session')
 const bodyParser = require('body-parser')
 const app = express();
 
-console.log('May Node be with you')
 
+console.log('Server is up and running...')
 
+// to do --> put these in a config file
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     // It holds the secret key for session
@@ -17,14 +18,12 @@ app.use(session({
 
 
 
+
+
 app.listen(8080, function (req, res) {
     console.log('listening on 8080')
 })
 
-// handers:
-app.get('/', function (req, res) {
-    res.send("hi")
-})
 
 app.post('/register', (req, res) => {
     dbUtils.registerUser(req.body);
@@ -41,18 +40,34 @@ app.post('/login', (req, res) => {
                 //setting logged in user in session
                 
             } else if ( status == "NON") {
+                // user is logged in
                 res.send(searchResponse);
                 
+            } else {
+                res.send("Error in logging in. Please contact team")
             }
             
         });
 });
 
-//check session
-app.post('/session', (req, res) => {
-    res.send(req.session.loggedInUser +  " is logged in ");
-    console.log(req.session);
+app.get('/logout', (req,res) => { 
+    if (req.session.loggedInUser != null ) {
+        req.session.loggedInUser  = null; 
+        res.send("Logged the user out!")        
+    } else {
+        res.send("No one is logged in!")       
+    }                                    
+});
+
+//check session, i.e. who is logged in
+app.get('/session', (req, res) => {
+    if (  req.session.loggedInUser != null ) {
+        res.send(req.session.loggedInUser +  " is logged in ");
+        console.log(req.session);
+    } else {
+        res.send("No user is logged in!")
+    }
 });
 
 
-
+require('./controller/routes.js')(app); 
