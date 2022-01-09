@@ -1,5 +1,5 @@
 const config = {
-    dbConfig : 'mongodb+srv://chahat:chahat@cluster0.jb4z4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    dbConfig : 'MONGODBURL',
     SUCCESS:'S',
     FAILURE:'F',
     ERROR:'E',
