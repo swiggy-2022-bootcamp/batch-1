@@ -1,0 +1,39 @@
+<div class="login">
+	<div class="login-form">
+		<div class="alert alert-danger" *ngIf="error">
+			<p>Incorrect Email Id or Password</p>
+		</div>
+		<form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" class="bg-gradient">
+			<h2 class="text-center" style="color: white; margin-right: 20px;">Food App</h2>
+			<div class="form-group">
+				<label for="email" style="color: white; margin-right: 18px;">E-Mail</label>
+				<input
+					type="email"
+					id="email"
+					name="email"
+					class="form-control"
+					ngModel
+					required
+					email
+					minlength="4"
+				/>
+			</div>
+			<div class="form-group">
+				<label for="password" style="color: white; margin-right: 6px;">Password</label>
+				<input
+					type="password"
+					id="password"
+					name="password"
+					class="form-control"
+					ngModel
+					required
+					minlength="6"
+				/>
+			</div>
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-primary" [disabled]="!authForm.valid">Login</button>
+			</div>
+		</form>
+	</div>
+</div>
+
