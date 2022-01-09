@@ -18,7 +18,7 @@ module.exports.registerRestaurant = async function registerRestaurant(req,res)
         }
         else
         {
-            res.json({
+            res.status(400).json({
                 message:'error while signing up'
             });
         }
@@ -44,7 +44,7 @@ module.exports.getRestaurant = async function getRestaurant(req,res)
         }
         else
         {
-            return res.json({
+            return res.status(404).json({
                 message:'Restaurant not Found'
             });
         }
@@ -65,14 +65,14 @@ module.exports.updateRestaurant = async function updateRestaurant(req,res)
 
         if(!dataToUpdate.restaurantName)
         {
-            return res.json({
+            return res.status(400).json({
                 message:'Restaurant Name required to change details'
             });
         }
 
         if(dataToUpdate.restaurantId)
         {
-            return res.json({
+            return res.status(403).json({
                 message:'Not allowed to update this'
             });
         }
@@ -89,7 +89,7 @@ module.exports.updateRestaurant = async function updateRestaurant(req,res)
         }
         else
         {
-            res.json({
+            res.status(404).json({
                 message:'Restaurant not Found'
             });
         }
@@ -111,7 +111,7 @@ module.exports.deleteRestaurant = async function deleteRestaurant(req,res)
 
         if(!rname)
         {
-            return res.json({
+            return res.status(400).json({
                 message:'Restaurant Name required to change details'
             });
         }
@@ -119,7 +119,7 @@ module.exports.deleteRestaurant = async function deleteRestaurant(req,res)
         let deletedRestaurant = await restaurantModel.findOneAndDelete({restaurantId:rid,restaurantName:rname});
         if(!deletedRestaurant)
         {
-            res.json({
+            res.status(404).json({
                 message:'Restaurant not found'
             });
         }
@@ -149,14 +149,14 @@ module.exports.addFoodItem = async function addFoodItem(req,res)
 
         if(!foodItem)
         {
-            return res.json({
+            return res.status(400).json({
                 message:'Field food item is necessary to add food items'
             }); 
         }
 
         if(!rname)
         {
-            return res.json({
+            return res.status(400).json({
                 message:'Restaurant name is necessary to add food item'
             });
         }
@@ -182,7 +182,6 @@ module.exports.addFoodItem = async function addFoodItem(req,res)
                 {
                     if(err)
                     {
-                        console.log('went here');
                         respObj = err.message;
                     }
                     else{
@@ -196,7 +195,7 @@ module.exports.addFoodItem = async function addFoodItem(req,res)
         }
         else
         {
-            res.json({
+            res.status(404).json({
                 message:'Restaurant not found'
             })
         }
@@ -217,14 +216,14 @@ module.exports.removeFoodItem = async function removeFoodItem(req,res)
 
         if(!foodItem)
         {
-            return res.json({
+            return res.status(400).json({
                 message:'Field food item is necessary to add food items'
             }); 
         }
 
         if(!rname)
         {
-            return res.json({
+            return res.status(400).json({
                 message:'Restaurant name is necessary to add food item'
             });
         }
@@ -244,7 +243,7 @@ module.exports.removeFoodItem = async function removeFoodItem(req,res)
 
             if(!foodFound)
             {
-                return res.json({
+                return res.status(404).json({
                     message:'Cannot remove food item as it doesnt exist'
                 });
             }
@@ -269,7 +268,7 @@ module.exports.removeFoodItem = async function removeFoodItem(req,res)
         }
         else
         {
-            res.json({
+            res.status(404).json({
                 message:'Restaurant not found'
             })
         }
@@ -290,14 +289,14 @@ module.exports.updateFoodItem = async function updateFoodItem(req,res)
 
         if(!foodItem)
         {
-            return res.json({
+            return res.status(400).json({
                 message:'Field food item is necessary to add food items'
             }); 
         }
 
         if(!rname)
         {
-            return res.json({
+            return res.status(400).json({
                 message:'Restaurant name is necessary to add food item'
             });
         }
@@ -319,7 +318,7 @@ module.exports.updateFoodItem = async function updateFoodItem(req,res)
 
             if(!foodFound)
             {
-                return res.json({
+                return res.status(404).json({
                     message:'Cannot remove food item as it doesnt exist'
                 });
             }

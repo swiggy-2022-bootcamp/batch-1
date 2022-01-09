@@ -14,13 +14,13 @@ module.exports.getUser = async function getUser(req,res)
         }
         else
         {
-            return res.json({
+            return res.status(404).json({
                 message:'User not Found'
             });
         }
     }catch(err)
     {
-        res.json({
+        res.status(500).json({
             message:err.message
         });
     }
@@ -36,7 +36,7 @@ module.exports.updateUser = async function updateUser(req,res)
 
         if(dataToUpdate.email || dataToUpdate.password || dataToUpdate.role)
         {
-            return res.json({
+            return res.status(403).json({
                 message:'Cannot change these things here'
             });
         }
@@ -54,7 +54,7 @@ module.exports.updateUser = async function updateUser(req,res)
         }
         else
         {
-            res.json({
+            res.status(404).json({
                 message:'User not Found'
             });
         }
@@ -75,7 +75,7 @@ module.exports.deleteUser = async function deleteUser(req,res)
         let deletedUser = await userModel.findByIdAndDelete(uid);
         if(!deletedUser)
         {
-            res.json({
+            res.status(400).json({
                 message:'User not found'
             });
         }
@@ -91,7 +91,7 @@ module.exports.deleteUser = async function deleteUser(req,res)
     }
     catch(err)
     {
-        res.json({
+        res.status(500).json({
             message:err.message
         });
     }
@@ -109,7 +109,7 @@ module.exports.getAllUsers = async function getAllUsers(req,res)
         });
     }catch(err)
     {
-        res.json({
+        res.status(500).json({
             message:err.message
         })
     }
@@ -129,13 +129,13 @@ module.exports.getUsers = async function getUsers(req,res)
         }
         else
         {
-            return res.json({
+            return res.status(404).json({
                 message:'User not Found'
             });
         }
     }catch(err)
     {
-        res.json({
+        res.status(500).json({
             message:err.message
         });
     }
@@ -162,7 +162,7 @@ module.exports.updateUsers = async function updateUsers(req,res)
         }
         else
         {
-            res.json({
+            res.status(400).json({
                 message:'user not found'
             });
         }
@@ -170,7 +170,7 @@ module.exports.updateUsers = async function updateUsers(req,res)
     catch(err)
     {
         // console.log('errored  here!');
-        res.json({
+        res.status(500).json({
             message:err.message
         });
     }    
@@ -184,7 +184,7 @@ module.exports.deleteUsers = async function deleteUsers(req,res)
         let deletedUser = await userModel.findByIdAndDelete(uid);
         if(!deletedUser)
         {
-            res.json({
+            res.status(404).json({
                 message:'User not found'
             });
         }
@@ -199,7 +199,7 @@ module.exports.deleteUsers = async function deleteUsers(req,res)
     }
     catch(err)
     {
-        res.json({
+        res.status(500).json({
             message:err.message
         });
     }
