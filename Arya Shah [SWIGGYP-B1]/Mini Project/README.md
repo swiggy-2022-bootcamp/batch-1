@@ -10,30 +10,8 @@ MSTeams Credentials: Arya Shah[SWIGGYP-B1]
 
 Email ID: swiggyb1016@datascience.manipal.edu
 
-# Table Of Contents:
+## Project Topic Selection: Problem Statement 3
 
-## Week 0 Training
+### Title: Question, Answer & Vote
 
-### Day 1
-
-- Click here
-
-### Day 2
-
-- Click here
-
-### Day 3
-
-- Click here
-
-### Day 4
-
-- Click here
-
-### Day 5
-
-- Click here
-
-### Day 6 and 7 [Mini Project]
-
-- Click Here
+Description: The application serves as a platform for users to ask and answer questions, and, through membership and active participation, to vote questions and answers up or down similar to Reddit/Stack overflow and edit questions and answers. 
