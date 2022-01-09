@@ -1,6 +1,8 @@
 const Restaurant = require('../schemas/restaurant.js');
 const Food = require('../schemas/food.js');
 
+const foodAdditionValidation = require('../apiSchemas/foodAddition.js');
+
 async function saveFoodDetails(req) {
 
     try {
@@ -22,10 +24,18 @@ async function saveFoodDetails(req) {
 }
 
 exports.addFoodDetails =  async (req, res) => {
+
+    try {
+        await foodAdditionValidation.schema.validateAsync(req.body);
+    } catch(e) {
+        return res.status(422).json({"message" : e.details[0].message});
+    }
+
+
+
     try {
 
         const restaurant = await Restaurant.find({_id : req.body.restaurantId});
-        console.log(restaurant);
      
         const oldFood = await Food.findOne({restaurantId : req.body.restaurantId, foodName : req.body.foodName});
         if (oldFood) {
