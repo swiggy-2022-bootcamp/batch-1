@@ -11,8 +11,8 @@ Install the dependencies and devDependencies and start the server.
 npm install
 node app.js
 ```
-Define the following secrets in the environment or using dotConfig :
-MONGO_URI : URL of the mongoDb server
+Define the following secrets in the environment or using dotConfig :\
+MONGO_URI : URL of the mongoDb server\
 TOKEN_KEY : Secret used for signing of JWT tokens (hexadecimal string) 
 
 ###  Tech Stack and Features :
