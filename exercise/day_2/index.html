@@ -1,0 +1,226 @@
+<!--DAY 2-->
+<html>
+
+<head>
+    <script>
+
+        function arrays() {
+            var myArray = [234, 34, 1, 55, 35, 63];
+            myArray.sort(function (a, b) { return (a - b) });
+            myArray.push(-1);
+            var eleVal = document.getElementById("d2").innerHTML + "<br>" + myArray + "<br>" ;
+            document.getElementById("d2").innerHTML = eleVal;
+        }
+
+
+        //objects
+        var obj = { id: 1, firstName: "Aditya", lastName: "Verma", fullName: function () { return ("sdffds"); } };
+        var extract = obj.id;
+        const d = new Date('2022', 1, 30);
+
+        //arrays:
+            var myArray = [234, 34, 1, 55, 35, 63];
+            myArray.sort(function (a, b) { return (a - b) });
+            myArray.push(-1);
+
+
+        //conact
+            var myArray2 = ['1', '4', '5', '5'];
+            var combinedArray = myArray.concat(myArray2);  // concats by reference
+            var combinedArrayHardCopy = myArray.concat(...myArray2); // copies the value
+
+
+        //filter:
+        var filteredObj = myArray.filter(data => data > 100);
+
+        //reduce:
+        var reducedObj = myArray.reduce(function (a, b) { return (a + b); });
+        var reducedObj2 = myArray.reduce((a, b) => { return (a * b); });
+        var reducedObj3 = myArray.reduce((a, b) => (a * b));
+
+        //how to reduce an object
+        var devices = [{ id: 5, price: 100 }, { id: 1, price: 100 }, { id: 2, price: 200 }]; 
+        var combinedPrice2 = Object.keys(devices).reduce(   
+                                function (prev, key) { 
+                                    return (prev + devices[key].price) 
+                                }, 0);
+
+
+        //sets:
+        const letters = new Set(["a","b","c"]); 
+        letters.add("x")
+
+        //how to print out a set:
+        for ( const entry of letters1.values() ) { 
+            console.log(entry) 
+        } 
+
+
+
+        //hashmaps:
+        var map  = {} ;
+        map['a'] = 1;
+        map['b'] = 2;
+        console.log(map);
+
+    </script>
+</head>
+
+<body>
+
+    <div id="d1" , onclick="clicked()">
+        <h3>Hello</h3>
+    </div>
+
+    <div id="d2">
+        var myArray = [234, 34, 1, 55, 35, 63];<br>
+        myArray.sort(function (a, b) { return (a - b) });<br>
+        myArray.push(-1);<br>
+        console.log(myArray)<br>
+    </div>
+    <button onclick="arrays()">Execute Me!</button>
+
+
+    <div id="d3">
+        d3 - Temp Value (can be changed using feature below)
+    </div>
+
+    <div id="d4">
+        d4 - Temp Value (can be changed using feature below)
+    </div>
+
+
+    <div id="d5">
+        d5 - Temp Value (can be changed using feature below)
+    </div>
+
+    <div id="d">
+        d6 - Temp Value (can be changed using feature below)
+    </div>
+
+    <div id="d5">
+        d7 - Temp Value (can be changed using feature below)
+    </div>
+
+    <hr>
+    <hr>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+    <hr>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+    <hr>
+    <br>
+    <br>
+
+</body>
+
+</html>
+
+
+<!-- part 2 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+
+        var alterContent1 = ()=>{
+            const inputField = document.getElementById("inputField");
+            const newValue = inputField.value;
+            inputField.value = "";
+            const content1 = document.getElementById("content1");
+            content1.innerHTML = newValue;
+        }
+
+        function changeFontSize(size){
+            const content1 = document.getElementById("content1");
+            content1.style.fontSize = size;
+
+            content1.style.display
+        }
+
+        function toggleDispaly(){
+            const content1 = document.getElementById("content1");
+            const btn = document.getElementById("show");
+
+            if(btn.value == "Hide"){
+                btn.value = "Show";
+                btn.innerText = "Show"
+                content1.style.display = "none";
+            }else{
+                btn.value = "Hide";
+                btn.innerText = "Hide"
+                content1.style.display = "block";
+            }            
+        }
+
+        function toggleVisibility(){
+            const content1 = document.getElementById("content1");
+            const btn = document.getElementById("show2");
+
+            if(content1.style.visibility == "hidden"){
+                btn.innerText = "Hide"
+                content1.style.visibility = "visible";
+            }else{
+                btn.innerText = "Show"
+                content1.style.visibility = "hidden";
+            }  
+        }
+
+    </script>
+    <title>Week 0: Day 2</title>
+</head>
+<body onload="arrayMethods()">
+
+    <div id="container1">
+        <div id="content1">
+            Hello World
+        </div>   
+        <br><br>   
+
+        <input type="text" id="inputField">
+        <button onclick="alterContent1()">Change Text</button>
+    </div>
+    <br><br>
+
+    <div id="container2">
+        <div id="controls">
+            <p>Chnaing font size</p>
+            <button onclick="changeFontSize('small')">Small Font Size</button> <br>
+            <button onclick="changeFontSize('large')">Large Font Size</button> <br>
+            <button onclick="changeFontSize('Medium')">Medium Font Size</button> <br>
+        </div>
+    </div>
+    <br><br>
+
+    <div id="container3">
+        <div id="display">
+            <p>Hiding and unhinding text using dislpaly</p>
+            <button id="show" onclick="toggleDispaly()" value="Hide">Hide<br>
+        </div>
+    </div>
+    <br><br>
+
+    <div id="container4">
+        <div id="visibility">
+            <p>Hiding and unhinding text using visibility</p>
+            <button id="show2" onclick="toggleVisibility()">Hide<br>
+        </div>
+    </div>
+
+
+
+
+    <script src="./script.js"></script>
+
+</body>
+</html>
