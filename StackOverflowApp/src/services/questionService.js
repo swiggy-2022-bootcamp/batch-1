@@ -2,6 +2,7 @@ import questionModel from "../models/question.js"
 import {logger} from "../utils/logger.js"
 import {ObjectId} from "mongodb"
 
+//function to add question to the database
 export const addQuestionToDb = (question, res)=>{
     questionModel.create(question)
         .then((questionDocument)=>{
@@ -19,11 +20,13 @@ export const addQuestionToDb = (question, res)=>{
         })
 }
 
+//function to add answer to the database
 export const addAnswerToDb = (doesQuestionExists, req, res)=>{
     const questionId = req.params.questionId
     const { answer } = req.body.question
     const userId = req.user._id
 
+    //Validating if user has already answered the question
     const _id = new ObjectId(userId)
     let userAlreadyAnswered = false
     for(let i in doesQuestionExists.answers){
@@ -58,9 +61,10 @@ export const addAnswerToDb = (doesQuestionExists, req, res)=>{
     })
 }
 
+//function to update answer to the database
 export const updateAnswerToDb = (doesQuestionExists, req, res) => {
-    // Checking if the current user has already answered the question
 
+    // Checking if the current user has already answered the question
     const questionId = req.params.questionId
     const { answer } = req.body.question
     const userId = req.user._id
@@ -102,6 +106,7 @@ export const updateAnswerToDb = (doesQuestionExists, req, res) => {
     })
 }
 
+//function to validate if question exists in the database
 export const checkIfQuestionExists = async (questionId) =>{
     const question_id = new ObjectId(questionId)
     const doesQuestionExists = await questionModel.findOne({"_id" : question_id})

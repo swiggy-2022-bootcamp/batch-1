@@ -1,10 +1,8 @@
 import express from "express";
-import userModel from "../models/user.js";
 
 const router = express.Router()
 
-
-// get requests
+// Welcome endpoint when application starts
 router.get("/", (req, res)=>{
     res.status(200).send({
         "status": "Connected successfully",

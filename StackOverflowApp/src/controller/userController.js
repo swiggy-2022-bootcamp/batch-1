@@ -1,4 +1,4 @@
-import { generateToken } from "./auth.js"
+import { generateToken } from "../middleware/auth.js"
 import { addUserToDb, validateUser } from "../services/userService.js"
 
 /**

@@ -2,6 +2,7 @@ import userModel from "../models/user.js";
 import bcrypt from "bcrypt"
 import {logger} from "../utils/logger.js"
 
+//function to add user to the database
 export const addUserToDb = async ( req, res ) => {
     let { name, email, password } = req.body
     const userRequest = {
@@ -9,9 +10,12 @@ export const addUserToDb = async ( req, res ) => {
         email,
         password
     }
+
+    //hashing user password
     const encryptedPassword = await bcrypt.hash(userRequest.password, 10);
     userRequest.password = encryptedPassword;
     
+    //Validating if user already exists in the database
     const userExists = await userModel.exists({
         email
     })
@@ -21,6 +25,8 @@ export const addUserToDb = async ( req, res ) => {
             message: "User already exists!"
         })
     }
+
+    //adding to the database
     userModel.create(userRequest).then(()=>{
         logger.info("POST request for user registration returned 201 CREATED")
         return res.status(201).send({
@@ -34,6 +40,7 @@ export const addUserToDb = async ( req, res ) => {
     })
 }
 
+//function to validate user credentials
 async function validateUser(userBody){
     const { email, password } = userBody
     const response = {

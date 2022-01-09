@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 const {Schema} = mongoose
 
+//Creates a collection "QUESTION" in the database
 const QuestionSchema = new mongoose.Schema({
     user:{
         type : Schema.Types.ObjectId,

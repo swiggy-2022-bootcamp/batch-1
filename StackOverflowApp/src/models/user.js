@@ -1,11 +1,12 @@
 import mongoose from "mongoose"
 
+//Creates a collection "USER" in the database
 const UserSchema = new mongoose.Schema({
-    name :{
+    name: {
         type: String,
         required: true
     },
-    email : {
+    email: {
         type: String,
         required: true,
     },

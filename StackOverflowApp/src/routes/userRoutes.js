@@ -7,4 +7,5 @@ router.post( "/register", registerController )
 
 //POST request for login
 router.post( "/login", loginController )
+
 export default router

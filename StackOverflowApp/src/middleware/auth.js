@@ -4,12 +4,16 @@ import { logger } from "../utils/logger.js";
 
 dotenv.config();
 
+// Generating jwt token
 function generateToken(_id){
     const accessToken = jwt.sign({"_id" : _id},process.env.ACCESS_TOKEN_SECRET)
     return accessToken;
 }
 
+// Authenticating the token passed on every request.
 function authenticateToken(req, res, next){
+    
+    //fetching token from auth header
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
     if(token == null){
@@ -17,6 +21,7 @@ function authenticateToken(req, res, next){
         return res.status(400).send({"message" : "authorization token is missing."})
     } 
 
+    //verifying if token is correct
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if(err){
             logger.error("Authorization token passed is incorrect")
@@ -27,4 +32,4 @@ function authenticateToken(req, res, next){
     })
 }
 
-export { generateToken, authenticateToken}
+export { generateToken, authenticateToken }
