@@ -1,5 +1,7 @@
 import userModel from "../models/user.js";
 import bcrypt from "bcrypt"
+import { generateToken, authenticateToken } from "./auth.js"
+
 /**
  * Controller for register request
  * @param req { name, email, password }
@@ -42,8 +44,9 @@ const registerController = async (req, res) => {
  * @params res 
  */
 const loginController = async (req,res)=>{
-    const {status, message } = await validateUser(req.body);
-    return res.status(status).send({message})
+    const {status, message, _id } = await validateUser(req.body);
+    const accessToken = generateToken(_id)
+    return res.status(status).send({message, accessToken})
 
 }
 

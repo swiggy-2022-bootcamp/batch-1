@@ -12,6 +12,11 @@ const addQuestion = async (req,res)=>{
         return res.status(status).send({message})
     }
 
+    //Validating if user is authorized
+    const { _status, _message } = await checkIfUserIsAuthorized(req.user._id, _id)
+    if(_status != 200){
+        return res.status(_status).send({ "message" : _message })
+    }
     
     question.user = _id
 
@@ -39,6 +44,12 @@ const addAnswer = async (req,res)=>{
     const { status, message, _id } = await validateUser(userDetails)
     if(status != 200){
         return res.status(status).send({message})
+    }
+
+    //Validating if user is authorized
+    const { _status, _message } = await checkIfUserIsAuthorized(req.user._id, _id)
+    if(_status != 200){
+        return res.status(_status).send({ "message" : _message})
     }
 
     const { answer } = req.body.question
@@ -97,6 +108,12 @@ const updateAnswer = async (req,res) => {
         return res.status(status).send({message})
     }
 
+    //Validating if user is authorized
+    const { _status, _message } = await checkIfUserIsAuthorized(req.user._id, _id)
+    if(_status != 200){
+        return res.status(_status).send({ "message" : _message})
+    }
+
     const { answer } = req.body.question
     const userId = _id
 
@@ -125,7 +142,7 @@ const updateAnswer = async (req,res) => {
     }
 
     if(!userAlreadyAnswered){
-        return res.status(404).send("You have not answered the question")
+        return res.status(404).send({"message " : "You have not answered the question"})
     }
 
     //Updating the answer present in the database.
@@ -155,6 +172,13 @@ const getAnswersByQuestionId = async (req,res)=>{
         return res.status(status).send({message})
     }
 
+    //Validating if user is authorized
+    const { _status, _message } = await checkIfUserIsAuthorized(req.user._id, _id)
+    if(_status != 200){
+        return res.status(_status).send({_message})
+    }
+    
+
     //Validating if the question exists or not
     const question_id = new ObjectId(questionId)
     const doesQuestionExists = await questionModel.findOne({"_id" : question_id})
@@ -173,4 +197,22 @@ const getAnswersByQuestionId = async (req,res)=>{
 
     res.status(200).send(response)
 }
+
+async function checkIfUserIsAuthorized(authUserId, _id){
+    //console.log(authUserId + " " + _id)
+    let userAuthorized = (authUserId == _id)
+    const response = {
+        _status : "",
+        _message : ""
+    }
+    if(!userAuthorized){
+        response._status = 403;
+        response._message = "You must be logged in to continue."
+    }else{
+        response._status = 200;
+    }
+
+    return response
+}
+
 export { addQuestion, addAnswer, getAnswersByQuestionId, updateAnswer }
