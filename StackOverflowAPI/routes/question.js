@@ -1,15 +1,18 @@
 const router = require("express").Router();
+const verifyToken = require("../utils/verifyToken");
+const {
+    postQuestion,
+    getQuestionAnswers,
+    postAnswer,
+    updateAnswer,
+} = require("../controllers/questionController");
 
-router.post("/", (_, res) => {
-    res.status(201).json({
-        message: "post question",
-    });
-});
+router.post("/", verifyToken, postQuestion);
 
-router.get("/:id/");
+router.get("/:id/", verifyToken, getQuestionAnswers);
 
-router.post("/:id/answer");
+router.post("/:id/answer", verifyToken, postAnswer);
 
-router.put("/:id/answer");
+router.put("/:id/answer", verifyToken, updateAnswer);
 
 module.exports = router;

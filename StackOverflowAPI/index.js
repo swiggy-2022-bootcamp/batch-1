@@ -5,9 +5,9 @@ const express = require("express");
 const app = express();
 const logger = require("morgan");
 const accessLogStream = require("./config/accessLogStream");
-const port = process.env.PORT || 2022;
 const db = require("./config/mongoose");
-
+const helmet = require('helmet');
+const port = process.env.PORT || 2022;
 // for recognizing and parsing json objects
 app.use(express.json());
 
@@ -17,6 +17,9 @@ app.use(
         stream: accessLogStream,
     })
 );
+
+// adding a layer of security
+app.use(helmet());
 
 // handling routes in 'routes' folder
 app.use("/", require("./routes"));
