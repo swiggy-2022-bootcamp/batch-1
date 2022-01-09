@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
 require("dotenv").config();
 
 
@@ -26,8 +27,7 @@ const cartsRouter = require('./routes/cart.js');
 const ordersRouter = require('./routes/orders.js');
 
 const connectDB = require('./db.js');
-const res = require('express/lib/response');
-const { send } = require('express/lib/response');
+const swaggerDocument = require('./swagger.json');
 
 
 app.use(express.json());
@@ -44,6 +44,8 @@ app.use('/api/food', foodRouter);
 app.use('/api/carts', auth, cartsRouter);
 
 app.use('/api/orders', auth, ordersRouter);
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 const port = process.env.port || 3000;

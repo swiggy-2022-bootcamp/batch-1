@@ -1,0 +1,606 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Backend APIs for Food Delivery App",
+    "version": "1.0.0",
+    "title": "Food Delivery App",
+    "contact": {
+      "email": "ddivyansh18@gmail.com"
+    }
+  },
+  "host": "localhost:3000",
+  "tags": [
+    {
+      "name": "users",
+      "description": "APIs for authentication and management of user details"
+    },
+    {
+      "name": "restaurants",
+      "description": "APIs for manaaging restaurant details"
+    },
+    {
+      "name": "food",
+      "description": "APIs for managing food details"
+    },
+    {
+      "name": "carts",
+      "description": "APIs for maintaining a user's cart"
+    },
+    {
+      "name": "orders",
+      "description": "APIs for managing orders"
+    }
+  ],
+  "paths": {
+    "/api/register": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "register a new user",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/registerUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of new user"
+          },
+          "400": {
+            "description": "User registration not successful"
+          },
+          "409": {
+            "description": "User already registered"
+          },
+          "422": {
+            "description": "Missing parameters in body"
+          }
+        }
+      }
+    },
+    "/api/authenticate": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "authenticates a existing user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/authenticateUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful"
+          },
+          "403": {
+            "description": "Wrong Credentials"
+          },
+          "422": {
+            "description": "Missing parameters in body"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "returns all existing users",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of all users"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "modify details of existing user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modifyUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful"
+          },
+          "404": {
+            "description": "User with given id not found"
+          },
+          "422": {
+            "description": "Missing parameters in body"
+          }
+        }
+      }
+    },
+    "/api/users/{userID}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "returns details of a existing user",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "userID of user whose details are needed",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "details of the user with given userID"
+          },
+          "404": {
+            "description": "user with given ID not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "delete a existing user",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "userID of user which is to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user deleted successfully"
+          },
+          "500": {
+            "description": "error deleting user with given id"
+          }
+        }
+      }
+    },
+    "/api/restaurants": {
+      "post": {
+        "tags": [
+          "restaurants"
+        ],
+        "summary": "add details of a restaurant",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addRestaurant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of saved restaurant"
+          },
+          "409": {
+            "description": "Restaurant already registered"
+          },
+          "422": {
+            "description": "Missing parameters in body"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "restaurants"
+        ],
+        "summary": "returns details of all added restaurants",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "details of all added restaurants"
+          }
+        }
+      }
+    },
+    "/api/food": {
+      "post": {
+        "tags": [
+          "food"
+        ],
+        "summary": "add details of a food item",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addFood"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of saved food item"
+          },
+          "400": {
+            "description": "Food item registration not successful"
+          },
+          "404": {
+            "description": "Restaurant not found"
+          },
+          "409": {
+            "description": "Food name already exists for given restaurant"
+          },
+          "422": {
+            "description": "Missing parameters in body"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "food"
+        ],
+        "summary": "returns all existing food items",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of all food items"
+          }
+        }
+      }
+    },
+    "/api/food/{foodID}": {
+      "get": {
+        "tags": [
+          "food"
+        ],
+        "summary": "returns details of a existing food item",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "foodID",
+            "in": "path",
+            "description": "foodID of food item whose details are needed",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "details of the food item with given foodID"
+          },
+          "404": {
+            "description": "food item with given ID not found"
+          }
+        }
+      }
+    },
+    "/api/carts/{userID}": {
+      "get": {
+        "tags": [
+          "carts"
+        ],
+        "summary": "returns details of cart of user with given userID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "userID of user whose cart details are needed",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "details of the cart of user with given userID"
+          },
+          "500": {
+            "description": "cannot fetch cart for given user"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "carts"
+        ],
+        "summary": "modify cart of user with given userID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "userID of user which is to be deleted",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modifyCart"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user deleted successfully"
+          },
+          "500": {
+            "description": "error deleting user with given id"
+          }
+        }
+      }
+    },
+    "/api/orders/{userID}": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "returns order details of user with given userID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "userID of user whose cart details are needed",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "details of the cart of user with given userID"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "empties cart of the user and saves the successful order",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "userID of user whose cart is to be marked as successfully transacted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "details of the order"
+          },
+          "409": {
+            "description": "cart is empty"
+          },
+          "500": {
+            "description": "transaction failed"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "registerUser": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "houseno": {
+              "type": "string"
+            },
+            "street": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "zip": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "authenticateUser": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "modifyUser": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "houseno": {
+              "type": "string"
+            },
+            "street": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "zip": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "addRestaurant": {
+      "type": "object",
+      "properties": {
+        "restaurantName": {
+          "type": "string"
+        },
+        "restaurantAddress": {
+          "type": "string"
+        }
+      }
+    },
+    "addFood": {
+      "type": "object",
+      "properties": {
+        "restaurantName": {
+          "type": "string"
+        },
+        "restaurantId": {
+          "type": "string"
+        },
+        "foodName": {
+          "type": "string"
+        },
+        "foodCost": {
+          "type": "string"
+        },
+        "foodType": {
+          "type": "string"
+        }
+      }
+    },
+    "modifyCart": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "restaurantName": {
+          "type": "string"
+        },
+        "restaurantId": {
+          "type": "string"
+        },
+        "foodName": {
+          "type": "string"
+        },
+        "foodQuantity": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

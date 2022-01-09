@@ -43,7 +43,7 @@ exports.addFoodDetails =  async (req, res) => {
         }   
     } catch(e) {
         console.log(e.message);
-        return res.status(409).json({"message" : "Restaurant not found"});
+        return res.status(404).json({"message" : "Restaurant not found"});
     }
 
     const foodSaved = await saveFoodDetails(req);
