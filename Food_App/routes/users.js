@@ -31,4 +31,14 @@ router.get('/users', async (req, res) => {
     }
 });
 
+// GETS SPECIFIC USER
+router.get('/:userId', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        res.json(user);
+    } catch (err) {
+        res.send("Sorry, user with " + req.params.userId + " not found");
+    }
+});
+
 module.exports = router;
