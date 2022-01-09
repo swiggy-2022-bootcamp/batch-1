@@ -3,7 +3,6 @@ const fs = require('fs');
 const app = express();
 const {createUserDB, createFoodDB} = require('./utils/persistance');
 
-
 app.use(express.json());
 
 
@@ -103,6 +102,7 @@ app.put('/api/users', (request, response) => {
         }
     });
 });
+
 
 //delete the user by id
 app.delete('/api/users/:id', (request, response) => {

@@ -1,4 +1,4 @@
-const app = require('./index.js');
+const app = require('./app.js');
 
 // Start server
 const HTTP_PORT = process.env.PORT || 3000;
