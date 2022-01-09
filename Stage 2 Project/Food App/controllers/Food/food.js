@@ -1,3 +1,4 @@
+const { FOOD_TYPES } = require('../Food/utils')
 const db = require("../../models");
 const Food = db.food;
 
@@ -42,6 +43,12 @@ exports.addFood = (req, res) => {
 
   if (!foodName || !foodCost || !foodType) {
     res.status(400).send({ message: "Invalid Input values" });
+    return;
+  }
+
+  if (!FOOD_TYPES.includes(foodType)) {
+    res.status(400).send({ message: "Invalid FoodType" });
+    return;
   }
 
   Food.findOne({
