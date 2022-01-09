@@ -10,19 +10,20 @@ module.exports = function (app) {
     next();
   });
 
-  //All operations are allowed only by Admin
+ //Allowed by user and Admin
   app.get(
     "/api/foods",
-    [jwt.verifyToken, jwt.isAdmin],
+    [jwt.verifyToken],
     controller.getAllFoods
   );
 
   app.get(
     "/api/foods/:id",
-    [jwt.verifyToken, jwt.isAdmin],
+    [jwt.verifyToken],
     controller.getFood
   );
 
+  //Admin by Admin Only
   app.post(
     "/api/foods",
     [jwt.verifyToken, jwt.isAdmin],
