@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const db_link = 'mongodb+srv://abhibenne:abhibenne@cluster0.1txb7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const { db_link } = require('../secrets/secrets');
+
 
 mongoose.connect(db_link)
 .then(function(db)

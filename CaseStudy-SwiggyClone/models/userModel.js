@@ -2,8 +2,7 @@
 const mongoose = require('mongoose');
 const validator = require("email-validator");
 const bcrypt = require('bcrypt');
-const db_link = 'mongodb+srv://abhibenne:abhibenne@cluster0.1txb7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
-// const crypto = require('crypto');
+const { db_link } = require('../secrets/secrets');
 
 mongoose.connect(db_link)
 .then(function(db)
