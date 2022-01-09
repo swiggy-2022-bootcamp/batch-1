@@ -5,7 +5,9 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const User = require('./model/user')
+const Question = require('./model/question')
 const { JWT_SECRET } = require('./secrets.json')
+const { response } = require('express')
 
 mongoose.connect('mongodb://localhost:27017/stack_overflow_clone');
 
@@ -17,6 +19,25 @@ const PORT = process.env.port || 4000;
 
 app.get('/', (req, res) => {
     res.send('Hello');
+})
+
+app.post('/question', async (req, res) => {
+    const{email, password} = req.body.user_details;
+    const {title, body} = req.body.question;
+    try{
+        const response = await Question.create({
+            title,
+            email,
+            body
+        })
+        console.log('Question created succesfully');
+        console.log(response)
+    } catch(error){
+        return res.json({status: 'error', error: error.message});
+    }
+    
+    return res.json({ status: 'ok', message: 'question posted succesfully'});
+
 })
 
 app.post('/change-password', async (req, res) => {
