@@ -20,6 +20,7 @@ const auth = require("./middleware/auth.js");
 // Router Imports
 const usersRouter = require('./routes/users.js');
 const indexRouter = require('./routes/index.js');
+const restaurantsRouter = require('./routes/restaurant.js');
 
 const connectDB = require('./db.js');
 const res = require('express/lib/response');
@@ -33,49 +34,7 @@ app.use('/api', indexRouter);
 
 app.use('/api/users', usersRouter);
 
-async function saveRestaurantDetails(req) {
-
-    try {
-        const restaurant = await Restaurant.create({
-            restaurantName : req.body.restaurantName,
-            restaurantAddress : req.body.restaurantAddress
-        });
-
-        await restaurant.save();
-        return restaurant;
-    
-    } catch(e) {
-        console.log(e.message);
-        return false;
-    }
-}
-
-
-app.post('/api/restaurants', async (req, res) => {
-    try {
-    
-        const oldRestaurant = await Restaurant.findOne({ restaurantAddress : req.body.restaurantAddress });
-        if (oldRestaurant) {
-            return res.status(409).send("Restaurant already registered");
-        }   
-    } catch(e) {
-        console.log(e.message);
-        return;
-    }
-
-    const restaurantSaved = await saveRestaurantDetails(req);
-
-    if(restaurantSaved) {
-    return res.status(200).send(restaurantSaved);   
-    }
-
-    res.status(400).send("Restaurant registration not successful");
-})
-
-app.get('/api/restaurants', async (req, res) => {
-    const restaurants = await Restaurant.find();
-    return res.status(200).json(restaurants);
-})
+app.use('/api/restaurants', restaurantsRouter);
 
 async function saveFoodDetails(req) {
 
