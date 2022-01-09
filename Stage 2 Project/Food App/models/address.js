@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     state: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
     },
     zip: {
       type: Sequelize.INTEGER,

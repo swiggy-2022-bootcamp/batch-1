@@ -10,15 +10,31 @@ module.exports = function (app) {
     next();
   });
 
+  //Admin
   app.get(
-    "/api/test/user",
-    [jwt.verifyToken],
-    controller.user
+    "/api/users",
+    [jwt.verifyToken, jwt.isAdmin],
+    controller.getAllUsers
   );
 
+  //Admin (or) LoggedIn User
   app.get(
-    "/api/test/admin",
-    [jwt.verifyToken, jwt.isAdmin],
-    controller.admin
+    "/api/users/:id",
+    [jwt.verifyToken, jwt.isAdminOrLoggedInUser],
+    controller.getUser
+  );
+
+  //LoggedIn User
+  app.put(
+    "/api/users/:id",
+    [jwt.verifyToken, jwt.isLoggedInUser],
+    controller.updateUser
+  );
+
+  //LoggedIn User
+  app.delete(
+    "/api/users/:id",
+    [jwt.verifyToken, jwt.isLoggedInUser],
+    controller.deleteUser
   );
 };
