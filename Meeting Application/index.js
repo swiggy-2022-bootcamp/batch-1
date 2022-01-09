@@ -3,9 +3,10 @@ const mongoose= require('mongoose');
 const bodyparser=require('body-parser');
 const cookieParser=require('cookie-parser');
 const User=require('./models/user');
-const {auth} =require('./service/auth');
+const {auth} =require('./middleware/auth');
+const Meeting = require('./models/meeting');
 const { json } = require('body-parser');
-const db=require('./config/dbconfig').get(process.env.NODE_ENV);
+const db=require('./config/config').get(process.env.NODE_ENV);
 
 
 const app=express();
@@ -103,6 +104,66 @@ app.get('/',function(req,res){
 });
 
 
+app.post('/api/createMeeting', function(req, res){
+       let token=req.cookies.auth;
+       User.findByToken(token, (err,user)=>{
+            if(err) return res(err);
+            if(user) return createMeeting(req,res,user);
+            else return res.status(400).send("Login First");
+       });
+       //const user =  new User(req.body["user"]);
+});
+
+function createMeeting(req,res,user){
+    const newMeeting =  new Meeting(req.body["meeting"]); 
+       newMeeting.schduledbyUser = user.email;
+       console.log(newMeeting);
+       
+       newMeeting.save((err, doc)=>{
+        if(err) {console.log(err);
+            return res.status(400).json({ success : false});}
+        res.status(201).json({
+            succes:true
+        });
+       });
+}
+
+app.get('/api/getmeetings', function(req,res){
+    let token=req.cookies.auth;
+    User.findByToken(token, (err,user)=>{
+        if(err) return res(err);
+        if(user) return getAllMeettingsforUser(req,res,user);
+        else return res.status(400).send("Login First");
+   });
+});
+
+function getAllMeettingsforUser(req, res, user){
+    Meeting.find({'email': user.email}, function(err, docs){
+        if(err) return res(err);
+        if(docs) return res.status(200).json(docs);
+        else return res.status(400).send("No meetings");
+    })
+}
+
+app.get('/api/getMeeting', function(req,res){
+    let token=req.cookies.auth;
+    console.log(req.query.meeting_id);
+    Meeting.findById(req.query.meeting_id, (err,docs)=>{
+        if(err) return res(err);
+        if(docs) return res.status(200).json(docs);
+        else return res.status(400).send("No meetings");
+    });
+});
+
+
+app.delete('/api/deleteMeeting', (req,res)=>{
+    let token=req.cookies.auth;
+    Meeting.findByIdAndDelete(req.query.meeting_id, (err,docs)=>{
+        if(err) return res(err);
+        if(docs) return res.status(200).json(docs);
+        else return res.status(400).send("No meetings");
+    });
+})
 
 // listening port
 const PORT=process.env.PORT||3000;
