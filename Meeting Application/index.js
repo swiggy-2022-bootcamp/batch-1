@@ -3,10 +3,10 @@ const mongoose= require('mongoose');
 const bodyparser=require('body-parser');
 const cookieParser=require('cookie-parser');
 const User=require('./models/user');
-const {auth} =require('./middleware/auth');
+const {auth} =require('./service/auth');
 const Meeting = require('./models/meeting');
 const { json } = require('body-parser');
-const db=require('./config/config').get(process.env.NODE_ENV);
+const db=require('./config/dbconfig').get(process.env.NODE_ENV);
 
 
 const app=express();
@@ -26,23 +26,23 @@ mongoose.connect(db.DATABASE,{ useNewUrlParser: true,useUnifiedTopology:true },f
 // adding new user (sign-up route)
 app.post('/api/register',function(req,res){
    // taking a user
-   const newuser=new User(req.body);
-   console.log(newuser);
+   const newuser = new User(req.body);
+    console.log(newuser);
 
-   if(newuser.password!=newuser.password2)return res.status(400).json({message: "password not match"});
-   
-   User.findOne({email:newuser.email},function(err,user){
-       if(user) return res.status(400).json({ auth : false, message :"email exits"});
-
-       newuser.save((err,doc)=>{
-           if(err) {console.log(err);
-               return res.status(400).json({ success : false});}
-           res.status(201).json({
-               succes:true,
-               user : doc
-           });
-       });
-   });
+    if(newuser.password!=newuser.confirmPassword)return res.status(400).json({message: "password not match"});
+    
+    User.findOne({email:newuser.email},function(err,user){
+        if(user) return res.status(400).json({ auth : false, message :"email exits"});
+ 
+        newuser.save((err,doc)=>{
+            if(err) {console.log(err);
+                return res.status(400).json({ success : false, error : err.message});}
+            res.status(201).json({
+                succes:true,
+                user : doc
+            });
+        });
+    });
 });
 
 

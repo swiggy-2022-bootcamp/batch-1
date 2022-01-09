@@ -1,8 +1,9 @@
 var mongoose= require('mongoose');
 const meetingSchema = mongoose.Schema({
-    schduledbyUser:{
+    organizer:{
         type : String,
-        required : true
+        required : true,
+        index:true
     },
     dateOfMeeting:{
         type : Date,

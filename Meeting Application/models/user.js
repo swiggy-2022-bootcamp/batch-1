@@ -18,7 +18,9 @@ const userSchema=mongoose.Schema({
     email:{
         type: String,
         required: true,
+        match: [/.+\@.+\..+/, 'Please Fill a valid Email'],
         trim: true,
+        lowercase:true,
         unique: 1
     },
     password:{
@@ -26,7 +28,7 @@ const userSchema=mongoose.Schema({
         required: true,
         minlength:8
     },
-    password2:{
+    confirmPassword:{
         type:String,
         required: true,
         minlength:8
@@ -47,7 +49,7 @@ userSchema.pre('save',function(next){
             bcrypt.hash(user.password,salt,function(err,hash){
                 if(err) return next(err);
                 user.password=hash;
-                user.password2=hash;
+                user.confirmPassword=hash;
                 next();
             })
 
