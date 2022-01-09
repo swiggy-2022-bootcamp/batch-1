@@ -1,0 +1,1 @@
+var fs = require('fs'); fs.unlink('fsopen.txt',function (err){if (err) throw err;console.log('deleted fsopen.txt which was opened with fsopen.js');})
