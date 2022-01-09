@@ -1,7 +1,5 @@
 # FoodApp API
 
-#For Swiggy IPP
-
 # Requirements to run in local
 * NodeJS
 * Mongodb
