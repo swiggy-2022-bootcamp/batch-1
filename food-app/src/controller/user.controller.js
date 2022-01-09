@@ -55,3 +55,23 @@ exports.updateUserById = async (req, res) => {
     return sendBadRequest(res, 500, `Error: ${error.message}`);
   }
 };
+
+exports.deleteByUserID = async (req, res) => {
+  try {
+    const { userID } = req.params;
+    const user = await User.findOne({ id: userID });
+    if (!user) {
+      return sendBadRequest(res, 404, `Sorry user with ${userID} not found`);
+    } else if (userID != req.userID && user) {
+      return sendBadRequest(
+        res,
+        401,
+        "Not authorized to delete the other user"
+      );
+    }
+    await User.deleteOne({ id: userID });
+    return sendJSONResponse(res, 200, "User Deleted Successfully");
+  } catch (error) {
+    return sendBadRequest(res, 500, `Error: ${error.message}`);
+  }
+};
