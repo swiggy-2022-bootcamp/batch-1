@@ -1,5 +1,2 @@
-function alert_page_loaded(){
-    alert('Dom is fully loaded now and we can have some fun.');
-}
-
-alert_page_loaded();
+console.log("Logging into console");
+alert("This is a alert");
