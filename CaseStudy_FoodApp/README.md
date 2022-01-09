@@ -1,6 +1,6 @@
 # FoodApp API
 
-###For Swiggy ipp Stage 2
+#For Swiggy IPP
 
 # Requirements to run in local
 * NodeJS
