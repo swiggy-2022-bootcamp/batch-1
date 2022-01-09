@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const emailValidator = require('email-validator');
 const bcrypt = require('bcrypt');
 
-const db_link = 'mongodb+srv://admin:sk39szkdj4nX7HWC@cluster0.4zagl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const db_link = require('../../secrets');
 
-mongoose.connect(db_link)
+mongoose.connect(db_link.db_link)
 .then(function(db){
     console.log('db connected');
 })
