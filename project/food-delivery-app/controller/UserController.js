@@ -375,9 +375,9 @@ const userCheckout = async (req, res, next) => {
 
 const deleteUserById = async (req, res, next) => {
     try {
-        const user = User.findOne({ userId: req.params.userId });
+        const user = await User.findOne({ userId: req.params.userId });
         if (user) {
-            const result = User.deleteOne({ userId: req.params.userId });
+            const result = await User.deleteOne({ userId: req.params.userId });
             res.status(200).send(result);
         } else {
             throw createError(

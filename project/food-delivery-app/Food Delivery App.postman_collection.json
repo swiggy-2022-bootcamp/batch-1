@@ -119,9 +119,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{userAccessToken}}",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -156,9 +155,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{userAccessToken}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -202,9 +200,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{userAccessToken}}",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -239,9 +236,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{userAccessToken}}",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -277,9 +273,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{userAccessToken}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -324,14 +319,13 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{userAccessToken}}",
+								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"restaurantId\": 1,\r\n    \"foodList\": [\r\n        {\r\n            \"foodId\": 1,\r\n            \"quantity\": 4\r\n        },\r\n        {\r\n            \"foodId\": 2,\r\n            \"quantity\": 3\r\n        }        \r\n    ]\r\n}",
+							"raw": "{\r\n    \"restaurantId\": 1,\r\n    \"foodList\": [\r\n        {\r\n            \"foodId\": 1,\r\n            \"quantity\": 4\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -371,9 +365,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{userAccessToken}}",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -409,9 +402,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{userAccessToken}}",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -437,7 +429,7 @@
 				"oauth2": [
 					{
 						"key": "headerPrefix",
-						"value": "",
+						"value": "x-access-token",
 						"type": "string"
 					},
 					{
@@ -619,9 +611,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{restaurantAccessToken}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -665,9 +656,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGIwZmFiMGVmNGFhYWQ1MWExZGQ4OCIsImlhdCI6MTY0MTc0NjQ2NCwiZXhwIjoxNjQxODMyODY0fQ.QAGOeLuustVz7vLI9hPvWZieTo3ioH11vjMt3royHVY",
-								"type": "default",
-								"disabled": true
+								"value": "{{restaurantAccessToken}}",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -779,9 +769,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjQxNzU4NDI1LCJleHAiOjE2NDE4NDQ4MjV9.Xxqk8iFP0OrG0DIz-GUMZPre8CS2jBq7bu33NnPHHpY",
-								"type": "default",
-								"disabled": true
+								"value": "{{restaurantAccessToken}}",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -818,9 +807,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjQxNzU4NDI1LCJleHAiOjE2NDE4NDQ4MjV9.Xxqk8iFP0OrG0DIz-GUMZPre8CS2jBq7bu33NnPHHpY",
-								"type": "default",
-								"disabled": true
+								"value": "{{restaurantAccessToken}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -860,9 +848,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjQxNzU4NDI1LCJleHAiOjE2NDE4NDQ4MjV9.Xxqk8iFP0OrG0DIz-GUMZPre8CS2jBq7bu33NnPHHpY",
-								"type": "default",
-								"disabled": true
+								"value": "{{restaurantAccessToken}}",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -898,9 +885,8 @@
 							},
 							{
 								"key": "x-access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjQxNzU4NDI1LCJleHAiOjE2NDE4NDQ4MjV9.Xxqk8iFP0OrG0DIz-GUMZPre8CS2jBq7bu33NnPHHpY",
-								"type": "default",
-								"disabled": true
+								"value": "{{restaurantAccessToken}}",
+								"type": "default"
 							}
 						],
 						"url": {
@@ -915,6 +901,43 @@
 								"1",
 								"orders",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Restaurant Balance",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "x-access-token",
+								"value": "{{restaurantAccessToken}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/api/restaurants/1/balance",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"restaurants",
+								"1",
+								"balance"
 							]
 						}
 					},
@@ -1053,12 +1076,12 @@
 	"variable": [
 		{
 			"key": "userAccessToken",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQxNzYxNDExLCJleHAiOjE2NDE4NDc4MTF9.9O0PHB_RScYni11QoNFGHHgPs8q_f-6qT7k8E6JQyTY",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQxNzc2MzQ2LCJleHAiOjE2NDE4NjI3NDZ9.qIlyNjU36ypa8VoDPup7WlwVLio3o7wfjxsxKqDrnl4",
 			"type": "string"
 		},
 		{
 			"key": "restaurantAccessToken",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjQxNzU4NDI1LCJleHAiOjE2NDE4NDQ4MjV9.Xxqk8iFP0OrG0DIz-GUMZPre8CS2jBq7bu33NnPHHpY",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQxNzc2NjU5LCJleHAiOjE2NDE4NjMwNTl9.Yixk_amb8d-LhCFzNCQUNYubqd0I-PJYkEkVpm-GmDM",
 			"type": "string"
 		}
 	]

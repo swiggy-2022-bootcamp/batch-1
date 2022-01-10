@@ -61,7 +61,7 @@ const loginRestaurant = (req, res) => {
 
         // if user is found and password is valid
         // create a token
-        var token = jwt.sign({ id: user.restaurantId }, config.secret, {
+        var token = jwt.sign({ id: restaurant.restaurantId }, config.secret, {
             expiresIn: 86400, // expires in 24 hours
         });
 

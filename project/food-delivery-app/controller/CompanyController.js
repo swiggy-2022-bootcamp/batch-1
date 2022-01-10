@@ -5,7 +5,7 @@ const createError = require("http-errors");
 const createCompanyIfNotPresent = async (req, res, next) => {
     try {
         const existingCompanies = await Company.find();
-        if (existingCompanies.length == 0) {
+        if (existingCompanies.length > 0) {
             throw createError(400, "Only 1 Company can exist!!!");
         }
         const company = new Company({

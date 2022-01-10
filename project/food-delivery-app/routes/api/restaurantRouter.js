@@ -45,7 +45,7 @@ router.get(
     verifyRestaurantToken,
     RestaurantController.getRestaurantOrderbyId
 );
-router.put(
+router.delete(
     "/:restaurantId",
     verifyRestaurantToken,
     RestaurantController.deleteRestaurantById
