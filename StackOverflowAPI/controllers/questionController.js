@@ -8,6 +8,7 @@ const {
     fetchSuccess,
     internalServerError,
 } = require("../utils/responseTypes");
+const mongoose = require("mongoose");
 
 const postQuestion = async (req, res) => {
     const quesDetails = req.body["question"];
@@ -41,6 +42,9 @@ const getQuestionAnswers = async (req, res) => {
     const quesId = req.params.id;
 
     try {
+        if(!mongoose.Types.ObjectId.isValid(quesId))
+            return notFound(res, "Invalid question (id)!");
+            
         // get the question with id quesId
         const questionDetails = await Question.findOne({ _id: quesId })
             .populate("comments")
@@ -62,6 +66,9 @@ const postAnswer = async (req, res) => {
     const userId = req.userId;
 
     try {
+        if(!mongoose.Types.ObjectId.isValid(quesId))
+            return notFound(res, "Invalid question (id)!");
+
         // create an answer with the give content
         const newAnswer = new Answer({
             body: answerBody,
@@ -105,6 +112,9 @@ const updateAnswer = async (req, res) => {
 
     try {
         // find users answer
+        if(!mongoose.Types.ObjectId.isValid(quesId))
+            return notFound(res, "Invalid question (id)!");
+
         const answer = await Answer.findOne({ ownerId: userId, questionId: quesId });
 
         if (!answer) return notFound(res, "Answer not found to update!");
