@@ -56,3 +56,12 @@ This API Implementation follows MVC architecture. Reference below structure for 
 7. Test the code properly
 8. Commit changes and make a pull request 
 
+## Tech Stack
+
+1. Backend: ExpressJS/NodeJS
+2. Database: Mongoose/MongoDB
+3. Authentication: JWT (JSON Web Tokens)
+4. Logging: Morgan
+
+<strong>Note:</strong><br>
+Link to project's PPT: https://bit.ly/3zHYXex
