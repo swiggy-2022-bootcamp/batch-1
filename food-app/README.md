@@ -20,7 +20,7 @@ Project files overview
 2. app.js : This file contains all the endpoints required for the project.
 3. foods.json : This file is used to store the food data.
 4. server.js : This file contains the server logic.
-5. user.json : This file is used to store the user data.
+5. users.json : This file is used to store the user data.
 
 
 Link to case study
