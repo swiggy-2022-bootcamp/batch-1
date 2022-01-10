@@ -47,4 +47,24 @@ router.post('/authenticate', async (req, res)=>{
     }
 });
 
+
+//Middle ware function to verify token
+async function verifyToken(req, res, next){
+    const authHeader = req.headers['authorization'];
+    const auth = authHeader && authHeader.split(' ')[1];
+    if(auth == null){
+        //user has a token by thats not valid
+       return res.sendStatus(403);
+    }
+ 
+    jwt.verify(token, 'secretKey', (err, user) =>{
+        if(err){
+            return res.sendStatus(403);
+        }
+ 
+        req.user = user;
+        next();
+    })
+ }
+
 module.exports = router;;
