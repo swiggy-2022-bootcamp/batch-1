@@ -7,12 +7,12 @@ const router = express.Router()
 router.post("/question", addQuestionController);
 
 //POST request to answer a question
-router.post("/question/:questionId/answer", answerQuestionController);
+router.post("/question/:question_id/answer", answerQuestionController);
 
 // PUT request to update user answer.
-router.put("/question/:questionId/answer", updateAnswerController);
+router.put("/question/:question_id/answer", updateAnswerController);
 
 //GET request to get all the answers of a question 
-router.get("/question/:questionId", getQuestionsController);
+router.get("/question/:question_id", getQuestionsController);
 
 export default router

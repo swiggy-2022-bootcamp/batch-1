@@ -8,6 +8,7 @@ const {JWT_SECRET} = JSON.parse(await readFile(new URL('../secrets.json', import
 
 const registerController = async(req, res) => {
     const { name, email, password: plainTextPassword } = req.body;
+    console.log(req.body);
     const password = await bcrypt.hash(plainTextPassword, 10);
     try {
         await User.create({
@@ -18,12 +19,12 @@ const registerController = async(req, res) => {
         console.log('User created Succesfully');
     } catch (error){
         if(error.code === 11000){
-            return res.json({ status: 'error', error: 'Email already registered' });
+            return res.status(409).json({error: 'Email already registered' });
         }
-        return res.json({status: 'error', error: error.message});
+        return res.status(500).json({error: error.message});
     }
     
-    return res.json({message: 'User registered Succesfully', registration_name: name});
+    return res.status(201).json({message: 'User registered Succesfully', registration_name: name});
 }
 
 const loginController = async(req, res) => {
@@ -31,7 +32,7 @@ const loginController = async(req, res) => {
     const user = await User.findOne({email}).lean();
 
     if(!user){
-        return res.json({ status: 'error', message: 'Sorry, invalid credentials'});
+        return res.status(404).json({message: 'Sorry, invalid credentials'});
     }
 
     if(await bcrypt.compare(password, user.password)){
@@ -42,10 +43,10 @@ const loginController = async(req, res) => {
             },
             JWT_SECRET
         )
-        return res.json({ status: 'ok', message: 'User logged in succesfully', data: token})
+        return res.status(200).json({message: 'User logged in succesfully', data: token})
     }
 
-    return res.json({ status: 'error', error: 'Sorry, invalid credentials'});
+    return res.status(401).json({error: 'Sorry, invalid credentials'});
 }
 
 const changePasswordController = async(req, res) => {
@@ -61,9 +62,9 @@ const changePasswordController = async(req, res) => {
                 $set: {password:  hashedPassword}
             }
         )
-        res.json({status: 'ok', message: 'Password succesfully changed'});
+        res.status(200).json({message: 'Password succesfully changed'});
     } catch(error) {
-        res.json({status: 'error', error: error.message});
+        res.json({error: error.message});
     }
 }
 

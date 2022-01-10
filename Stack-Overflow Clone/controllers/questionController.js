@@ -18,7 +18,7 @@ const addQuestionController = async(req, res) => {
             title: title,
             body: body
         }).then((question_doc) => {
-            return res.status(201).json({ status: 'ok', message: 'Question posted Succesfully', question_id: question_doc._id})
+            return res.status(201).json({message: 'Question posted Succesfully', question_id: question_doc._id})
         })
         
     } catch(error){
@@ -26,21 +26,26 @@ const addQuestionController = async(req, res) => {
     }
 }
 
-const answerQuestionController = async(req, res) => {
+const answerQuestionController = async (req, res) => {
     const user_details = req.body.user_details;
-    const question_id = req.params.question_id;
+    const {question_id, answer} = req.body.question;
 
     const {status, message, user} = await validate(user_details);
+    console.log(status);
+    console.log(user);
     if(status != 200){
         return res.status(status).json({message: message});
     }
 
+    console.log(question_id);
     const q_id = new ObjectId(question_id);
+    console.log(q_id);
     const question = await Question.findOne({"_id": q_id});
     if(!question){
         return res.status(404).send({"messsage": "Invalid Question Id"});
     } 
     let answered_already = false;
+    
     const _id = new ObjectId(user);
     for(let i in question.answers){
         if((question.answers[i].user).equals(_id)){
@@ -71,7 +76,7 @@ const answerQuestionController = async(req, res) => {
 
 const updateAnswerController = async(req, res) => {
     const user_details = req.body.user_details;
-    const question_id = req.params.question_id
+    const {question_id, answer} = req.body.question;
 
     const {status, message, user} = await validate(user_details);
     if(status != 200){
