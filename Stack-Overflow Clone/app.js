@@ -75,7 +75,7 @@ app.post('/answer', async(req, res) => {
     }
 
     try{
-        Question.updateOne({id: q_id},{
+        Question.updateOne({_id: q_id},{
             $push: {
                 answers: {
                     user: user._id,
@@ -84,6 +84,52 @@ app.post('/answer', async(req, res) => {
             }
         }).then(() => {
             res.status(201).json({message: "Answer posted succesfully", question_id: question_id});
+        })
+    } catch(error){
+        res.status(500).json({message: error.message});
+    }
+})
+
+app.put('/updateAnswer', async(req, res) => {
+    const {email, password} = req.body.user_details;
+    const question_id = req.params.question_id
+
+    const {status, message, user} = await validate();
+    if(status != 200){
+        res.status(200).json({message: 'message'});
+    }
+
+    const q_id = new ObjectId(question_id);
+    const question = await Question.findOne({"_id": q_id});
+    if(!question){
+        return res.status(404).send({"messsage": "Invalid Question Id"});
+    } 
+
+    let answered_already = false;
+    const _id = new ObjectId(user._id);
+    let new_answers = []
+    let prev_answer = ""
+
+    for(let i in question.answers){
+        if((question.answers[i].user).equals(_id)){
+            answered_already = true;
+            prev_answer = question.answers[i];
+            prev_answer.answer = answer;
+            new_answers.push(prev_answer);
+        } else{
+            new_answers.push(question.answers[i]);
+        }
+    }
+
+    if(!answered_already){
+        return res.status(404).json({message: "Not answered the question previously"});
+    }
+
+    try{
+        Question.updateOne({_id: q_id}, {
+            $set: {answers: new_answers}
+        }).then(() => {
+            res.status(201).json({message: "Answer updated successfully", question_id: question_id});
         })
     } catch(error){
         res.status(500).json({message: error.message});
