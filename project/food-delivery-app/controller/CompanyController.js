@@ -13,7 +13,7 @@ const createCompanyIfNotPresent = async (req, res, next) => {
             balance: 0,
         });
         const result = await company.save();
-        res.send(result);
+        res.status(201).send(result);
     } catch (error) {
         console.log(error.message);
         next(error);
@@ -23,22 +23,26 @@ const createCompanyIfNotPresent = async (req, res, next) => {
 const getCompany = async (req, res, next) => {
     try {
         const result = await Company.find({}, { name: 1, balance: 1, _id: 0 });
-        result.length > 0
-            ? res.send(result[0])
-            : res.send("Company does not exist!!!");
+        if (result.length == 0) {
+            throw createError(404, "Company does not exist!!!");
+        }
+        res.status(200).send(result[0]);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
 const getCompanyBalance = async (req, res, next) => {
     try {
         const result = await Company.find({}, { balance: 1, _id: 0 });
-        result.length > 0
-            ? res.send(result[0])
-            : res.send("Company does not exist!!!");
+        if (result.length == 0) {
+            throw createError(404, "Company does not exist!!!");
+        }
+        res.status(200).send(result[0]);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 

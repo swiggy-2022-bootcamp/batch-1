@@ -19,6 +19,7 @@ const getUsers = async (req, res, next) => {
         res.send(result);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -38,11 +39,16 @@ const getuserById = async (req, res, next) => {
                 _id: 0,
             }
         );
-        result.length > 0
-            ? res.send(result[0])
-            : res.send("User does not exist");
+        if (result.length == 0) {
+            throw createError(
+                404,
+                "User with id " + req.params.userId + " does not exist!!!"
+            );
+        }
+        res.status(200).send(result[0]);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -50,7 +56,12 @@ const modifyUserByIdIfPresent = async (req, res, next) => {
     try {
         const queryResult = await User.find({ userId: req.params.userId });
         if (queryResult.length == 0) {
-            res.send("User does not exist");
+            if (queryResult.length == 0) {
+                throw createError(
+                    404,
+                    "User with id " + req.params.userId + " does not exist!!!"
+                );
+            }
         }
         const data = req.body;
         const address = new Address({
@@ -73,9 +84,10 @@ const modifyUserByIdIfPresent = async (req, res, next) => {
                 },
             }
         );
-        res.send(result);
+        res.status(200).send(result);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -117,6 +129,7 @@ const registerNewUser = (req, res) => {
         );
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -160,11 +173,16 @@ const getUserBalance = async (req, res, next) => {
                 _id: 0,
             }
         );
-        result.length > 0
-            ? res.send(result[0])
-            : res.send("User does not exist");
+        if (result.length == 0) {
+            throw createError(
+                404,
+                "User with id " + req.params.userId + " does not exist!!!"
+            );
+        }
+        res.status(200).send(result[0]);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -172,7 +190,10 @@ const modifyUserBalance = async (req, res, next) => {
     try {
         const queryResult = await User.find({ userId: req.params.userId });
         if (queryResult.length == 0) {
-            res.send("User does not exist");
+            throw createError(
+                404,
+                "User with id " + req.params.userId + " does not exist!!!"
+            );
         }
         const currentBalance = queryResult[0].balance;
         const newBalance = currentBalance + req.body.balance;
@@ -186,9 +207,10 @@ const modifyUserBalance = async (req, res, next) => {
                 },
             }
         );
-        res.send(result);
+        res.status(200).send(result);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -203,125 +225,151 @@ const fetchUserCart = async (req, res, next) => {
                 _id: 0,
             }
         );
-        result.length > 0
-            ? res.send(result[0].cart)
-            : res.send("User does not exist");
+        if (result.length == 0) {
+            throw createError(
+                404,
+                "User with id " + req.params.userId + " does not exist!!!"
+            );
+        }
+        res.status(200).send(result[0].cart);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
 const modifyUserCart = async (req, res, next) => {
     try {
         const queryResult = await User.find({ userId: req.params.userId });
-        if (queryResult.length > 0) {
-            res.send("User does not exist");
+        if (queryResult.length == 0) {
+            throw createError(
+                404,
+                "User with id " + req.params.userId + " does not exist!!!"
+            );
         }
         let cart = new Cart({});
         const restaurants = await restaurantUtils.getRestaurant(
             req.body.restaurantId
         );
-        if (restaurants.length > 0) {
-            cart.restaurantId = req.body.restaurantId;
-            cart.foodList = [];
-            const menuIdList = new Set(
-                await restaurantUtils.getFoodIdList(req.body.restaurantId)
+        if (restaurants.length == 0) {
+            throw createError(
+                400,
+                "Restaurant with id " +
+                    req.body.restaurantId +
+                    " does not exist!!!"
             );
-            const reqFoodList = req.body.foodList;
-            console.log(menuIdList);
-            reqFoodList.forEach((element) => {
-                console.log(element.foodId);
-                if (menuIdList.has(element.foodId)) {
-                    cart.foodList.push({
-                        foodId: element.foodId,
-                        quantity: element.quantity,
-                    });
-                } else {
-                    res.status(400).send("Invalid Food Id");
-                }
-            });
-            const result = await User.updateOne(
-                {
-                    userId: req.params.userId,
-                },
-                {
-                    $set: {
-                        cart: cart,
-                    },
-                }
-            );
-            res.send(result);
-        } else {
-            res.status(400).send("Restaurant does not exist");
         }
+        cart.restaurantId = req.body.restaurantId;
+        cart.foodList = [];
+        const menuIdList = new Set(
+            await restaurantUtils.getFoodIdList(req.body.restaurantId)
+        );
+        const reqFoodList = req.body.foodList;
+        console.log(menuIdList);
+        reqFoodList.forEach((element) => {
+            console.log(element.foodId);
+            if (menuIdList.has(element.foodId)) {
+                cart.foodList.push({
+                    foodId: element.foodId,
+                    quantity: element.quantity,
+                });
+            } else {
+                throw createError(
+                    400,
+                    "Invalid Food Id " + element.foodId + "!!!"
+                );
+            }
+        });
+        const result = await User.updateOne(
+            {
+                userId: req.params.userId,
+            },
+            {
+                $set: {
+                    cart: cart,
+                },
+            }
+        );
+        res.status(200).send(result);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
 const userCheckout = async (req, res, next) => {
     try {
         const user = await User.findOne({ userId: req.params.userId });
-        if (user) {
-            if (!Object.keys(user.cart).length) {
-                res.status(400).send("Cart is empty!!!");
-            }
-            const restaurants = await restaurantUtils.getRestaurant(
-                user.cart.restaurantId
+        if (!user) {
+            throw createError(
+                404,
+                "User with id " + req.params.userId + " does not exist!!!"
             );
-            if (restaurants.length > 0) {
-                const restaurantMenu = restaurants[0].menu;
-                let priceMap = {};
-                restaurantMenu.forEach((food) => {
-                    priceMap[food.foodId] = food.foodCost;
-                });
-
-                const cartFoodList = user.cart.foodList;
-
-                let amount = 0;
-                cartFoodList.forEach((cartItem) => {
-                    amount += cartItem.quantity * priceMap[cartItem.foodId];
-                });
-
-                if (user.balance < amount) {
-                    res.status(400).send("Insufficient Balance");
-                } else {
-                    const order = new Order({
-                        userID: user.userId,
-                        restaurantId: user.cart.restaurantId,
-                        foodList: user.cart.foodList,
-                        amount: amount,
-                    });
-                    const result = await order.save();
-
-                    await userUtils.updateBalance(user.userId, -1 * amount);
-                    await companyUtils.updateBalance(amount * 0.25);
-                    await restaurantUtils.updateBalance(
-                        user.cart.restaurantId,
-                        amount * 0.75
-                    );
-
-                    const emptyCart = new Cart({});
-
-                    await User.updateOne(
-                        {
-                            userId: user.userId,
-                        },
-                        {
-                            $set: {
-                                cart: emptyCart,
-                            },
-                        }
-                    );
-
-                    res.send(result);
-                }
-            }
-        } else {
-            res.send("User does not exist");
         }
+
+        if (!Object.keys(user.cart).length) {
+            throw createError(400, "Cart is empty!!!");
+        }
+        const restaurants = await restaurantUtils.getRestaurant(
+            user.cart.restaurantId
+        );
+        if (restaurants.length == 0) {
+            throw createError(
+                400,
+                "Restaurant with id " +
+                    req.body.restaurantId +
+                    " does not exist!!!"
+            );
+        }
+
+        const restaurantMenu = restaurants[0].menu;
+        let priceMap = {};
+        restaurantMenu.forEach((food) => {
+            priceMap[food.foodId] = food.foodCost;
+        });
+
+        const cartFoodList = user.cart.foodList;
+
+        let amount = 0;
+        cartFoodList.forEach((cartItem) => {
+            amount += cartItem.quantity * priceMap[cartItem.foodId];
+        });
+
+        if (user.balance < amount) {
+            throw createError(400, "Insufficient Balance!!!");
+        }
+        const order = new Order({
+            userID: user.userId,
+            restaurantId: user.cart.restaurantId,
+            foodList: user.cart.foodList,
+            amount: amount,
+        });
+        const result = await order.save();
+
+        await userUtils.updateBalance(user.userId, -1 * amount);
+        await companyUtils.updateBalance(amount * 0.25);
+        await restaurantUtils.updateBalance(
+            user.cart.restaurantId,
+            amount * 0.75
+        );
+
+        const emptyCart = new Cart({});
+
+        await User.updateOne(
+            {
+                userId: user.userId,
+            },
+            {
+                $set: {
+                    cart: emptyCart,
+                },
+            }
+        );
+
+        res.status(200).send(result);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 

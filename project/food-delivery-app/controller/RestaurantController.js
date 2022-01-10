@@ -14,9 +14,10 @@ const createError = require("http-errors");
 const getRestaurants = async (req, res, next) => {
     try {
         const result = await Restaurant.find();
-        res.send(result);
+        res.status(200).send(result);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -25,53 +26,18 @@ const getRestaurantById = async (req, res, next) => {
         const result = await Restaurant.find({
             restaurantId: req.params.restaurantId,
         });
-        result.length > 0
-            ? res.send(result[0])
-            : res.send("Restaurant does not exist");
+        if (result.length == 0) {
+            throw createError(
+                404,
+                "Restaurant with id " +
+                    req.params.restaurantId +
+                    " does not exist!!!"
+            );
+        }
+        res.status(200).send(result[0]);
     } catch (error) {
         console.log(error.message);
-    }
-};
-
-const registerNewUser = (req, res) => {
-    try {
-        const data = req.body;
-        const hashedPassword = bcrypt.hashSync(req.body.password, 8);
-        const address = new Address({
-            houseNo: data.address.houseNo,
-            street: data.address.street,
-            city: data.address.city,
-            state: data.address.state,
-            zip: data.address.zip,
-        });
-        const cart = new Cart({});
-        User.create(
-            {
-                username: data.username,
-                email: data.email,
-                password: hashedPassword,
-                balance: 0,
-                address: address,
-                cart: cart,
-            },
-            function (err, user) {
-                if (err) {
-                    return res
-                        .status(500)
-                        .send("There was a problem registering the user`.");
-                }
-
-                // if user is registered without errors
-                // create a token
-                var token = jwt.sign({ id: user.userId }, config.secret, {
-                    expiresIn: 86400, // expires in 24 hours
-                });
-
-                res.status(200).send({ auth: true, token: token });
-            }
-        );
-    } catch (error) {
-        console.log(error.message);
+        next(error);
     }
 };
 
@@ -149,6 +115,7 @@ const registerRestaurant = async (req, res, next) => {
         );
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -158,7 +125,12 @@ const modifyRestaurantByIdIfPresent = async (req, res, next) => {
             restaurantId: req.params.restaurantId,
         });
         if (queryResult.length == 0) {
-            res.send("Restaurant does not exist");
+            throw createError(
+                404,
+                "Restaurant with id " +
+                    req.params.restaurantId +
+                    " does not exist!!!"
+            );
         }
         const data = req.body;
         const address = new Address({
@@ -181,9 +153,10 @@ const modifyRestaurantByIdIfPresent = async (req, res, next) => {
                 },
             }
         );
-        res.send(result);
+        res.status(200).send(result);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -198,11 +171,18 @@ const getRestaurantBalance = async (req, res, next) => {
                 _id: 0,
             }
         );
-        result.length > 0
-            ? res.send(result[0])
-            : res.send("Restaurant does not exist");
+        if (result.length == 0) {
+            throw createError(
+                404,
+                "Restaurant with id " +
+                    req.params.restaurantId +
+                    " does not exist!!!"
+            );
+        }
+        res.status(200).send(result[0]);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -217,11 +197,18 @@ const getRestaurantMenu = async (req, res, next) => {
                 _id: 0,
             }
         );
-        result.length > 0
-            ? res.send(result[0].menu)
-            : res.send("Restaurant does not exist");
+        if (result.length == 0) {
+            throw createError(
+                404,
+                "Restaurant with id " +
+                    req.params.restaurantId +
+                    " does not exist!!!"
+            );
+        }
+        res.status(200).send(result[0].menu);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -230,8 +217,13 @@ const createRestaurantMenu = async (req, res, next) => {
         const queryResult = await Restaurant.find({
             restaurantId: req.params.restaurantId,
         });
-        if (queryResult.length > 0) {
-            res.status(404).send("Restaurant does not exist");
+        if (queryResult.length == 0) {
+            throw createError(
+                404,
+                "Restaurant with id " +
+                    req.params.restaurantId +
+                    " does not exist!!!"
+            );
         }
         let menu = queryResult[0].menu;
         let maxFoodId = 0;
@@ -255,28 +247,39 @@ const createRestaurantMenu = async (req, res, next) => {
                 },
             }
         );
-        res.send(result);
+        res.status(200).send(result);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
-const createRestaurantMenuItem = async (req, res, next) => {
+const getRestaurantMenuItem = async (req, res, next) => {
     try {
         const restaurantQueryResult = await Restaurant.find({
             restaurantId: req.params.restaurantId,
         });
         if (restaurantQueryResult.length == 0) {
-            res.send("Restaurant does not exist");
+            throw createError(
+                404,
+                "Restaurant with id " +
+                    req.params.restaurantId +
+                    " does not exist!!!"
+            );
         }
         const result = restaurantQueryResult[0].menu.filter(
             (item) => item.foodId == req.params.foodId
         );
-        result.length > 0
-            ? res.send(result[0])
-            : res.send("Food does not exist");
+        if (result.length == 0) {
+            throw createError(
+                404,
+                "Food with id " + req.params.foodId + " does not exist!!!"
+            );
+        }
+        res.status(200).send(result[0]);
     } catch (error) {
         console.log(error.message);
+        next(error);
     }
 };
 
@@ -297,6 +300,12 @@ const getRestaurantOrderbyId = async (req, res, next) => {
         const order = await Order.findOne({
             orderId: req.params.orderId,
         });
+        if (!order) {
+            throw createError(
+                404,
+                "Order with id " + req.params.orderId + " does not exist!!!"
+            );
+        }
         res.status(200).send(order);
     } catch (error) {
         console.log(error.message);
@@ -368,7 +377,7 @@ module.exports = {
     getRestaurantBalance,
     getRestaurantMenu,
     createRestaurantMenu,
-    createRestaurantMenuItem,
+    getRestaurantMenuItem,
     getRestaurantOrders,
     getRestaurantOrderbyId,
     deleteRestaurantById,

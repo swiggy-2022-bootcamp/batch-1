@@ -28,15 +28,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-// app.use('/users', usersRouter);
-
-/// catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//     console.log('In error');
-//     var err = new Error('Not Found');
-//     err.status = 404;
-//     next(err);
-// });
 
 //middleware: 404 handler and pass to error handler
 app.use((req, res, next) => {

@@ -29,7 +29,7 @@ router.post(
 );
 router.get(
     "/:restaurantId/menu/:foodId",
-    RestaurantController.createRestaurantMenuItem
+    RestaurantController.getRestaurantMenuItem
 );
 router.delete(
     "/:restaurantId/menu/:foodId",
