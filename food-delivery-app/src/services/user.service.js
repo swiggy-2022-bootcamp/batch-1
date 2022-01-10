@@ -34,12 +34,19 @@ async function getUserByEmail(email) {
 }
 
 async function createUser(userBody) {
-  if (await User.isEmailTaken(userBody.email)) {
-    return { isEmailTaken: true };
-  }
-  else {
-    const newUser = await User.create(userBody);
-    return newUser;
+  try {
+    if (await User.isEmailTaken(userBody.email)) {
+      return { isEmailTaken: true };
+    } else {
+      const newUser = await User.create(userBody);
+      if (newUser) return newUser;
+      else {
+        return null;
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 }
 

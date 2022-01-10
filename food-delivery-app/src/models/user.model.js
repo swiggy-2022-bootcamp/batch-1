@@ -57,6 +57,7 @@ const userSchema = mongoose.Schema(
           );
         }
       },
+      required: true,
     },
     walletMoney: {
       type: Number,
