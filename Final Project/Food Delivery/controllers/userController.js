@@ -21,7 +21,7 @@ const getUserById = async (req, res) => {
 };
 
 
-const updateUserById =async (req, res) => {
+const updateUserById = async (req, res) => {
 
     res.user.userName= req.body.userName;
     res.user.email = req.body.email;
@@ -31,7 +31,7 @@ const updateUserById =async (req, res) => {
 
     try{
         const updatedUser = await res.user.save();
-        res.status(200).json(updatedUser);
+        res.status(200).json({user:updatedUser, message:`User updated successfully`});
     }
     catch(error) {
         res.status(404).json({message: `Sorry user with ${req.params.id} not found`});
@@ -53,13 +53,15 @@ const patchUserById = async (req, res) => {
         res.user.address= req.body.address;
     }
     try{
-        const updatedUser = await res.user.save();
-        res.status(200).json(updatedUser);
+        const updateduser = await res.user.save();
+        res.status(200).json({user: updateduser, message:`User patched successfully`});
     }
     catch(error) {
         res.status(404).json({message: `Sorry user with ${req.params.id} not found`});
     }
 };
+
+
 
 const deleteUserById = async (req, res) => {
     try{

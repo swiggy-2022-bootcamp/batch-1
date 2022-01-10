@@ -34,7 +34,7 @@ const addFood = async (req, res) => {
  
     try {
         const newFoodItem = await food.save();
-        res.status(200).json(newFoodItem);
+        res.status(200).json({food:newFoodItem, message:`Food created successfully`});
     }
     catch(error) {
         res.status(400).json({message: error.message})
@@ -64,7 +64,7 @@ const updateFoodById = async (req, res) => {
 
     try{
         const updatedFood = await res.food.save();
-        res.status(200).json(updatedFood);
+        res.status(200).json({food:updatedFood, message:`Food with ${req.params.id} updated successfully`});
     }
     catch(error) {
         res.status(404).json({message: `Sorry food with ${req.params.id} not found`});
@@ -87,7 +87,7 @@ const patchFoodById = async (req, res) => {
     }
     try{
         const updatedFood = await res.food.save();
-        res.status(200).json(updatedFood);
+        res.status(200).json({food: updatedFood, message:`Food patched successfully`});
     }
     catch(error) {
         res.status(404).json({message: `Sorry food with ${req.params.id} not found`});
