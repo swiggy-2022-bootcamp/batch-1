@@ -22,7 +22,10 @@ const meetingSchema = mongoose.Schema({
         required : true
     },
     attendees:[{
-        type : String
+        type : String,
+        match: [/.+\@.+\..+/, 'Please Fill a valid Email'],
+        trim: true,
+        lowercase:true
     }]
 });
 

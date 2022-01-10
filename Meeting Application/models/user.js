@@ -7,12 +7,12 @@ const salt=10;
 const userSchema=mongoose.Schema({
     firstname:{
         type: String,
-        required: true,
+        required: [true, "First Name Cannot be blank."],
         maxlength: 100
     },
     lastname:{
         type: String,
-        required: true,
+        required: [true, "Second Name cannot be blank"],
         maxlength: 100
     },
     email:{
@@ -34,10 +34,19 @@ const userSchema=mongoose.Schema({
         minlength:8
 
     },
+    meetings : [{
+        type:String, 
+        default:[]
+    }],
+    teams : [{
+        type:String,
+        default:[]
+    }],
     token:{
         type: String
     }
 });
+
 // to signup a user
 userSchema.pre('save',function(next){
     var user=this;
