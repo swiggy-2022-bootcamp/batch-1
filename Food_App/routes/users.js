@@ -49,7 +49,7 @@ router.post('/authenticate', async (req, res) => {
 router.get('/users', async (req, res) => {
     try {
         const users = await User.find();
-        res.json(users);
+        res.status(200).json(users);
     } catch (err) {
         res.json({ message: err });
     }
@@ -59,7 +59,7 @@ router.get('/users', async (req, res) => {
 router.get('/users/:userId', async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
-        res.json(user);
+        res.status(200).json(user);
     } catch (err) {
         res.send("Sorry, user with ID: " + req.params.userId + " not found");
     }
@@ -83,9 +83,9 @@ router.put('/users/:userId', async (req, res) => {
                     }
                 } 
             });
-        res.json(updatedUser);
+        res.status(200).json(updatedUser);
     } catch (err) {
-        res.send('Sorry, user with ID: ' + req.params.userId + ' not found')
+        res.send('Sorry, user with ID: ' + req.params.userId + ' not found');
     }
 });
 
@@ -93,7 +93,7 @@ router.put('/users/:userId', async (req, res) => {
 router.delete('/users/:userId', async (req, res) => {
     try {
         const removedUser = await User.deleteOne({ _id: req.params.userId });
-        res.send('User Deleted Successfully')
+        res.status(200).send('User Deleted Successfully')
     } catch (err) {
         res.send('Sorry, user with ID: ' + req.params.userId + ' not found')
     }
@@ -108,7 +108,7 @@ router.patch('/users/:userId', async (req, res) => {
                 { email: req.body.email } 
             }
         );
-        res.json(updatedUser);
+        res.status(200).json(updatedUser);
     } catch (err) {
         res.json({ message: err });
     }
