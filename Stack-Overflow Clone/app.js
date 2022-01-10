@@ -6,8 +6,10 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const User = require('./model/user')
 const Question = require('./model/question')
+import {ObjectId} from "mongodb"
 const { JWT_SECRET } = require('./secrets.json')
 const { response } = require('express')
+const { validate } = require('./model/user')
 
 mongoose.connect('mongodb://localhost:27017/stack_overflow_clone');
 
@@ -24,20 +26,68 @@ app.get('/', (req, res) => {
 app.post('/question', async (req, res) => {
     const{email, password} = req.body.user_details;
     const {title, body} = req.body.question;
+
+    const {status, message, user} = await validate();
+
+    if(status != 200){
+        return res.status(status).json({message: message});
+    }
+
     try{
-        const response = await Question.create({
-            title,
-            email,
-            body
+        Question.create({
+            user: user,
+            title: title,
+            body: body
+        }).then((question_doc) => {
+            return res.status(201).json({ status: 'ok', message: 'Question posted Succesfully', question_id: question_doc._id})
         })
-        console.log('Question created succesfully');
-        console.log(response)
+        
     } catch(error){
         return res.json({status: 'error', error: error.message});
     }
-    
-    return res.json({ status: 'ok', message: 'question posted succesfully'});
+})
 
+app.post('/answer', async(req, res) => {
+    const {email, password} = req.body.user_details;
+    const question_id = req.params.question_id;
+
+    const {status, message, user} = await validate();
+    if(status != 200){
+        return res.status(status).json({message: message});
+    }
+
+    const q_id = new ObjectId(question_id);
+    const question = await Question.findOne({"_id": q_id});
+    if(!question){
+        return res.status(404).send({"messsage": "Invalid Question Id"});
+    } 
+    let answered_already = false;
+    const _id = new ObjectId(user._id);
+    for(let i in question.answers){
+        if((question.answers[i].user).equals(_id)){
+            answered_already = true;
+            break;
+        }
+    }
+
+    if(answered_already){
+        return res.status(409).json({message: "Already answered the question"});
+    }
+
+    try{
+        Question.updateOne({id: q_id},{
+            $push: {
+                answers: {
+                    user: user._id,
+                    answer: answer
+                }
+            }
+        }).then(() => {
+            res.status(201).json({message: "Answer posted succesfully", question_id: question_id});
+        })
+    } catch(error){
+        res.status(500).json({message: error.message});
+    }
 })
 
 app.post('/change-password', async (req, res) => {
@@ -86,7 +136,7 @@ app.post('/register', async (req, res) => {
     const { name, email, password: plainTextPassword } = req.body;
     const password = await bcrypt.hash(plainTextPassword, 10);
     try {
-        const response = await User.create({
+        await User.create({
             name,
             email, 
             password
