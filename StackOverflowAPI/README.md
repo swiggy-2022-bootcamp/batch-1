@@ -16,3 +16,27 @@ This is the case-study project of Week0 of Swiggy I++ 2022.
 This API Implementation follows MVC architecture. Reference below structure for quick navigation.
 
 ### Folder Structure
+
+-   config
+    -   accessLogStream.js
+    -   mongoose.js
+-   controllers
+    -   handleBadRequest.js
+    -   questionController.js
+    -   userController.js
+-   models
+    -   answer.js
+    -   comment.js
+    -   question.js
+    -   user.js
+-   routes
+    -   index.js
+    -   question.js
+    -   user.js
+-   utils
+    -   generateAccessToken.js
+    -   verifyToken.js
+-   .dummyenv
+-   .gitignore
+-   index.js
+-   README.md

@@ -1,6 +1,13 @@
 const User = require("../models/user");
 const Question = require("../models/question");
 const Answer = require("../models/answer");
+const {
+    notFound,
+    unauthorizedError,
+    createSuccess,
+    fetchSuccess,
+    internalServerError,
+} = require("../utils/responseTypes");
 
 const postQuestion = async (req, res) => {
     const quesDetails = req.body["question"];
@@ -14,23 +21,19 @@ const postQuestion = async (req, res) => {
             ownerId: userId,
         });
 
-        // save the question
-        await newQuestion.save();
-
         // add the id of this question to question list of poster
         const user = await User.findOne({ _id: userId });
+        if (!user) return unauthorizedError(res, "Unauthorized user!");
+
         user.questions.push(newQuestion._id);
         await user.save();
 
-        res.status(201).json({
-            message: "Question posted successfully",
-            "question-id": newQuestion._id,
-        });
+        // save the question
+        await newQuestion.save();
+        return createSuccess(res, "Question posted successfully", { "question-id": newQuestion._id });
     } catch (err) {
         console.log("In postQuestion (questionController): ", err);
-        req.status(500).json({
-            message: "Error occured!",
-        });
+        return internalServerError(res, "Error occured!");
     }
 };
 
@@ -39,20 +42,17 @@ const getQuestionAnswers = async (req, res) => {
 
     try {
         // get the question with id quesId
-        const newQuestion = await Question.findOne({ _id: quesId })
+        const questionDetails = await Question.findOne({ _id: quesId })
             .populate("comments")
             .populate("answers")
             .exec();
 
-        res.status(200).json({
-            ...newQuestion.toObject(),
-            message: "Question details and answers fetched successfully",
-        });
+        if (!questionDetails) return notFound(res, "Question with this id not found!");
+
+        return fetchSuccess(res, "Question details and answers fetched successfully", questionDetails.toObject());
     } catch (err) {
         console.log("In getQuestionAnswers (questionController): ", err);
-        res.status(500).json({
-            message: "Error occured!",
-        });
+        return internalServerError(res, "Error occured!");
     }
 };
 
@@ -69,28 +69,32 @@ const postAnswer = async (req, res) => {
             questionId: quesId,
         });
 
-        // save the answer
-        await newAnswer.save();
-
-        // find the question with Id quesId and add this answer to that question
-        const question = await Question.findOne({ _id: quesId });
-        question.answers.push(newAnswer._id);
-        await question.save();
-
         // find the user with Id userId and add this answer to their answerlist
         const user = await User.findOne({ _id: userId });
+        if (!user) return unauthorizedError(res, "User unauthorized!");
+
         user.answers.push(newAnswer._id);
         await user.save();
 
-        res.status(201).json({
-            message: "Answer posted successfully",
-            "question-id": quesId,
-        });
+        // find the question with Id quesId and add this answer to that question
+        const question = await Question.findOne({ _id: quesId });
+        if (!question) {
+            // if questions not found remove the answer from the user's answers list too
+            user.answers.pull(newAnswer._id);
+            await user.save();
+            return notFound(res, "Questions with this id not found!");
+        }
+
+        question.answers.push(newAnswer._id);
+        await question.save();
+
+        // save the answer
+        await newAnswer.save();
+
+        return createSuccess(res, "Answer posted successfully", { "question-id": quesId });
     } catch (err) {
         console.log("In postAnswer (questionController): ", err);
-        res.status(500).json({
-            message: "Error occured!",
-        });
+        return internalServerError(res, "Error occured!");
     }
 };
 
@@ -101,25 +105,17 @@ const updateAnswer = async (req, res) => {
 
     try {
         // find users answer
-        const answer = await Answer.findOne({ownerId: userId, questionId: quesId});
+        const answer = await Answer.findOne({ ownerId: userId, questionId: quesId });
 
-        if(!answer) 
-            return res.status(404).json({
-                message: "Answer not found to update!"
-            })
-        
+        if (!answer) return notFound(res, "Answer not found to update!");
+
         answer.body = newAnswerBody;
         await answer.save();
 
-        res.status(200).json({
-            message: "Answer updated successfully",
-            "question-id": quesId
-        })
+        return createSuccess(res, "Answer updated successfully", { "question-id": quesId });
     } catch (err) {
         console.log("In updateAnswer (questionController): ", err);
-        res.status(500).json({
-            message: "Error occured!",
-        });
+        return internalServerError(res, "Error occured!");
     }
 };
 

@@ -1,13 +1,11 @@
+const { notFound, methodNotAllowed } = require("../utils/responseTypes");
+
 const notFoundError = (_, res) => {
-    res.status(404).json({
-        message: "The requested route is not available!" 
-    })
-}
+    return notFound(res, "Can't find the requested resource!");
+};
 
 const methodNotAllowedError = (_, res) => {
-    res.status(405).json({
-        message: "This method is not supported or route doesn't exist!"
-    })
-}
+    return methodNotAllowed(res, "This method is not supported or route doesn't exist!");
+};
 
-module.exports = {notFoundError, methodNotAllowedError};
+module.exports = { notFoundError, methodNotAllowedError };
