@@ -42,6 +42,7 @@ const getQuestionAnswers = async (req, res) => {
     const quesId = req.params.id;
 
     try {
+        // check if question id is invalid
         if(!mongoose.Types.ObjectId.isValid(quesId))
             return notFound(res, "Invalid question (id)!");
             
@@ -66,6 +67,7 @@ const postAnswer = async (req, res) => {
     const userId = req.userId;
 
     try {
+        // check if question id is invalid
         if(!mongoose.Types.ObjectId.isValid(quesId))
             return notFound(res, "Invalid question (id)!");
 
@@ -105,16 +107,46 @@ const postAnswer = async (req, res) => {
     }
 };
 
+const updateQuestion = async (req, res) => {
+    const quesId = req.params.id;
+    const newQuestionBody = req.body["question"]["body"];
+    const newQuestionTitle = req.body["question"]["title"];
+
+    try {
+        // check if question id is invalid
+        if(!mongoose.Types.ObjectId.isValid(quesId))
+            return notFound(res, "Invalid question (id)!");
+
+        // find the question
+        const question = await Question.findOne({_id: quesId});
+
+        if(!question) return notFound(res, "Question with id not found!");
+
+        if(newQuestionBody) question.body = newQuestionBody;
+
+        if(newQuestionTitle) question.title = newQuestionTitle;
+
+        await question.save();
+
+        return createSuccess(res, "Question updated successfully!", { "question-id": quesId })
+
+    } catch(err) {
+        console.log("In updateQuestion (questionController): ", err);
+        return internalServerError(res, "Error occured!");
+    }
+}
+
 const updateAnswer = async (req, res) => {
     const quesId = req.params.id;
     const newAnswerBody = req.body["question"]["answer"];
     const userId = req.userId;
 
     try {
-        // find users answer
+        // check if question id is invalid
         if(!mongoose.Types.ObjectId.isValid(quesId))
             return notFound(res, "Invalid question (id)!");
 
+        // find users answer for this question
         const answer = await Answer.findOne({ ownerId: userId, questionId: quesId });
 
         if (!answer) return notFound(res, "Answer not found to update!");
@@ -134,4 +166,5 @@ module.exports = {
     getQuestionAnswers,
     postAnswer,
     updateAnswer,
+    updateQuestion
 };

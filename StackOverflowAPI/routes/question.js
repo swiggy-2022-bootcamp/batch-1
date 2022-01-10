@@ -5,11 +5,14 @@ const {
     getQuestionAnswers,
     postAnswer,
     updateAnswer,
+    updateQuestion
 } = require("../controllers/questionController");
 
 router.post("/", verifyToken, postQuestion);
 
-router.get("/:id/", verifyToken, getQuestionAnswers);
+router.get("/:id", verifyToken, getQuestionAnswers);
+
+router.put("/:id", verifyToken, updateQuestion)
 
 router.post("/:id/answer", verifyToken, postAnswer);
 
