@@ -3,6 +3,7 @@ const router = Router();
 const { sendResponse } = require("../utils/response");
 const { getDateTime } = require("../utils/datetime");
 const { validateDate } = require("../utils/validator");
+const { nanoid } = require("nanoid");
 const {
   findUserById,
   addMeetingToUser,
@@ -44,6 +45,7 @@ router.post("/", async (req, res) => {
   attendees.push(userid);
 
   let reg_meeting = await registerMeeting({
+    meeting_id: nanoid(10),
     created_by: userid,
     start_time: s,
     end_time: e,
@@ -114,7 +116,7 @@ router.post("/:meetingId/remove", async (req, res) => {
   let { userId } = req.body.user_detail;
   if (!findUserById(userId)) return sendResponse(res, 401, "Invalid User ID.");
   // user id is already not present in the meeting
-  else if (!meeting.attendees.includes[userId])
+  else if (!meeting.attendees.includes(userId))
     return sendResponse(res, 401, "User is already not an attendee.");
   // remove the meeting from user
   await removeAttendeeFromMeeting(meetingId, userId);
@@ -125,6 +127,7 @@ router.post("/:meetingId/remove", async (req, res) => {
 // reschedule already registered meeting
 router.post("/:meetingId/reschedule", async (req, res) => {
   const { meetingId } = req.params;
+  console.log(meetingId);
   let meeting = await findMeetingById(meetingId);
   let current_user = req.session.passport.username;
   if (!meeting) return sendResponse(res, 401, "Invalid Meeting ID.");

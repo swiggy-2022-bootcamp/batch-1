@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const { sendResponse } = require("../utils/response");
+const { nanoid } = require("nanoid");
 const {
   findUserById,
   addTeamToUser,
@@ -32,6 +33,7 @@ router.post("/", async (req, res) => {
   members.push(userid);
 
   let reg_team = await registerTeam({
+    team_id: nanoid(),
     created_by: userid,
     team_name,
     description,
@@ -48,7 +50,7 @@ router.post("/", async (req, res) => {
 // search team by id
 router.get("/search", async (req, res) => {
   let userid = req.session.passport.username;
-  let { teamId } = req.params;
+  let { teamId } = req.body;
   let team = await findTeamById(teamId);
   if (!team) return sendResponse(res, 401, "Incorrect team id.");
   else if (!team.members.includes(userid))
@@ -77,7 +79,7 @@ router.post("/:teamId/add", async (req, res) => {
   let { userId } = req.body.user_detail;
   if (!findUserById(userId)) return sendResponse(res, 401, "Invalid User ID.");
   // user id already added to team
-  else if (team.members.includes[userId])
+  else if (team.members.includes(userId))
     return sendResponse(res, 401, "User is already a member.");
   await addMemberToTeam(teamId, userId);
   await addTeamToUser(userId, teamId);
@@ -101,7 +103,7 @@ router.post("/:teamId/remove", async (req, res) => {
   let { userId } = req.body.user_detail;
   if (!findUserById(userId)) return sendResponse(res, 401, "Invalid User ID.");
   // user id is already not present in the team
-  else if (!team.members.includes[userId])
+  else if (!team.members.includes(userId))
     return sendResponse(res, 401, "User is already not an attendee.");
   // remove the team from user
   await removeMemberFromTeam(teamId, userId);

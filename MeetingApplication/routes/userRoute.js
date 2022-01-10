@@ -4,11 +4,17 @@ const { sendResponse } = require("../utils/response");
 const {
   findUserById,
   removeMeetingFromUser,
+  removeTeamFromUser,
 } = require("../controllers/userController");
 const {
   findMeetingById,
   removeAttendeeFromMeeting,
+  findAllMeetingsBetween,
 } = require("../controllers/meetingController");
+const {
+  findTeamById,
+  removeMemberFromTeam,
+} = require("../controllers/teamController");
 const { validateDate } = require("../utils/validator");
 
 // get all user meetings
@@ -16,7 +22,7 @@ router.get("/meetings", async (req, res) => {
   let { user_details } = req.body;
   // validate user details
   let user = await findUserById(user_details.user_id);
-  if (!user) sendResponse(res, 401, "Invalid credentials.");
+  if (!user) sendResponse(res, 401, "Invalid user id.");
   else {
     // find all meeting ids  and then covert them to whole meetings
     let meeting_ids = user.meetings;
@@ -40,6 +46,7 @@ router.get("/meetings/period", async (req, res) => {
   const { today } = req.query;
   let starting_date, ending_date;
   if (today) {
+    const d = new Date();
     starting_date = new Date();
     ending_date = new Date();
   } else {

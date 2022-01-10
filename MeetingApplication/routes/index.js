@@ -7,7 +7,12 @@ const {
   checkNotAuthenticated,
 } = require("../middleware/checkauth");
 // validation functions
-const { validateEmail, validatePassword } = require("../utils/validator");
+const {
+  validateName,
+  validateEmail,
+  validatePassword,
+} = require("../utils/validator");
+const { registerUser } = require("../controllers/userController");
 // response function
 const { sendResponse } = require("../utils/response");
 
@@ -60,9 +65,12 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
         "Email already exists. Please use a different email id."
       );
     else {
-      req.session.passport.username = reg_user.user_id;
-      sendResponse(res, 201, "User registered successfully.", {
-        registration_name,
+      req.logIn(reg_user, function (err) {
+        if (err) return next(err);
+        req.session.passport.username = reg_user.user_id;
+        sendResponse(res, 201, "User registered successfully.", {
+          registration_name,
+        });
       });
     }
   } else {

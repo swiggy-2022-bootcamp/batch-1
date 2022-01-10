@@ -1,11 +1,9 @@
 const mongoose = require("mongoose");
-const shortid = require("shortid");
-
 //creating user schema to store user info in database
 const TeamSchema = new mongoose.Schema({
   team_id: {
     type: String,
-    default: shortid.generate(),
+    required: true,
   },
   team_name: {
     type: String,

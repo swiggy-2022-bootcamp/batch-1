@@ -20,18 +20,16 @@ const initializePassport = (passport) => {
     // Match user with the help of user_id
     User.findOne({ user_id }).then((user) => {
       if (!user) {
-        return done(null, false, { message: "This email is not registered." });
+        return done(null, false, "This email is not registered.");
       }
       // Match hashed password with the stored hashed password
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) throw err;
         // if password matched
         if (isMatch)
-          return done(null, user, {
-            message: "Credentials verified. Logged In.",
-          });
+          return done(null, user, "Credentials verified. Logged In.");
         // incorrect password
-        return done(null, false, { message: "Incorrect password." });
+        return done(null, false, "Incorrect password.");
       });
     });
   };

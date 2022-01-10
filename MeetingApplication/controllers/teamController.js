@@ -1,4 +1,4 @@
-const Team = require("../models/meeting");
+const Team = require("../models/team");
 
 /**
  * Team controller to find registered team using team_id.

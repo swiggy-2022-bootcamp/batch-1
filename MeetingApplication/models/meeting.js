@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-const shortid = require("shortid");
 // create meeting schema to store meeting info in database
 const MeetingSchema = new mongoose.Schema({
   meeting_id: {
     type: String,
-    default: shortid.generate(),
+    required: true,
   },
   description: {
     type: String,
