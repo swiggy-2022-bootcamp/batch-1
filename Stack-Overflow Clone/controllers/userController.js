@@ -1,8 +1,10 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-const User = require('./model/user')
-const { JWT_SECRET } = require('./secrets.json')
-const { response } = require('express')
+import User from '../model/user.js'
+//import { JWT_SECRET } from '../secrets.json'
+
+import { readFile } from 'fs/promises';
+const {JWT_SECRET} = JSON.parse(await readFile(new URL('../secrets.json', import.meta.url)));
 
 const registerController = async(req, res) => {
     const { name, email, password: plainTextPassword } = req.body;

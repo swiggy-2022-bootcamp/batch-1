@@ -1,12 +1,12 @@
-const Question = require('./model/question')
+import Question from '../model/question.js'
 import {ObjectId} from "mongodb"
-const { response } = require('express')
+import { validate } from "../services/user.js";
 
 const addQuestionController = async(req, res) => {
-    const{email, password} = req.body.user_details;
+    const user_details = req.body.user_details;
     const {title, body} = req.body.question;
 
-    const {status, message, user} = await validate();
+    const {status, message, user} = await validate(user_details);
 
     if(status != 200){
         return res.status(status).json({message: message});
@@ -27,10 +27,10 @@ const addQuestionController = async(req, res) => {
 }
 
 const answerQuestionController = async(req, res) => {
-    const {email, password} = req.body.user_details;
+    const user_details = req.body.user_details;
     const question_id = req.params.question_id;
 
-    const {status, message, user} = await validate();
+    const {status, message, user} = await validate(user_details);
     if(status != 200){
         return res.status(status).json({message: message});
     }
@@ -41,7 +41,7 @@ const answerQuestionController = async(req, res) => {
         return res.status(404).send({"messsage": "Invalid Question Id"});
     } 
     let answered_already = false;
-    const _id = new ObjectId(user._id);
+    const _id = new ObjectId(user);
     for(let i in question.answers){
         if((question.answers[i].user).equals(_id)){
             answered_already = true;
@@ -57,7 +57,7 @@ const answerQuestionController = async(req, res) => {
         Question.updateOne({_id: q_id},{
             $push: {
                 answers: {
-                    user: user._id,
+                    user: user,
                     answer: answer
                 }
             }
@@ -70,10 +70,10 @@ const answerQuestionController = async(req, res) => {
 }
 
 const updateAnswerController = async(req, res) => {
-    const {email, password} = req.body.user_details;
+    const user_details = req.body.user_details;
     const question_id = req.params.question_id
 
-    const {status, message, user} = await validate();
+    const {status, message, user} = await validate(user_details);
     if(status != 200){
         res.status(200).json({message: 'message'});
     }
@@ -85,7 +85,7 @@ const updateAnswerController = async(req, res) => {
     } 
 
     let answered_already = false;
-    const _id = new ObjectId(user._id);
+    const _id = new ObjectId(user);
     let new_answers = []
     let prev_answer = ""
 
@@ -116,10 +116,10 @@ const updateAnswerController = async(req, res) => {
 }
 
 const getQuestionsController = async(req, res) => {
-    const {email, password} = req.body.user_details;
+    const user_details = req.body.user_details;
     const question_id = req.params.question_id;
 
-    const {status, message, user} = await validate();
+    const {status, message, user} = await validate(user_details);
     if(status != 200){
         return res.status(status).json({message: message});
     }

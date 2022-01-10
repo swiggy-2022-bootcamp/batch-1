@@ -1,5 +1,5 @@
 import express from "express";
-import { registerController, loginController, changePasswordController } from "../controller/userController.js"
+import { registerController, loginController, changePasswordController } from "../controllers/userController.js"
 const router = express.Router()
 
 //POST request for registration

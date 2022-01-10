@@ -7,17 +7,11 @@ import userRoutes from './routes/userRoutes.js'
 import questionRoutes from './routes/questionRoutes.js'
 import dotenv from 'dotenv'
 
-const User = require('./model/user')
-const Question = require('./model/question')
-import {ObjectId} from "mongodb"
-const { JWT_SECRET } = require('./secrets.json')
-const { response } = require('express')
-const { validate } = require('./model/user')
-
 mongoose.connect('mongodb://localhost:27017/stack_overflow_clone');
 
 dotenv.config();
 const app = express();
+const __dirname = path.resolve();
 app.use('/', express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json());
 

@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const {Scheme} = mongoose
+import mongoose from 'mongoose'
 
 const QuestionSchema = new mongoose.Schema({
         user: {type: mongoose.Schema.Types.ObjectId, ref: "users"},
@@ -11,4 +10,5 @@ const QuestionSchema = new mongoose.Schema({
 )
 
 const model = mongoose.model('QuestionSchema', QuestionSchema);
-module.exports = model;
+
+export default model;
