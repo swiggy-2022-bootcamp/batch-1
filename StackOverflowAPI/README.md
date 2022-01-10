@@ -5,7 +5,10 @@ This is the case-study project of Week0 of Swiggy I++ 2022.
 ## Setup
 
 1. Download & Install NodeJS
-2. Run `npm install`
+2. Clone the repository using `git clone <repository-url>`
+3. Navigate to the local repository `cd batch-1`
+4. Change branch using `git checkout divyalok-jaiswal`
+5. Run `npm install`
 
 ## Usage
 
@@ -35,8 +38,21 @@ This API Implementation follows MVC architecture. Reference below structure for 
     -   user.js
 -   utils
     -   generateAccessToken.js
+    -   responseTypes.js
     -   verifyToken.js
 -   .dummyenv
 -   .gitignore
 -   index.js
--   README.md
+-   package.json
+
+## Contributing
+
+1. Fork the repository
+2. Clone the forked repository using `git clone <forke-repo-url>`
+3. Navigate to local repository folder using `cd batch-1`
+4. Change branch using `git checkout divyalok-jaiswal`
+5. Create a separate branch using `git checkout -b newbranch divyalok-jaiswal`
+6. Make your changes
+7. Test the code properly
+8. Commit changes and make a pull request 
+

@@ -42,7 +42,7 @@ const createSuccess = (res, message, others) => {
 
 const fetchSuccess = (res, message, others) => {
     res.status(200).json({
-        mesaage: message || "Request resource fetched successfully!",
+        mesaage: message || "Requested resource fetched successfully!",
         ...others
     })
 }
