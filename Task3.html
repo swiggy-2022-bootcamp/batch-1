@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <script>
+        var arr = [1, 2, 3, 4];
+        var obj1 = {
+            "id": "1",
+            "fname": "Divanshu",
+            "lname": "Joshi",
+            "fullname": function () {
+                return this.fname + " " + this.lname;
+            }
+        };
+        function test1() {
+            const fruits = ["Banana", "Orange", "Apple", "Mango"];
+            let fLen = fruits.length;
+
+            let text = "<ul>";
+            for (let i = 0; i < fLen; i++) {
+                text += "<li>" + fruits[i] + "</li>";
+            }
+        }
+        text += "</ul>";
+        document.write(text);
+        function test() {
+            alert(arr);
+            alert(obj1.fullname());
+        }
+
+        function arrays() {
+            var test = [45, -1, 23, 44, 3667, 6, -98];
+            test.sort(function (a, b) { return (a - b) });
+            test.push(-1);
+            var eleVal = document.getElementById("d2").innerHTML + "<br>" + test + "<br>";
+            document.getElementById("d2").innerHTML = eleVal;
+        }
+
+
+        const d = new Date('2022', 1, 30);
+
+        //arrays:
+        var test = [45, -1, 23, 44, 3667, 6, -98];
+        test.sort(function (a, b) { return (a - b) });
+        tetst.push(-1);
+
+
+        //conact
+        var myArray2 = ['1', '4', '5', '5'];
+        var combinedArray = myArray.concat(myArray2);  
+        var combinedArrayHardCopy = myArray.concat(...myArray2); 
+
+
+        //filter:
+        var filteredObj = myArray.filter(data => data > 100);
+
+        //reduce:
+        var red1 = test.reduce(function (a, b) { return (a + b); });
+        var red2 = test.reduce((a, b) => { return (a * b); });
+        var red3 = test.reduce((a, b) => (a * b));
+
+        var devices = [{ id: 5, price: 100 }, { id: 1, price: 100 }, { id: 2, price: 200 }];
+        var combinedPrice2 = Object.keys(devices).reduce(
+            function (prev, key) {
+                return (prev + devices[key].price)
+            }, 0);
+
+
+        const letters = new Set(["a", "b", "c"]);
+        letters.add("x")
+
+        for (const entry of letters1.values()) {
+            console.log(entry)
+        }
+
+        var map = {};
+        map['a'] = 1;
+        map['b'] = 2;
+        console.log(map);
+    </script>
+</head>
+
+<body>
+    <button onclick="test();">Press</button>
+    <button onclick="test1();">Press1</button>
+    <div id="d1" , onclick="clicked()">
+        <h3>Hello</h3>
+    </div>
+
+    <div id="d2">
+        var test = [45, -1,23,44, 3667, 6,-98];<br>
+        test.sort(function (a, b) { return (a - b) });<br>
+        test.push(-1);<br>
+        console.log(test)<br>
+    </div>
+    <button onclick="arrays()">Sort the array</button>
+
+</body>
+
+</html>
