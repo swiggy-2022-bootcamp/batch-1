@@ -24,7 +24,6 @@ const getmeetings = (req, res)=>{
 
 const getMeetingdetails = async (req, res)=>{
     let token=req.cookies.auth;
-    console.log(token)
     const meeting_id = req.query.meeting_id;
     let user  = await User.findOne({token:token});
     let meetingInfo = {}
@@ -39,13 +38,24 @@ const getMeetingdetails = async (req, res)=>{
 }
 
 
-const dropUserfromMeeting = (req, res)=>{
+const dropUserfromMeeting = async (req, res)=>{
     let token=req.cookies.auth;
-    Meeting.findByIdAndDelete(req.query.meeting_id, (err,docs)=>{
-        if(err) return res(err);
-        if(docs) return res.status(200).json(docs);
-        else return res.status(400).send("No meetings");
-    });
+    const meeting_id = req.query.meeting_id;
+    let user  = await User.findOne({token:token});
+    if(!user.meetings.includes(meeting_id))
+       return res.status("400").send("Meeting Does not Exist");
+    let attendeesInMeeting =  await Meeting.findById(meeting_id);
+    console.log(attendeesInMeeting);
+    let attendeeRemoved = [];
+    for(let attendeeEmail of attendeesInMeeting.attendees){
+        if(attendeeEmail != user.email)
+        attendeeRemoved.push(attendeeEmail);
+    }
+    attendeesInMeeting.attendees = [];
+    attendeesInMeeting.attendees.push(...attendeeRemoved);
+    await attendeesInMeeting.save();
+
+    return res.status(200).send("User removed from the Meeting");
 }
 
 
