@@ -1,12 +1,18 @@
-const { FOOD_TYPES } = require('../Food/utils')
+const { FOOD_TYPES, validateFood } = require('../Food/utils')
+const { getPagination, getPagingData } = require('../utils')
 const db = require("../../models");
 const Food = db.food;
 
 
-exports.getAllFoods = (_req, res) => {
-  Food.findAll()
+exports.getAllFoods = (req, res) => {
+
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
+
+  Food.findAndCountAll({ limit, offset })
     .then(data => {
-      res.status(200).send(data);
+      const response = getPagingData(data, page, limit);
+      res.status(200).send(response);
     })
     .catch(err => {
       res.status(500).send({
@@ -37,6 +43,23 @@ exports.getFood = (req, res) => {
       });
     });
 };
+
+exports.addBulkFood = (req, res) => {
+  const foodsFromUser = req.body?.foods;
+
+  if (!foodsFromUser || !Array.isArray(foodsFromUser)) {
+    res.status(400).send({ message: "Invalid Input values" });
+    return;
+  }
+
+  const foods = validateFood(foodsFromUser);
+
+  Food.bulkCreate(foods, { validate: true }).then(() => {
+    res.status(201).send({ message: "Foods are added successfully!" });
+  }).catch((err) => {
+    res.status(500).send({ message: err.message });
+  })
+}
 
 exports.addFood = (req, res) => {
   const { foodName, foodCost, foodType } = req.body;

@@ -1,16 +1,22 @@
 const db = require("../../models");
+const { getPagination, getPagingData } = require('../utils')
 const Address = db.address;
 const User = db.user;
 
-exports.getAllUsers = (_req, res) => {
-  User.findAll({
+exports.getAllUsers = (req, res) => {
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
+  User.findAndCountAll({
+    limit,
+    offset,
     include: [{
       model: Address,
       required: true
     }]
   })
     .then(data => {
-      res.status(200).send(data);
+      const response = getPagingData(data, page, limit);
+      res.status(200).send(response);
     })
     .catch(err => {
       res.status(500).send({

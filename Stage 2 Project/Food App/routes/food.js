@@ -30,6 +30,12 @@ module.exports = function (app) {
     controller.addFood
   );
 
+  app.post(
+    "/api/bulk/foods",
+    [jwt.verifyToken, jwt.isAdmin],
+    controller.addBulkFood
+  );
+
   app.put(
     "/api/foods/:id",
     [jwt.verifyToken, jwt.isAdmin],

@@ -2,7 +2,8 @@ module.exports = (sequelize, Sequelize) => {
   const Food = sequelize.define("foods", {
     foodName: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     foodCost: {
       type: Sequelize.INTEGER,
