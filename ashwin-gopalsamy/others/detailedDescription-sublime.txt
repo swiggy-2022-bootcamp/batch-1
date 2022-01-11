@@ -1,0 +1,11 @@
+detailed description:
+
+1. JWT :
+	1.1. Append or prepend a random set of strings to the password that is hashed. (Salts)
+
+
+2. Bcrypt:
+	2.1 Very common library for hashing
+	2.2 Very very popular
+	2.3 `npm install bcrypt`
+	2.4 

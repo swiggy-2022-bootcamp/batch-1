@@ -1,0 +1,21 @@
+{
+  "name": "converge",
+  "version": "1.1.0",
+  "description": "Swiggy i++ Week 0 - Case Study Project",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "swiggy"
+  ],
+  "author": "Ashwin Gopalsamy",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.15"
+  }
+}
