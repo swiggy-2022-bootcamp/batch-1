@@ -11,51 +11,44 @@ Backend API written in Node.js (using Express.js) for a Meeting Application with
 
 2. Run `npm install` or `yarn install` to install the dependencies.
 
-3. Run 'node sever.js' in order to run it in development mode.
+3. Run `node sever.js` in order to run it in development mode.
 4. Run `npm run build` or `yarn build` once to let babel build the application on ./lib/.
 
 ## Usage
 
-Run 'node sever.js' in order to run it in development mode.
+Run `node sever.js` in order to run it in development mode.
 Run `npm run start` or `yarn start` after building to run the application on localhost:4000 (default).
 
 ### Project Structure
 
 The project's code structure loosely follows MVC model while maintaing complete separation of concern.
-+---MeetingApplication
-|   .env
-|   .gitignore
-|   package-lock.json
-|   package.json
-|   README.md
-|   server.js
-|   tree.txt
-|   
-+---config
-|       keys.js
-|       passport-config.js
-|       
-+---controllers
-|       meetingController.js
-|       teamController.js
-|       userController.js
-|       
-+---middleware
-|       checkauth.js
-|       
-+---models
-|       meeting.js
-|       team.js
-|       user.js
-|                      
-+---routes
-|       index.js
-|       meetingRoute.js
-|       teamRoute.js
-|       userRoute.js
-|       
-\---utils
-        datetime.js
-        response.js
-        validator.js
-        
+- MeetingApplication
+     - .env
+     - .gitignore
+     - package-lock.json
+     - package.json
+     - README.md
+     - server.js
+     - config
+       - keys.js
+       - passport-config.js
+     - controllers
+       - meetingController.js
+       - teamController.js
+       - userController.js
+     - middleware
+       - checkauth.js
+     - models
+        - meeting.js
+        - team.js
+        - user.js
+     - routes
+         - index.js
+         - meetingRoute.js
+         - teamRoute.js
+         - userRoute.js
+     - utils
+        - datetime.js
+        - response.js
+        - validator.js
+
