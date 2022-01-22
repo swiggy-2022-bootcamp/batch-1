@@ -1,0 +1,27 @@
+{
+  "name": "day4-sample",
+  "version": "1.0.0",
+  "dependencies": {
+    "asap": "^2.0.6",
+    "axios": "^0.24.0",
+    "dezalgo": "^1.0.3",
+    "express": "^4.17.2",
+    "follow-redirects": "^1.14.6",
+    "formidable": "^2.0.1",
+    "hexoid": "^1.0.0",
+    "make-magic": "^2.7.1",
+    "once": "^1.4.0",
+    "qs": "^6.9.3",
+    "wrappy": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "axios",
+    "express"
+  ],
+  "author": "Harshit Gupta"
+}
