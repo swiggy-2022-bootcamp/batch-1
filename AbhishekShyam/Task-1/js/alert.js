@@ -1,0 +1,4 @@
+function altertPage()
+{
+    alert('clicked');
+}

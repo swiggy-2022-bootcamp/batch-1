@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>    
+    <script>
+        function toggleMe()
+        {
+            let visible = document.getElementById('test').style.visibility;
+            if(visible == 'hidden')
+            {
+                document.getElementById('test').style.visibility = 'visible';
+            }
+            else
+            {
+                document.getElementById('test').style.visibility = 'hidden';
+            }
+        }
+
+        function colorToggle()
+        {
+            let c = document.getElementById('test').style.color;
+
+            if(c=='red')
+            {
+                document.getElementById('test').style.color = 'blue';
+            }
+            else
+            {
+                document.getElementById('test').style.color='red';
+            }
+        }
+
+        function incFont()
+        {
+            document.getElementById('test').style.fontSize='xx-large';
+        }
+        
+        function decFont()
+        {
+            document.getElementById('test').style.fontSize='medium';
+        }
+
+        function fill()
+        {
+            document.getElementById('fill').innerHTML+='Filled<br>';
+        }
+    </script> 
+    </head>
+<body>
+
+<h1>Trying Features</h1>
+
+
+<p id="test">HELLO WORLD</p>
+<p id='fill'></p>
+<button onclick="toggleMe()">Toggle Me</button>
+<button onclick="colorToggle()">Color</button>
+
+<button onclick="incFont()">Increase Font</button>
+<button onclick="decFont()">Decrease Font</button>
+
+<button onclick="fill()">Fill</button>
+
+</body>
+</html>
