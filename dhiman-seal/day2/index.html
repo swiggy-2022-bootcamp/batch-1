@@ -1,0 +1,80 @@
+<!-- Modify innerHTML, style.fontSize, style.display, style.visibility,document.getElementById(“test”).value; -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Swiggy i++ Day 2</title>
+    <script>
+        const doLog = (msg) => {
+            console.log(msg);
+            alert(msg);
+        }
+    </script>
+    <script src="./external.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1 class="text">Swiggy i++ Day 2</h1>
+        <p class="text">
+            Welcome to my Task.
+        </p>
+        <p>
+            <ol>
+                <li>
+                    <div>
+                        <label for="myInput">What would you like to log?&nbsp;</label>
+                        <input type="text" id="myInput"><br>
+                        <button onclick="doLog(document.getElementById('myInput').value)">Alert and message the console
+                            using DOM.value.</button>
+                    </div>
+                </li><br>
+                <li>
+                    <div>
+                        <button id="innerHTML_B" onclick="document.getElementById('innerHTML_B').innerHTML='<h1>I have heading1 innerHTML now.</h1>';">Click
+                            me and text becomes h1 using DOM.innerHTML.</button>
+                    </div>
+                </li><br>
+                <li>
+                    <div>
+                        <label id="var_size_label" for="fontsize_input">What would you like to change the size of this
+                            text to?&nbsp;</label>
+                        <input type="number" id="fontsize_input" min=1><br>
+                        <button onclick="document.getElementById('var_size_label').style.fontSize = document.getElementById('fontsize_input').value + 'px';">Change
+                            size using DOM.style.fontSize.</button>
+                    </div>
+                </li><br>
+                <li>
+                    <div>
+                        <label id="var_vis_label">What visibility would you like?&nbsp;</label>
+                        <input type="radio" id="visible_radio" name="vis_radio" value="visible">
+                        <label for="visible_radio">Visible</label>
+                        <input type="radio" id="hidden_radio" name="vis_radio" value="hidden">
+                        <label for="hidden_radio">Hidden</label>
+                        <input type="radio" id="collapse_radio" name="vis_radio" value="collapse">
+                        <label for="collapse_radio">Collapse</label>
+                        <input type="radio" id="initial_radio" name="vis_radio" value="initial">
+                        <label for="initial_radio">Initial</label>
+                        <input type="radio" id="inherit_radio" name="vis_radio" value="inherit">
+                        <label for="inherit_radio">Inherit</label><br>
+                        <button onclick="document.getElementById('var_vis_label').style.visibility = getRadioValue('vis_radio');">Change visibility using DOM.style.visibility.</button>
+                    </div>
+                </li><br>
+                <li>
+                    <div>
+                        <p><label id="var_dis_label">What display would you like?<br>For this paragraph?</label></p>
+                        <div id="display_radios"></div><br>
+                        <script>
+                            generateDisplayRadioButtons()
+                        </script>
+                        <button onclick="document.getElementById('var_dis_label').style.display = getRadioValue('dis_radio');">Change display using DOM.style.display.</button>
+                    </div>
+                </li>
+            </ol>
+        </p>
+    </div>
+</body>
+
+</html>
