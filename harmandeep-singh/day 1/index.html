@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task | Swiggy Day 1</title>
+
+    <script>
+        function display1() {
+            document.getElementById('div4').innerHTML = 'How are you?';
+        }
+
+        function display3() {
+            var name = document.getElementById('in1').value;
+            document.write('Thanks for Filling out the info ' + name);
+        }
+    </script>
+    <!-- Extenal Script -->
+    <script src="./js/script.js"></script>
+</head>
+
+<body>
+    <!-- Inline script implementation -->
+    <h3>Inline Script Implementation</h3>
+    <br>
+    <div id="div1" onmouseover="document.getElementById('div2').innerHTML='How are you?'">
+        Hey There! Hover over me!
+        <div id="div2"></div>
+    </div>
+    <hr>
+
+    <!-- Internal script implementation -->
+    <h3>Internal Script Implementation</h3>
+    <br>
+    <div id="div3" onmouseover="display1()">
+        I'm implemented using Internal Script! But you can still Hover over me!
+        <div id="div4"></div>
+    </div>
+    <hr>
+
+    <!-- External script implementation -->
+    <h3>External Script Implementation</h3>
+    <br>
+    <div id="div3">
+        <label for="in1">Enter you name</label> <br>
+        <input type="text" id="in1" placeholder="Jon Doe" onblur="greet(this.value);">
+        <br><br>
+        <button onclick="display3(); display2();">Submit</button>
+        <button onclick="print()">Print</button>
+    </div>
+    <hr>
+</body>
+
+</html>
