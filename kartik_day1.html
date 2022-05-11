@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Day1 - Kartik</title>
+    </head>
+    <body>
+        <script src="kartik_day1.js"></script>
+        <script>
+            function updateNameValue() {
+                document.getElementById("tester").innerHTML="Kartik Mudgal updated";
+            }
+            function handleInputChange(val) {
+                document.getElementById("inputChange").innerHTML = val;
+            }
+        </script>
+        <div id="tester">Kartik Mudgal</div>
+        <p> 
+            <b>Value will be the same as in input box :</b>
+        </p> 
+        <div id="inputChange"></div>
+        <br/>
+        <button onclick="updateNameValue()">Update Name</button>
+        <button onclick="documentWrite()">Document Write</button>
+        <button onclick="alertInvoked()">Alert Invoked</button>
+        <button onclick="printDoc()">Print</button>
+        <p>Text : </p>
+        <input type="text" name="input" onchange="handleInputChange(this.value)">
+    </body>
+</html>
