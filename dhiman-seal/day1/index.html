@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Swiggy i++ Day 1</title>
+    <script>
+        function doLog(msg) {
+            console.log(msg);
+            alert(msg);
+        }
+    </script>
+    <script src="./external.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1 class="text">Swiggy i++ Day 1</h1>
+        <p class="text">
+            Welcome to my Task.
+        </p>
+        <p>
+            <ol>
+                <li>
+                    <div>
+                        <label for="myInput">What would you like to log?&nbsp;</label>
+                        <input type="text" id="myInput"><br>
+                        <button onclick="doLog(document.getElementById('myInput').value)">Alert and message the console.</button>
+                    </div>
+                </li><br>
+                <li>
+                    <div><button id="disButton" onclick="printAndClearPage(true)">I print and make everything disappear.</button><br></div>
+                </li><br>
+                <li>
+                    <div><button onclick='document.body.style.backgroundColor = "darkblue "; document.getElementsByClassName("text")[0].innerHTML="<marquee>Everything is blue</marquee>"'>I make the page blue.</button><br></div>
+                </li>
+            </ol>
+        </p>
+    </div>
+</body>
+
+</html>
