@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Welcome to Day 1 - Swiggy IPP Program (Round 2)</title>
+
+        <!-- Running External JavaScript file by including it here (in <script> tags 'src' attribute) in this webpage -->
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+    <body>
+
+        <section style="margin: auto; text-align: center;">
+
+            <div id="head1" onmouseover="this.innerHTML = 'Congratulations, and Welcome to Day 1 of Swiggy IPP';"> Welcome </div>  <!-- Inline Script, here with onmouseover attribute -->
+            <br/>
+            <div id="data1"></div>
+    
+            <input type="text" placeholder="Enter something here" />
+
+        </section>
+
+        <!-- Internal Script -->
+        <script>
+            document.getElementsByTagName('input')[0].onblur = function(){
+                document.getElementById('data1').innerHTML = this.value;
+            }
+        </script>
+        
+    </body>
+</html>
