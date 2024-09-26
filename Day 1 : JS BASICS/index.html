@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <script src="index.js"></script>
+        <script>
+            function showSelection(data){
+                var selection = data;
+                window.alert(selection); 
+                document.getElementById("sel").innerHTML = selection;
+
+                var num1 = parseInt(document.getElementById("input1").value);
+                var num2 = parseInt(document.getElementById("input2").value);
+
+                console.log("Number 1",num1);
+                console.log("Number 2",num2);
+
+                var result = 0;
+                if (selection == "Addition") result = add(num1,num2);
+                else if (selection == "Subtraction") result = sub(num1,num2);
+                else if (selection == "Multiplication") result = mul(num1,num2);
+                
+                //document.write(result);
+                document.getElementById("result").innerHTML = result;
+            }
+        </script>
+
+    </head>
+    <body>
+        <h1>Swiggy i++ : Day 1 : Calculator</h1>
+        <div>
+            <p><b>Number 1 : </b></p>
+            <input id="input1" type="number">
+            <p><b>Number 2 : </b></p>
+            <input id="input2" type="number">
+            <p><b>Operator : </b></p>
+            <button id="add" value="Addition" onclick="showSelection(this.value);">+</button>
+            <button id="sub" value="Subtraction" onclick="showSelection(this.value);">-</button>
+            <button id="mul" value="Multiplication" onclick="showSelection(this.value);">*</button>
+        </div>
+        <div>
+            <p><b>The User Selected : </b></p>
+            <p id="sel"></p>
+            <p><b>Result : </b></p>
+            <p id="result"></p>
+        </div>
+        <div>
+            <button onclick="window.print()">Print !</button>
+        </div>
+    </body>
+</html>

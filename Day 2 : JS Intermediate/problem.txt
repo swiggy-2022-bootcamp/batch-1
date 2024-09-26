@@ -1,0 +1,6 @@
+§
+Modify innerHTML, 
+    style.fontSize, 
+    style.display, 
+    style.visibility,
+    document.getElementById(“test”).value;

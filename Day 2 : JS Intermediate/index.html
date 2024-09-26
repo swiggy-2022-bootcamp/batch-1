@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <script src="index.js"></script>
+    <script>
+        function addItems(data) {
+
+            var arr = [{ id: 1, name: "Sugar" }, { id: 2, name: "Rice" }, { id: 3, name: "Oil" }];
+
+            var itemid = parseInt(document.getElementById("item").value);
+            var itemtext = extractValue(arr, itemid);
+            console.log(itemtext);
+            document.getElementById("itemtxt").style.fontSize = 32;
+            document.getElementById("itemtxt").innerText = itemtext;
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>Swiggy i++ : Day 2 : Billing Machine</h1>
+    <div>
+        <p><b>First Name : </b>
+            <input id="fname" type="string">
+        </p>
+        <p><b>Last Name : </b>
+            <input id="lname" type="string">
+        </p>
+        <p><b>Item Number : </b>
+            <input id="item" type="number">
+        </p>
+        <p><b>Quantity : </b>
+            <input id="quant" type="number">
+        </p>
+        <p><b>Rate </b>
+            <input id="rate" type="number" onblur="showBillAmount(),addItems()">
+        </p>
+        <p id="billtext"><b>Bill Amount </b></p>
+        <p id="itemtxt"></p>
+        <p id="billamt"></p>
+    </div>
+    <div>
+        <p>
+            <img id="logo" src="./image/logo.jpg" width="200" height="200" onload="hideImage()"></img>
+        </p>
+        <p>
+            <button onclick="displayImage()">Display Image</button>
+            <button onclick="hideImage()">Hide Image</button>
+        </p>
+    </div>
+    <div>
+        <button onclick="window.print()">Print Bill !</button>
+    </div>
+</body>
+
+</html>
